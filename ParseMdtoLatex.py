@@ -106,8 +106,11 @@ def getYamlHeader(text):
 	match = re.match("(\A---.*?)---",text, re.DOTALL)
 
 	header = yaml.load(match.groups(0)[0])
-	header["title"] = title
-	header["subtitle"] = subtitle
+	if (title != "Untitled tutorial"):
+		header["title"] = title
+
+	if (subtitle != ""):
+		header["subtitle"] = subtitle
 
 	if ("author" in header.keys()):
 		authors = header["author"].split(",")
