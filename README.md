@@ -1,9 +1,9 @@
 ---
 author: Author I. Name
 level: Intermediate
-beast-core:
 title: Tutorial template
 subtitle: Template for an empty tutorial
+beastversion: 2.4.2
 ---
 
 
@@ -11,7 +11,7 @@ subtitle: Template for an empty tutorial
 
 This is a template tutorial and style guide to help formatting Markdown tutorials. 
 
-Please start the tutorial by adding some background about the tutorial in this section, clearly explaining the question/problem and the type of analysis that the methods in the tutorial should be used for. In the next section please add a short description of all the programs or packages used in the tutorial. The tutorial exercise should follow this part. Please add a short explanation on the dataset used in the tutorial to this part. At the end of the tutorial please also add a section interpreting the results.
+Please start the tutorial by adding some background about the tutorial in this section, clearly explaining the question/problem and the type of analysis that the methods in the tutorial should be used for. In the next section please add a short description of all the programs or packages used in the tutorial. The tutorial exercise should follow this part. Please add a short explanation on the dataset used in the tutorial before starting with the exercise. Please also add a section after the exercise interpreting the results. End your tutorial with some useful links.
 
 Some of the text in this tutorial template is just dummy filler text. Please do not try to understand it.
 
@@ -56,7 +56,7 @@ This is how to write **bold text**.
 
 This is how to write **_bold and italic text_**.
 
-Do text superscripts like this 7^th or x^2y or  x^(2y + 3z).
+Do text superscripts like this 7^th, x^2y or  x^(2y + 3z).
 
 
 ## Lists

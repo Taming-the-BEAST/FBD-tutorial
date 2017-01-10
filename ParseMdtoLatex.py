@@ -3,8 +3,33 @@ from subprocess import call
 from optparse import OptionParser
 
 ################################################################################################################################
-
-
+# Markdown to Latex parser
+#
+# This script parses tutorials written in Markdown to Latex. It assumes that Pandoc is installed.
+# Although Pandoc does most of the conversion, the script does some pre- and post-processing to better convert
+# difficult tags and things specific to the site's Markdown tutorials (figures, references etc.).
+#
+# The script can also compile the resulting .tex file into .pdf and remove all temporary files produced.
+#
+# WARNING
+#	This is NOT a proper recursive parser. It is just a hastily written script that helps to convert files. It 
+#	was a trade-off between the time it takes to convert things manually and the time it would take to write a
+#	real parser. After running the script the file should always still be inspected by hand!
+#
+# Details
+# - Tables are not converted and should be done by hand
+# - Some unicode characters are not correctly converted (this is an issue with pdflatex)
+# - It is assumed that images are in html <figure> tags in the Markdown tutorial
+# - The only image sizing that is recognized is width as a percentage of the panel 
+# - If a different image size or no image size is specified the image is displayed at its actual size, 
+#   unless it is bigger than the page margins, in which case the image will be resized to fit within the 
+#   margins.
+# - Horizontal lines will be removed and replaced with new pages. This could be an issue when code blocks 
+#   contain series of dashes (----) as these will also be removed.
+#
+# TODO:
+# - Contents of figure captions are not always parsed correctly (if it contains math etc.)
+#
 ################################################################################################################################
 # Parameters
 ################################################################################################################################
@@ -16,19 +41,19 @@ parser = OptionParser(usage=usage)
 parser.add_option("-i","--inputfile",
                   dest = "inputfile",
                   default = "",
-                  metavar = "path",
+                  metavar = "file",
                   help = "Input file [required]")
 
 parser.add_option("-o","--outputfile",
                   dest = "outputfile",
                   default = "",
-                  metavar = "path",
+                  metavar = "file",
                   help = "Name of the output file (by default it is the same as the input) [required]")
 
 parser.add_option("-t","--template",
                   dest = "template",
                   default = "",
-                  metavar = "path",
+                  metavar = "file",
                   help = "Pandoc template file to use (if not specified use pandoc default) [required]")
 
 parser.add_option("-T","--title",
@@ -43,9 +68,15 @@ parser.add_option("-S","--subtitle",
                   metavar = "string",
                   help = "Subtitle of tutorial in quotes (if not already in yaml header) [required]")
 
+parser.add_option("-V","--version",
+                  dest = "version",
+                  default = "2.x",
+                  metavar = "string",
+                  help = "Version of BEAST the tutorial is written for (if not already in yaml header) [required]")
+
 parser.add_option("-r","--removefiles",
-				  action = "store_false",
-				  default = True,
+				  action = "store_true",
+				  default = False,
                   dest = "remove",              
                   metavar = "boolean",
                   help = "Remove temporary files (default=%default) [required]")
@@ -66,11 +97,13 @@ template   = os.path.abspath(options.template)
 
 title      = options.title
 subtitle   = options.subtitle
+version    = options.version
 
 remove     = options.remove
 latex      = options.latex
-bibtex     = False
 
+signature  = "% This file was created (at least in part) by the script ParseMdtoLatex by Louis du Plessis\n" \
+		   + "% (Available from https://github.com/taming-the-beast)\n\n"
 
 ################################################################################################################################
 
@@ -111,6 +144,9 @@ def getYamlHeader(text):
 
 	if (subtitle != ""):
 		header["subtitle"] = subtitle
+
+	if ("beastversion" not in header):
+		header["beastversion"] = version
 
 	if ("author" in header.keys()):
 		authors = header["author"].split(",")
@@ -158,7 +194,6 @@ def parseLiquid(text, header=None):
 
 			if (header != None):
 				header["bibtex"] = bibfile
-				bibtex = True
 
 			replacement = ""
 		else:
@@ -188,7 +223,7 @@ def parseFigures(text):
 		(label, figure, caption) = match.groups()
 
 		# Process \includegraphics
-		scale = "[width=\\textwidth]"
+		scale = "[max width=\\textwidth, max height=0.9\\textheight]"
 		for part in figure.strip().split():
 			(tag,content) = part.split("=")
 
@@ -204,7 +239,7 @@ def parseFigures(text):
 					sys.stdout.write("skipping...\n")
 		
 		# Process \caption
-		# Should actually run the caption through pandoc to parse the caption body text
+		# TODO: Should actually run the caption through pandoc to parse the caption body text
 		caption = caption.replace("%","\%")
 		if (re.match(r'[f|F]igure\s\d+:',caption)):
 			caption = caption[caption.find(':')+1:].strip()
@@ -213,6 +248,69 @@ def parseFigures(text):
 		replacement += "\t\includegraphics%s{%s}\n" % (scale, figfile)
 		replacement += "\t\caption{%s}\n" % caption.strip()
 		replacement += "\t\label{%s}\n" % label.strip()
+		replacement += "\end{figure}\n"
+
+		text = text[:match.start()] + replacement + text[match.end():]
+
+	return(text)
+#
+
+# Assumes each figure contains only one image
+def parseFiguresStepwise(text):
+
+	start = 0
+	while (True):
+
+		# Match the next html figure tag
+		# Can be multiline
+		match = re.search(r'<figure>(.*?)</figure>', text, re.DOTALL)
+
+		# No more matches
+		if (match == None):
+			break
+
+		label   = re.search(r'<a.+?id="(.*?)"', match.groups()[0], re.DOTALL)
+		figure  = re.search(r'<img(.*?)>', match.groups()[0], re.DOTALL)
+		caption = re.search(r'<figcaption>(.*?)</figcaption>', match.groups()[0], re.DOTALL)
+
+
+		replacement  = "\\begin{figure}\n\t\centering\n"
+
+		# Process \includegraphics
+		if (figure != None):
+
+			scale = "[max width=\\textwidth, max height=0.9\\textheight]"
+			for part in figure.groups()[0].strip().split():
+				(tag,content) = part.split("=")
+
+				if (tag == "src"):
+					figfile = content.replace('"',"")
+
+				if (tag == "style"):
+					if (content[1:6].lower() == "width" and content[-3:-1] == '%;'):
+						mult  = int(content[content.find(':')+1:content.find('%')])/100
+						scale = "[width=%.6f\\textwidth]" % mult
+					else:
+						sys.stdout.write("WARNING Unsupported image style specification %s in '%.20s...'\n" % (part, caption))
+						sys.stdout.write("skipping...\n")
+
+			replacement += "\t\includegraphics%s{%s}\n" % (scale, figfile)
+		#
+
+		# Process \caption
+		if (caption != None):
+			# Should actually run the caption through pandoc to parse the caption body text
+			captionstr = caption.groups()[0].replace("%","\%")
+			if (re.match(r'[f|F]igure\s\d+:',captionstr)):
+				captionstr = captionstr[captionstr.find(':')+1:]
+
+			replacement += "\t\caption{%s}\n" % captionstr.strip()
+		#
+
+		# Process label
+		if (label != None):
+			replacement += "\t\label{%s}\n" % label.groups()[0].strip()
+			
 		replacement += "\end{figure}\n"
 
 		text = text[:match.start()] + replacement + text[match.end():]
@@ -289,7 +387,7 @@ def formatInlineMath(text):
 
 def formatSuperscript(text):
 
-	super_regex = [r'(\\\^\{\}\((.+?)\))[^\)]', r'(\\\^\{\}(\w+?))\W']
+	super_regex = [r'(\\\^\{\}\((.+?)\))([^\)])', r'(\\\^\{\}(\w+?))(\W)']
 
 	for regex in super_regex: 
 
@@ -307,9 +405,7 @@ def formatSuperscript(text):
 			if (match == None):
 				break
 
-			print(match.groups(1)[1])
-
-			replacement = "$^{%s}$" % match.groups(1)[1]
+			replacement = "$^{%s}$%s" % (match.groups(1)[1], match.groups(1)[2])
 			text = text[:match.start()] + replacement + text[match.end():]
 
 	return(text)
@@ -350,10 +446,10 @@ text = open(inputfile,'r').read()
 (header, text) = getYamlHeader(text)
 
 # Parse liquid tags
-text = parseLiquid(text, header)
+text = parseLiquid(text, header=header)
 
 # Parse figures in html tags
-text = parseFigures(text)
+text = parseFiguresStepwise(text)
 
 # Parse figure references
 text = parseFigureRefs(text)
@@ -406,12 +502,14 @@ text = text.replace("\\toprule","").replace("\\bottomrule","").replace("\\tightl
 
 
 outfile = open(outputfile,'w',encoding='utf-8')
-outfile.write(text)
+outfile.write(signature + text)
 outfile.close()
 
 
 # Remove temporary files
-
+if (remove):
+	os.remove(inputfile[:inputfile.rfind('.')]+"-temp.tex")
+	os.remove(inputfile[:inputfile.rfind('.')]+"-temp"+inputfile[inputfile.rfind('.'):])
 
 
 
@@ -420,12 +518,29 @@ outfile.close()
 #################
 
 if (latex):
-	call(['pdflatex',outputfile])
-	if (bibtex):
-		call(['bibtex',outputfile[:outputfile.rfind('.')]])		
-		call(['pdflatex',outputfile])
-	call(['pdflatex',outputfile])
+	outputpath = outputfile[:outputfile.rfind('/')]+"/"
+	filename   = outputfile[outputfile.rfind('/')+1:outputfile.rfind('.')]
 
+	here = os.getcwd()
+	os.chdir(outputpath)
 
+	call(['pdflatex',filename+'.tex'])
+	if ('bibtex' in header.keys()):
+		print (['bibtex',filename])
+		call(['bibtex',filename])	
+		call(['pdflatex',filename+'.tex'])
+	call(['pdflatex',filename+'.tex'])
 
+	# Remove temporary files
+	if (remove):
+		os.remove(filename+".aux")
+		os.remove(filename+".log")
+		os.remove(filename+".out")
+		os.remove(filename+".run.xml")
+		if ('bibtex' in header.keys()):
+			os.remove(filename+"-blx.bib")
+			os.remove(filename+".bbl")
+			os.remove(filename+".blg")
+
+	os.chdir(here)
 
