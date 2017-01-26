@@ -93,7 +93,7 @@ parser.add_option("-L","--latex",
 
 inputfile  = os.path.abspath(options.inputfile)
 outputfile = os.path.abspath(options.outputfile) if options.outputfile != "" else inputfile[:inputfile.rfind('.')]+".tex"
-template   = os.path.abspath(options.template)
+template   = os.path.abspath(options.template) if options.template != "" else ""
 
 title      = options.title
 subtitle   = options.subtitle
@@ -350,7 +350,7 @@ def removeMdLines(text):
 		# Match the next horizontal line
 		# Three or more dashes (---)
 		# Can be multiline
-		match = re.search(r'---*', text, re.DOTALL)
+		match = re.search(r'\n\n---*', text, re.DOTALL)
 
 		# No more matches
 		if (match == None):
