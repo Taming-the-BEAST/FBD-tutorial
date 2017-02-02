@@ -145,7 +145,7 @@ However, for some problems, such as those that seek to uncover correlation betwe
 Calibration information can come from a variety of sources including ``known'' substitution rates (often secondary calibrations estimated from a previous study), dated tip sequences from serially sampled data (typically time-stamped virus data), or geological date estimates (fossils or biogeographical data). 
 
 Age estimates from fossil organisms are the most common form of divergence time calibration information. These data are used as age constraints on their putative ancestral nodes. There are numerous difficulties with incorporating node age estimates from fossil data including disparity in fossilization and sampling, uncertainty in dating, and correct phylogenetic placement of the fossil. Thus, it is critical that careful attention is paid to the paleontological data included in phylogenetic divergence time analyses. 
-With an accurately dated and identified fossil in hand, further consideration is required to determine how to apply the node-age constraint. If the fossil is truly a descendant of the node it calibrates, then it provides a reliable minimum age bound on the ancestral node time. However, maximum bounds are far more difficult to come by. Bayesian methods provide a way to account for uncertainty in fossil calibrations. Prior distributions reflecting our knowledge (or lack thereof) of the amount of elapsed time from the ancestral node to is calibrating fossil are easily incorporated into these methods. 
+With an accurately dated and identified fossil in hand, further consideration is required to determine how to apply the node-age constraint. If the fossil is truly a descendant of the node it calibrates, then it provides a reliable minimum age bound on the ancestral node time. However, maximum bounds are far more difficult to come by. Bayesian methods provide a way to account for uncertainty in fossil calibrations. Prior distributions reflecting our knowledge (or lack thereof) of the amount of elapsed time from the ancestral node to its calibrating fossil are easily incorporated into these methods. 
 
 A nice review paper by \citet{ho09} outlines a number of different parametric distributions appropriate for use as priors on calibrated nodes. 
 %In this exercise we will use the uniform, normal, log-normal, and exponential distributions (Figure \ref{fig:calPriors}).  
@@ -748,7 +748,7 @@ To reduce the prior density on very low values, we can increase the shape parame
 \begin{framed}
 Begin by changing the gamma prior on the transition rate \mi{rateAG.s:cytb}. Clicking on the $\blacktriangleright$ next to this parameter name to reveal the prior options. Change the parameters: \mi{Alpha} = \cl{2} and \mi{Beta} = 0.5. [Figure \ref{screenGTRprior}, bottom]
 
-Then change all of the other rates: \mi{rateAC.s}, \mi{rateAT.s}, \mi{rateCG.s}, \mi{rateGT.s}. Fore each of these, change the parameters to:  \mi{Alpha} = \cl{2} and \mi{Beta} = 0.25. [Figure \ref{screenGTRprior}, top]
+Then change all of the other rates: \mi{rateAC.s}, \mi{rateAT.s}, \mi{rateCG.s}, \mi{rateGT.s}. For each of these, change the parameters to:  \mi{Alpha} = \cl{2} and \mi{Beta} = 0.25. [Figure \ref{screenGTRprior}, top]
 \end{framed}
 
 \begin{figure}[h!]
