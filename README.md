@@ -10,4 +10,3 @@ Central among the questions explored in biology are those that seek to understan
 
 This tutorial will provide a general overview of divergence time estimation and fossil calibration using a stochastic branching process and relaxed-clock model in a Bayesian framework. The exercise will guide you through the steps necessary for estimating phylogenetic relationships and dating species divergences using the program BEAST v2.x.
 
-Adapted from http://treethinkers.org/tutorials/divergence-time-estimation-using-beast/
