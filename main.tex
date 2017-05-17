@@ -320,37 +320,6 @@ Tracer is used for assessing and summarizing the posterior estimates of the vari
 \dhead{FigTree} 
 FigTree is an excellent program for viewing trees and producing publication-quality figures. It can interpret the node-annotations created on the summary trees by TreeAnnotator, allowing the user to display node-based statistics (e.g. posterior probabilities) in a visually appealing way (\href{http://tree.bio.ed.ac.uk/software/figtree}{\small http://tree.bio.ed.ac.uk/software/figtree}). 
 
-\descriptionhead{R -- Viewing and Plotting Trees}
-
-For this exercise we will use some \cl{R} packages to visualize the summary tree with a geological timescale.
-If you do not already have \cl{R} installed, please download the current version: \href{http://www.r-project.org/}{http://www.r-project.org}
-
-\dhead{strap} 
-Viewing dated phylogenies with an arbitrary time-scale removes the context of geological time and the fossil record from the analysis. 
-The package \cl{strap} in \cl{R} provides a set of functions to plot trees and stratigraphic information against geologic time, with scales provided by different sources including the International Commission on Stratigraphy \citep{bell2014strap}.
-A detailed tutorial for using the functions in \cl{strap} is available here: \href{http://datadryad.org/resource/doi:10.5061/dryad.4k078}{http://datadryad.org/resource/doi:10.5061/dryad.4k078}.
-To install \cl{strap}, execute the following command in \cl{R}:
-\begin{lstlisting}[language=R]
-> install.packages("strap",dependencies=TRUE)
-\end{lstlisting}
-
-\dhead{phytools} 
-In \cl{R}, there are many packages available for performing phylogenetic comparative methods, among them \href{http://www.phytools.org}{\cl{phytools}} is one of the richest, providing functions for a wide range of different analyses and for visualizing evolutionary processes in the context of phylogenetic relationships \citep{revell2012phytools}.
-To install \cl{phytools} in \cl{R}, execute the following command:
-\begin{lstlisting}[language=R]
-> install.packages("phytools",dependencies=TRUE)
-\end{lstlisting}
-
-
-\dhead{phyloch} 
-The trees sampled by the MCMC in BEAST contain valuable information about the sampled divergence times and branch rates. 
-Additionally, the summary trees produced by the BEAST accessory program TreeAnnotator have information about the 95\% credible intervals for the ages and rates. The package \cl{phyloch} provides functions for reading in data files written by BEAST and its accessory programs \citep{heibl2008phyloch}. 
-This package, however, is not available for download from CRAN. Instead, it is hosted on the developer's \href{http://www.christophheibl.de/Rpackages.html}{website}. 
-To install the \cl{phyloch} package in \cl{R}, first load the \cl{devtools} package and install \cl{phyloch} directly from the URL:
-\begin{lstlisting}[language=R]
-> library("devtools")
-> install_url("http://www.christophheibl.de/phyloch_1.5-5.tgz")
-\end{lstlisting}
 
 \bigskip
 \section{The eXtensible Markup Language}
@@ -1286,13 +1255,6 @@ Choose \cl{bearsDivtime.combined.trees} as your \mi{Input Tree File}. Then name 
 \bigskip
 \subsubsection{Visualizing the Dated Tree}
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=5.7in]{figures/geoscaled_bears.pdf}}
-\caption{\small The maximum clade credibility tree summarized by TreeAnnotator and plotted with a geological time scale using the \cl{strap} package in \cl{R}. The fossil taxa are all indicated with an \textit{X} in the taxon names. The {\textcolor{red}{$\blacksquare$}} represents the mean origin time. The remaining internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability: $\newmoon \geq 0.95$, $0.95>$ \gcirc $\geq 0.75$, $0.75 > \fullmoon$. The 95\% credible intervals for node ages are shown with transparent bars, for only nodes that are represented in the \textit{extant} tree. (The \cl{R} code to produce this figure is in the \cl{output} folder in the file \cl{plot\_geoscaled\_tree.R}.)}
-\label{figgeoscale}
-\end{figure}
-
 The tree file produced by TreeAnnotator contains the maximum clade credibility tree and is annotated with summaries of the various parameters.
 \begin{framed}
 Open \cl{bearsDivtime\_FBD.summary.tre} in your text editor. The tree is written in NEXUS format. Look at the tree string and notice the annotation. Each node in the tree is labeled with comments using the \cl{[\&parameter\_name=\textless value\textgreater ]} format.
@@ -1305,12 +1267,122 @@ Execute FigTree and open the file \cl{bearsDivtime\_FBD.summary.tre}.
 Explore the options for viewing different summary statistics on the tree.
 \end{framed}
 
-FigTree is a great tree-viewing program and it also allows you to produce publication-quality tree figures. 
+The tree you are viewing in FigTree has several fossil taxa with zero-length branches, e.g., \textit{Parictis montanus} and \textit{Ursus abstrusus}. 
+These branches actually indicate fossil taxa with a significant probability of representing a sampled ancestor. 
+However, it is difficult to represent this in typical tree-viewing programs. 
+A tree with sampled ancestors properly represented will have two-degree nodes --- i.e., a node with only one descendant. 
+The web-based tree viewer \href{http://icytree.org/}{IcyTree} \citep{Vaughan2017} is capable of plotting such trees from BEAST2 analyses (Figure \ref{icyTree}). 
+
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[width=\textwidth]{figures/bearsDivtime_icytree.pdf}}
+\caption{\small A sampled-ancestor tree exported from \href{http://tgvaughan.github.io/icytree/icytree.html}{IcyTree}. The sampled-ancestor nodes are revealed by selecting the \mi{Mark singletons} and \mi{Internal node text} set to \mi{Label}. The tree was exported to a SVG file and minor manipulations were conducted in a vector graphics editing program (Inkscape or Adobe Illustrator).}
+\label{icyTree}
+\end{figure}
+
+Although the tree in Figure \ref{icyTree} (and also Figure \ref{figgeoscale}) looks awesome, the topology can be misleading for this particular analysis. 
+Because we did not provide character data for our 14 fossil taxa, the tree topology does not adequately illustrate the degree of uncertainty in the phylogenetic relationships of the fossil lineages.
+\textbf{Without morphological data, the fossil lineages can attach to any lineage on the tree that is consistent with the monophyletic clades we specified and the fossil occurrence times with equal probability. 
+Thus, the relationships shown here are not reliable as phylogenetic inferences.} 
+However, if we provided morphological character data for these fossils, then many would consider this tree to be an adequate summary our MCMC sample of trees. 
+
+Since the fossil taxa were used in this analysis to only inform the fossilized birth-death model, we can prune off all of the fossil lineages and plot the tree with the geological time scale.
+BEAUti has a few accessory applications that are for post-processing files from certain types of analyses. 
+The first one we will use is called \mi{FullToExtantTreeConverter}.
+This program can be used to prune the fossil lineages off of the MCMC sample of trees (in file \cl{bearsDivtime\_FBD.combined.trees}), then use TreeAnnotator to summarize the extant-only trees. 
+
+\begin{framed}
+Open BEAUti and launch the accessory apps in the file menu: \mi{File\textrightarrow Launch Apps}.
+
+This will open a window with a few applications, launch \mi{FullToExtantTreeConverter}.
+
+In the file specification window for \mi{Trees} provide the file called \cl{bearsDivtime\_FBD.combined.trees}.
+
+And give the \mi{Output} file the name \cl{bearsDivtime\_FBD.extant.trees}. %[Figure \ref{fullConverterScreen}]
+
+%\end{framed}
+%
+%\begin{figure}[h!]
+%\centering
+%\fbox{\includegraphics[width=3in]{figures/full_to_extant_converter.pdf}}
+%\caption{\small The options for \mi{FullToExtantTreeConverter}.}
+%\label{fullConverterScreen}
+%\end{figure}
+%
+%\begin{framed}
+Run TreeAnnotator on the file called \cl{bearsDivtime\_FBD.extant.trees}, selecting the same options as you did for the file with complete trees (see Section \ref{treeannotatorSec}). 
+
+Name the summary tree file \cl{bearsDivtime\_FBD.extant\_summary.tre}
+\end{framed}
+
+When the fossil lineages are removed, much of the information about the history of this group is lost (Figure \ref{figgeoscaleext}). 
+However, alternative approaches for summarizing fossilized birth-death trees are currently under development.
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[width=5.5in]{figures/geoscaled_bears_ext.pdf}}
+\caption{\small The maximum clade credibility tree of \textit{extant} bears summarized by TreeAnnotator and plotted against stratigraphy using the \cl{strap} package in \cl{R} (see how to do this in Section \ref{section-r-treeviz} below). 
+The internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability: $\newmoon \geq 0.95$, $0.95>$ \gcirc $\geq 0.75$, $0.75 > \fullmoon$. The 95\% credible intervals for node ages are shown with transparent blue bars.}
+\label{figgeoscaleext}
+\end{figure}
+
+\bigskip
+\subsubsection{Analysis of Sampled Ancestors}
+
+Another tool that is available in the BEAUti accessory applications, is \mi{SampledAncestorTreeAnalyser}. If you run this app from the \mi{Launch apps} menu in BEAUti on the file with all the MCMC samples of the complete tree (\cl{bearsDivtime\_FBD.combined.trees}), you will get a report that summarizes the clades/nodes in the sampled ancestor tree. 
+In particular, it gives a quantitative representation of ``ancestral-ness'' in the posterior sample of trees. 
+This is represented by listing how often a particular node is ancestral to other nodes.
+The summary is generated and automatically opens in your web browser.
+
+%It is important to note, however, that the summary approaches for sampled-ancestor trees (for producing a summary topology and the sampled ancestor analyzer) are still under development.
+
+\bigskip
+\subsubsection{Visualizing the Dated Tree on a Geological Time Scale$^*$}\label{section-r-treeviz}
+
+$^*$Note that some of the \cl{R} packages required for this section may be difficult to download.
+
+FigTree and IcyTree are great tree-viewing programs and also allow you to produce publication-quality tree figures. 
 However, viewing a dated phylogenetic tree with a unit-less timescale is not as meaningful as plotting the tree with a geological (stratigraphic) time scale. 
 The \cl{R} package \href{http://cran.r-project.org/web/packages/strap/index.html}{\cl{strap}} \citep{bell2014strap} offers several nice functions for visualizing time-calibrated phylogenies in the context of the rock record.
 
+
+\descriptionhead{Install R Packages for Viewing and Plotting Trees}
+
+For this exercise we will use some \cl{R} packages to visualize the summary tree with a geological timescale.
+If you do not already have \cl{R} installed, please download the current version: \href{http://www.r-project.org/}{http://www.r-project.org}
+
+\dhead{strap} 
+Viewing dated phylogenies with an arbitrary time-scale removes the context of geological time and the fossil record from the analysis. 
+The package \cl{strap} in \cl{R} provides a set of functions to plot trees and stratigraphic information against geologic time, with scales provided by different sources including the International Commission on Stratigraphy \citep{bell2014strap}.
+A detailed tutorial for using the functions in \cl{strap} is available here: \href{http://datadryad.org/resource/doi:10.5061/dryad.4k078}{http://datadryad.org/resource/doi:10.5061/dryad.4k078}.
+To install \cl{strap}, execute the following command in \cl{R}:
+\begin{lstlisting}[language=R]
+> install.packages("strap",dependencies=TRUE)
+\end{lstlisting}
+
+\dhead{phytools} 
+In \cl{R}, there are many packages available for performing phylogenetic comparative methods, among them \href{http://www.phytools.org}{\cl{phytools}} is one of the richest, providing functions for a wide range of different analyses and for visualizing evolutionary processes in the context of phylogenetic relationships \citep{revell2012phytools}.
+To install \cl{phytools} in \cl{R}, execute the following command:
+\begin{lstlisting}[language=R]
+> install.packages("phytools",dependencies=TRUE)
+\end{lstlisting}
+
+
+\dhead{phyloch} 
+The trees sampled by the MCMC in BEAST contain valuable information about the sampled divergence times and branch rates. 
+Additionally, the summary trees produced by the BEAST accessory program TreeAnnotator have information about the 95\% credible intervals for the ages and rates. The package \cl{phyloch} provides functions for reading in data files written by BEAST and its accessory programs \citep{heibl2008phyloch}. 
+This package, however, is not available for download from CRAN. Instead, it is hosted on the developer's \href{http://www.christophheibl.de/Rpackages.html}{website}. 
+To install the \cl{phyloch} package in \cl{R}, first load the \cl{devtools} package and install \cl{phyloch} directly from the URL:
+\begin{lstlisting}[language=R]
+> library("devtools")
+> install_url("http://www.christophheibl.de/phyloch_1.5-5.tgz")
+\end{lstlisting}
+
+
+
+\descriptionhead{Plot the Tree in \cl{R}}
+
 \begin{framed}
-Begin by opening \textbf{R} and load the \cl{strap} package.
+Begin by opening an \cl{R} instance and load the \cl{strap} package.
 
 \begin{lstlisting}[language=R]
 > library("strap")
@@ -1339,85 +1411,20 @@ This tree is shown in Figure \ref{figgeoscale} and the \cl{R} syntax for produci
 
 
 
-The tree shown in Figure \ref{figgeoscale} has several fossil taxa with zero-length branches, e.g., \textit{Parictis montanus} and \textit{Ursus abstrusus}. 
-These branches actually indicate fossil taxa with a significant probability of representing a sampled ancestor. 
-However, it is difficult to represent this in typical tree-viewing programs. 
-A tree with sampled ancestors properly represented will have two-degree nodes --- i.e., a node with only one descendant. 
-The web-based tree viewer \href{http://tgvaughan.github.io/icytree/icytree.html}{IcyTree} (by \href{https://github.com/tgvaughan}{Tim Vaughan}) is capable of plotting such trees from BEAST2 analyses (Figure \ref{icyTree}. 
-
 \begin{figure}[h!]
 \centering
-\fbox{\includegraphics[width=\textwidth]{figures/bearsDivtime_icytree.pdf}}
-\caption{\small A sampled-ancestor tree exported from \href{http://tgvaughan.github.io/icytree/icytree.html}{IcyTree}. The sampled-ancestor nodes are revealed by selecting the \mi{Mark singletons} and \mi{Internal node text} set to \mi{Label}. The tree was exported to a SVG file and minor manipulations were conducted in a vector graphics editoing program (Inkscape or Adobe Illustrator).}
-\label{icyTree}
+\fbox{\includegraphics[width=6.2in]{figures/geoscaled_bears.pdf}}
+\caption{\small The maximum clade credibility tree summarized by TreeAnnotator and plotted with a geological time scale using the \cl{strap} package in \cl{R}. The fossil taxa are all indicated with an \textit{X} in the taxon names. The {\textcolor{red}{$\blacksquare$}} represents the mean origin time. The remaining internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability: $\newmoon \geq 0.95$, $0.95>$ \gcirc $\geq 0.75$, $0.75 > \fullmoon$. The 95\% credible intervals for node ages are shown with transparent bars, for only nodes that are represented in the \textit{extant} tree. (The \cl{R} code to produce this figure is in the \cl{output} folder in the file \cl{plot\_geoscaled\_tree.R}.)}
+\label{figgeoscale}
 \end{figure}
-
-Although the tree in Figure \ref{figgeoscale} and \ref{icyTree} looks awesome, the topology can be misleading for this particular analysis. 
-Since we did not provide character data for our 14 fossil taxa, the tree topology summarized above (e.g., Figure \ref{figgeoscale}) does not adequately illustrate the degree of uncertainty in the phylogenetic relationships of the fossil lineages.
-\textbf{Without morphological data, the fossil lineages can attach to any lineage on the tree that is consistent with the monophyletic clades we specified and the fossil occurrence times with equal probability. 
-Thus, the relationships shown here are not reliable as phylogenetic inferences.} 
-However, if we provided morphological character data for these fossils, then many would consider this tree to be an adequate summary our MCMC sample of trees. 
-
-Since the fossil taxa were used in this analysis to only inform the fossilized birth-death model, we can prune off all of the fossil lineages and plot the tree with the geological time scale.
-%An accessory program written by Alexandra Gavryushkina called \cl{Full2ExtantConvertor.jar} is included in the download files. 
-BEAUti has a few accessory applications that are for post-processing files from certain types of analyses. 
-The first one we will use is called \mi{FullToExtantTreeConverter}.
-This program can be used to prune the fossil lineages off of the MCMC sample of trees (in file \cl{bearsDivtime\_FBD.combined.trees}), then use TreeAnnotator to summarize the extant-only trees. 
-%When executing the \mi{FullToExtantTreeConverter} program, use a threshold value of \cl{1e-5}. This accounts for the rounding error in branch lengths so that the program knows which taxa are considered extant.
-
-\begin{framed}
-Open \cl{BEAUti} and launch the accessory apps in the file menu: \mi{File\textrightarrow Launch Apps}.
-
-This will open a window with a few applications, launch \mi{FullToExtantTreeConverter}.
-
-In the file specification window for \mi{Trees} provide the file called \cl{bearsDivtime\_FBD.combined.trees}.
-
-And give the \mi{Output} file the name \cl{bearsDivtime\_FBD.extant.trees}. %[Figure \ref{fullConverterScreen}]
-
-%\end{framed}
-%
-%\begin{figure}[h!]
-%\centering
-%\fbox{\includegraphics[width=3in]{figures/full_to_extant_converter.pdf}}
-%\caption{\small The options for \mi{FullToExtantTreeConverter}.}
-%\label{fullConverterScreen}
-%\end{figure}
-%
-%\begin{framed}
-Run TreeAnnotator on the file called \cl{bearsDivtime\_FBD.extant.trees}, selecting the same options as you did for the file with complete trees (see Section \ref{treeannotatorSec}). 
-
-Name the summary tree file \cl{bearsDivtime\_FBD.extant\_summary.tre}
-\end{framed}
-
-When the fossil lineages are removed, much of the information about the history of this group is lost (Figure \ref{figgeoscaleext}). 
-However, alternative approaches for summarizing fossilized birth-death trees are currently under development.
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=5.5in]{figures/geoscaled_bears_ext.pdf}}
-\caption{\small The maximum clade credibility tree of \textit{extant} bears summarized by TreeAnnotator and plotted against stratigraphy using the \cl{strap} package in \cl{R}. 
-The internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability: $\newmoon \geq 0.95$, $0.95>$ \gcirc $\geq 0.75$, $0.75 > \fullmoon$. The 95\% credible intervals for node ages are shown with transparent blue bars.}
-\label{figgeoscaleext}
-\end{figure}
-
-\bigskip
-\subsubsection{Analysis of Sampled Ancestors}
-
-Another tool that is available in the BEAUti accessory applications, is \mi{SampledAncestorTreeAnalyser}. If you run this app from the \mi{Launch apps} menu in BEAUti on the file with all the MCMC samples of the complete tree (\cl{bearsDivtime\_FBD.combined.trees}), you will get a report that summarizes the clades/nodes in the sampled ancestor tree. 
-In particular, it gives a quantitative representation of ``ancestral-ness'' in the posterior sample of trees. 
-This is represented by listing how often a particular node is ancestral to other nodes.
-The summary is generated and automatically opens in your web browser.
-
-%It is important to note, however, that the summary approaches for sampled-ancestor trees (for producing a summary topology and the sampled ancestor analyzer) are still under development.
-
-
 
 %%%%%
 \bigskip
 \section{Useful Links}
 
 \begin{itemize}
-\item \href{http://www.beast2.org/book.html}{\textit{Bayesian Evolutionary Analysis with BEAST 2}}  \citep{BEAST2book2014}
-\item BEAST 2 website and documentation: \href{http://www.beast2.org/}{http://www.beast2.org/} 
+\item Taming the BEAST -- tutorials and workshops for learning BEAST 2: \href{https://taming-the-beast.github.io/}{https://taming-the-beast.github.io}
+\item BEAST 2 website and documentation: \href{http://www.beast2.org/}{http://www.beast2.org} 
 \item BEAST 1 website and documentation: \href{http://beast.bio.ed.ac.uk}{http://beast.bio.ed.ac.uk} 
 \item Join the BEAST user discussion: \href{http://groups.google.com/group/beast-users}{http://groups.google.com/group/beast-users} 
 \item RevBayes: \href{https://github.com/revbayes/code}{https://github.com/revbayes/code} 
@@ -1442,7 +1449,7 @@ The summary is generated and automatically opens in your web browser.
 % Please do not change the license
 % Add the author names and relevant links
 % Add any other aknowledgments here
-\href{http://creativecommons.org/licenses/by/4.0/}{\includegraphics[scale=0.8]{figures/ccby.pdf}} This tutorial was written by \href{http://phyloworks.org/}{Tracy Heath} (with helpful contributions from Alexandra Gavryushkina and Rachel Warnock) for \href{http://phyloworks.org/resources/workshops.html}{workshops} on applied phylogenetics and molecular evolution and is licensed under a \href{http://creativecommons.org/licenses/by/4.0/}{Creative Commons Attribution 4.0 International License}. 
+\href{http://creativecommons.org/licenses/by/4.0/}{\includegraphics[scale=0.8]{figures/ccby.pdf}} This tutorial was written by \href{http://phyloworks.org/}{Tracy Heath} (with helpful contributions from Alexandra Gavryushkina, Rachel Warnock, and members the \href{https://taming-the-beast.github.io/}{Taming the BEAST} team) for workshops on applied phylogenetics and molecular evolution and is licensed under a \href{http://creativecommons.org/licenses/by/4.0/}{Creative Commons Attribution 4.0 International License}. 
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -1452,7 +1459,7 @@ Version dated: \today
 
 
 
-\newpage
+%\newpage
 
 %%%%%%%%%%%%%%%%
 %  REFERENCES  %
