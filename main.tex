@@ -1229,8 +1229,8 @@ After reviewing the trace files from the two independent runs in Tracer and veri
 Open the program LogCombiner and set the \mi{File type} to \mi{Tree Files}. Next, import the two tree files in the \cl{output} directory (\cl{bearsDivtime\_FBD.1.trees} and \cl{bearsDivtime\_FBD.2.trees}) using the \fbox{\textbf{+}} button. 
 
 Set a burn-in percentage of 20 for each file, thus discarding the first 20\% of the samples in each tree file. 
-%
-%Both of these files have 50,000 trees, so it is helpful to thin the tree samples and summarize fewer states (to avoid hitting the maximum memory allotted for this program). Turn on \mi{Resample states at lower frequency} and set this value to 2000.
+
+Both of these files have 40,000 trees, so it is helpful to thin the tree samples and summarize fewer states (to avoid hitting the maximum memory allotted for this program). Turn on \mi{Resample states at lower frequency} and set this value to 2000.
 
 Click on the \mi{Choose file ...} button to create an output file and run the program. Name the file: \cl{bearsDivtime.combined.trees}.
 \end{framed}
