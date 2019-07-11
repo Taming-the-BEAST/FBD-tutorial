@@ -381,11 +381,11 @@ The NEXUS files contain the names of 14 fossil species, that we will include in 
 Further, we must provide an occurrence time for each taxon sampled from the fossil record.
 For the fossil species, this information is obtained from the literature or fossil databases like the \href{http://fossilworks.org/}{Fossilworks PaleoDB} or the \href{http://fossilcalibrations.org/}{Fossil Calibration Database}, or from your own paleontological expertise. 
 The 14 fossil species used in this analysis are listed in Table \ref{bearFossilTable} along with the age range for the specimen and relevant citation.
-For this exercise, we will fix the ages to a value within the age range provided in Table \ref{bearFossilTable}. 
-In BEAST2, it is possible to use MCMC to sample the occurrence time for a fossil conditional on a prior distribution. 
-However, the options to do this are not currently available in BEAUti, and will not be covered by this tutorial.
-The age of each taxon is encoded in the taxon name following the last `\cl{\_}' character. 
-For example, the fossil panda \textit{Kretzoiarctos beatrix} has an age of approximately 11.7 Mya, thus, the taxon name in the alignment files is: \cl{Kretzoiarctos\_beatrix\_11.7}.
+%For this exercise, we will fix the ages to a value within the age range provided in Table \ref{bearFossilTable}. 
+
+In BEAST2, it is possible to use MCMC to sample the occurrence time for a fossil conditional on a prior distribution. \citet{baridosottani2019} found that sampling the fossil ages led to better estimates of divergence times than fixing them, thus in this tutorial we will sample the fossil ages.
+However, we still need an initial value for the age of each fossil, and we also need to fix the extant species to the present. For this purpose we will use the values that are encoded in the taxon name following the last `\cl{\_}' character. 
+For example, the fossil panda \textit{Kretzoiarctos beatrix} has an age between  11.2 Mya and 11.8 Mya, so we will set its initial age to 11.7 Mya. Thus the taxon name in the alignment files is: \cl{Kretzoiarctos\_beatrix\_11.7}.
 Similarly, since the polar bear, \textit{Ursus maritimus}, represents an extant species, its occurrence time is 0.0 Mya, which makes its taxon name: \cl{Ursus\_maritimus\_0}.
 By including the tip ages in the taxon names, we can easily import these values into BEAUti while setting up the XML file. 
 This is simply easier than entering them in by hand (which is also possible).
@@ -992,6 +992,79 @@ Back in the \mi{Priors} window, check the box labeled \mi{monophyletic} for node
 
 At this point, there should be five, monophyletic taxon sets listed in the \mi{Priors} window. 
 
+\bigskip
+\subsubsection{Sampling fossil ages}
+
+In order to sample the age of fossil specimens, we need to specify a prior for these ages. The age ranges for our fossil samples are shown in table \ref{bearFossilTable2}. Since we have no prior knowledge on where the true age of the specimen lies in the range, we will simply use a uniform distribution as prior for each fossil. 
+
+\begin{table}[tbh!]
+\centering
+\caption{Fossil species used for calibrating divergence times under the FBD model. Modified from Table S.3 in the supplemental appendix of \citet{heath2013fossilized}.}\label{bearFossilTable2}
+{\small
+\begin{tabular}{@{\extracolsep{\fill}}l  c c c r}
+\hline
+\multicolumn{1}{@{}l}{\textbf{Fossil species}}  & &\multicolumn{1}{c}{\textbf{Age range (My)}}  & &\multicolumn{1}{r}{\textbf{Citation}} \\ 
+\hline
+\hspace{2mm} \textit{Parictis montanus} & & 33.9--37.2 & & \cite{clark1972,krause2008}\\
+\hspace{2mm} \textit{Zaragocyon daamsi} & & 20--22.8  & & \cite{ginsburg1995,abella12}\\
+\hspace{2mm} \textit{Ballusia elmensis} & & 13.7--16 & & \cite{ginsburg1998,abella12}\\
+\hspace{2mm} \textit{Ursavus primaevus} & & 13.65--15.97 & & \cite{andrews1977,abella12}\\
+\hspace{2mm} \textit{Ursavus brevihinus} & & 15.97--16.9  & & \cite{heizmann1980,abella12}\\
+\hspace{2mm} \textit{Indarctos vireti} & & 7.75--8.7  & & \cite{montoya2001,abella12}\\
+\hspace{2mm} \textit{Indarctos arctoides} & & 8.7--9.7 & & \cite{geraads2005,abella12}\\
+\hspace{2mm} \textit{Indarctos punjabiensis} & & 4.9--9.7 & & \cite{baryshnikov2002,abella12}\\
+\hspace{2mm} \textit{Ailurarctos lufengensis} & & 5.8--8.2 & & \cite{jin2007,abella12}\\
+\hspace{2mm} \textit{Agriarctos spp.} & & 4.9--7.75 && \cite{abella2011,abella12}\\
+\hspace{2mm} \textit{Kretzoiarctos beatrix} & & 11.2--11.8 & & \cite{abella2011,abella12}\\
+\hspace{2mm} \textit{Arctodus simus} & & 0.012--2.588 & & \cite{churcher1993,krause2008}\\
+\hspace{2mm} \textit{Ursus abstrusus} & & 1.8--5.3 & & \cite{bjork1970,krause2008}\\
+\hspace{2mm} \textit{Ursus spelaeus} & & 0.027--0.25 & & \cite{loreille2001,krause2008}\\
+\hline
+\end{tabular}}
+\end{table}
+
+To add a prior on the age of a tip, we first need to define a taxonset containing only this tip. 
+
+\begin{framed}
+Create a new taxon set for tip \textit{Agriarctos spp.} by clicking the \fbox{\textbf{+}} and select \mi{MRCA prior} in the pop-up option box.
+
+Label the taxon set \cl{Agriarctos\_spp}.
+
+Move the taxa \cl{Agriarctos\_spp\_5.0} to the right-hand side column, click \mi{OK} [Figure \ref{screentaxsettip}].
+\end{framed}
+
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[width=5in]{figures/ts_tip.png}}
+\caption{\small The \mi{Taxon set editor} used to create the clade containing the \textit{Agriarctos spp.} fossil.}
+\label{screentaxsettip}
+\end{figure}
+
+We then need to specify the prior distribution to use for that tip.
+
+\begin{framed}
+Back in the \mi{Priors} window, reveal the options for the prior on the age of \mi{Agriarctos\_spp} by clicking on the $\blacktriangleright$.
+
+Change the prior distribution to \mi{Uniform} with a \mi{Lower} value equal to \cl{4.9} and an \mi{Upper} value equal to \cl{7.75}.
+
+Check the box labeled \mi{Tipsonly}. [Figure \ref{priorTipAge}]
+\end{framed}
+
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[width=6.5in]{figures/prior_tip.png}}
+\caption{\small The \mi{Priors} window showing the prior set on the age of the \textit{Agriarctos spp.} fossil.}
+\label{priorTipAge}
+\end{figure}
+
+This procedure needs to be repeated for each of the 14 fossils in our dataset [Figure \ref{priorsAllTips}. 
+
+\begin{figure}[h!]
+\centering
+\fbox{\includegraphics[width=6.5in]{figures/priors_all_tips.png}}
+\caption{\small The \mi{Priors} window showing the prior set on the ages of all fossils.}
+\label{priorsAllTips}
+\end{figure}
 
 \bigskip
 \subsubsection{Other BEAUti Options}
