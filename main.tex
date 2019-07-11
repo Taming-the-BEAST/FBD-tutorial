@@ -44,6 +44,8 @@ Central among the questions explored in biology are those that seek to understan
 
 This tutorial will provide a general overview of divergence time estimation and fossil calibration using a stochastic branching process and relaxed-clock model in a Bayesian framework. The exercise will guide you through the steps necessary for estimating phylogenetic relationships and dating species divergences using the program BEAST v2.$*$.
 
+For help with this tutorial or other questions about the FBD process in BEAST v2.$*$, please contact the BEAST2 users group \url{http://groups.google.com/group/beast-users}.
+
 \bigskip
 \section{Background}
 
@@ -320,38 +322,6 @@ Tracer is used for assessing and summarizing the posterior estimates of the vari
 \dhead{FigTree} 
 FigTree is an excellent program for viewing trees and producing publication-quality figures. It can interpret the node-annotations created on the summary trees by TreeAnnotator, allowing the user to display node-based statistics (e.g. posterior probabilities) in a visually appealing way (\href{http://tree.bio.ed.ac.uk/software/figtree}{\small http://tree.bio.ed.ac.uk/software/figtree}). 
 
-
-\bigskip
-\section{The eXtensible Markup Language}
-
-The eXtensible Markup Language (XML) is a general-purpose markup language, which allows for the combination of text and additional information. In BEAST, the use of the XML makes analysis specification very flexible and readable by both the program and people. The XML file specifies sequences, node calibrations, models, priors, output file names, etc. BEAUti is a useful tool for creating an XML file for many BEAST analyses. However, typically, dataset-specific issues can arise and some understanding of the BEAST-specific XML format is essential for troubleshooting. Additionally, there are a number of interesting models and analyses available in BEAST that cannot be specified using the BEAUti utility program. Refer to the BEAST web page (\href{http://beast.bio.ed.ac.uk/XML_format}{http://beast.bio.ed.ac.uk/XML\_format}) for detailed information about the BEAST XML format. Box 1 shows an example of BEAST XML syntax for specifying a birth-death prior on node times. 
-
-%{\tt \scriptsize{\begin{framed} \begin{tabbing}
-%\textless !-- A prior on the distribution node heights defined given \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ --\textgreater\\
-%\textless !-- a Birth-Death speciation process (Gernhard 2008). \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ --\textgreater\\
-%\textless bir\=thDeathModel id="birthDeath" units="substitutions"\textgreater\\
-%\> \textless bir\=thMinusDeathRate\textgreater\\
-%\> \> \textless parameter id="birthDeath.meanGrowthRate" value="1.0" lower="0.0" upper="Infinity"/\textgreater\\
-%\> \textless /birthMinusDeathRate\textgreater\\
-%\> \textless relativeDeathRate\textgreater\\
-%\> \> \textless parameter id="birthDeath.relativeDeathRate" value="0.5" lower="0.0" upper="Infinity"/\textgreater\\
-%\> \textless /relativeDeathRate\textgreater\\
-%\textless /birthDeathModel\textgreater
-%\end{tabbing}\end{framed}}}
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<!- An exponential prior distribution on the gamma shape parameter of the irbp gene   ->
-<prior id="GammaShapePrior.s:irbp" name="distribution" x="@gammaShape.s:irbp">
-    <Exponential id="Exponential.01" name="distr">
-        <parameter id="RealParameter.01" lower="0.0" name="mean" upper="0.0">1.0</parameter>
-    </Exponential>
-</prior>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 1: BEAST 2 XML specification of an exponential prior density on the shape of a gamma distribution.\\
-\end{center}
 
 \newpage
 \section{Practical: Divergence Time Estimation}
@@ -1421,6 +1391,123 @@ This tree is shown in Figure \ref{figgeoscale} and the \cl{R} syntax for produci
 \end{figure}
 
 %%%%%
+
+\bigskip
+\section{The eXtensible Markup Language}
+
+The eXtensible Markup Language (XML) is a general-purpose markup language, which allows for the combination of text and additional information. In BEAST, the use of the XML makes analysis specification very flexible and readable by both the program and people. The XML file specifies sequences, node calibrations, models, priors, output file names, etc. BEAUti is a useful tool for creating an XML file for many BEAST analyses. However, typically, dataset-specific issues can arise and some understanding of the BEAST-specific XML format is essential for troubleshooting. Additionally, there are a number of interesting models and analyses available in BEAST that cannot be specified using the BEAUti utility program. Refer to the BEAST web page (\href{http://beast.bio.ed.ac.uk/XML_format}{http://beast.bio.ed.ac.uk/XML\_format}) for detailed information about the BEAST XML format. 
+
+\descriptionhead{Example -- changing the FBD parametrization}
+
+The FBD process can only be set up in BEAUti using the diversification rate, turnover and sampling proportion as parameters. However, it may be more convenient to use the birth, death and sampling rates as parameters, in particular for epidemiological datasets. This section will show how to adjust the XML configuration file generated using BEAUti to use this alternate parametrization.
+
+The first step is to locate the part of the XML which defines the parameters of the FBD process, shown in Box 1. These parameters define the diversification rate, turnover and sampling proportion, which we will change respectively to birth rate, death rate and sampling rate.
+
+\begin{center}
+{\tt \scriptsize{\begin{minipage}{6.5in}
+\begin{lstlisting}[language=XML]
+<parameter id="diversificationRateFBD.t:bearsTree" lower="0.0" name="stateNode">1.0</parameter>
+<parameter id="turnoverFBD.t:bearsTree" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
+ <parameter id="samplingProportionFBD.t:bearsTree" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
+\end{lstlisting}
+\end{minipage}}}\\\vspace{4mm}
+Box 1: BEAST 2 XML specification of the FBD parameters (old).\\
+\end{center}
+
+Note that changing the names of the actual parameters (e.g "diversificationRateFBD.t:bearsTree" to "birthRateFBD.t:bearsTree") is not required, however keeping them risks making the file confusing, thus we in this example we will change them. The names need to be changed throughout the file, wherever they appear.
+The second thing to change in this section is the upper bounds on the parameters. Both the turnover and sampling proportion are limited to $\leq 1$, but this restriction does not apply to the death rate and sampling rate and needs to be removed.
+The new text in this part of the XML should look like Box 2.
+
+\begin{center}
+{\tt \scriptsize{\begin{minipage}{6.5in}
+\begin{lstlisting}[language=XML]
+<parameter id="birthRateFBD.t:bearsTree" lower="0.0" name="stateNode">1.0</parameter>
+<parameter id="deathRateFBD.t:bearsTree" lower="0.0" name="stateNode">0.5</parameter>
+ <parameter id="samplingRateFBD.t:bearsTree" lower="0.0" name="stateNode">0.5</parameter>
+\end{lstlisting}
+\end{minipage}}}\\\vspace{4mm}
+Box 2: BEAST 2 XML specification of the FBD parameters. (new)\\
+\end{center}
+
+The second step is to locate the part of the XML which defines the FBD process itself, shown in Box 3. 
+
+\begin{center}
+{\tt \scriptsize{\begin{minipage}{6.5in}
+\begin{lstlisting}[language=XML]
+<distribution id="FBD.t:bearsTree" spec="beast.evolution.speciation.SABirthDeathModel" conditionOnRhoSampling="true" diversificationRate="@birthRateFBD.t:bearsTree" origin="@originFBD.t:bearsTree" samplingProportion="@samplingRateFBD.t:bearsTree" tree="@Tree.t:bearsTree" turnover="@deathRateFBD.t:bearsTree">
+		<parameter id="rFBD.t:bearsTree" lower="0.0" name="removalProbability" upper="1.0">0.0</parameter>
+		<parameter id="rhoFBD.t:bearsTree" estimate="false" lower="0.0" name="rho" upper="1.0">1.0</parameter>
+</distribution>
+\end{lstlisting}
+\end{minipage}}}\\\vspace{4mm}
+Box 3: BEAST 2 XML specification of the FBD process (old).\\
+\end{center}
+
+The names of the parameters have already been changed in the previous step, so the only thing left to change is how they are used by the FBD process. The new text should look like Box 4.
+
+\begin{center}
+{\tt \scriptsize{\begin{minipage}{6.5in}
+\begin{lstlisting}[language=XML]
+<distribution id="FBD.t:bearsTree" spec="beast.evolution.speciation.SABirthDeathModel" conditionOnRhoSampling="true" birthRate="@birthRateFBD.t:bearsTree" origin="@originFBD.t:bearsTree" samplingRate="@samplingRateFBD.t:bearsTree" tree="@Tree.t:bearsTree" deathRate="@deathRateFBD.t:bearsTree">
+		<parameter id="rFBD.t:bearsTree" lower="0.0" name="removalProbability" upper="1.0">0.0</parameter>
+		<parameter id="rhoFBD.t:bearsTree" estimate="false" lower="0.0" name="rho" upper="1.0">1.0</parameter>
+</distribution>
+\end{lstlisting}
+\end{minipage}}}\\\vspace{4mm}
+Box 4: BEAST 2 XML specification of the FBD process (new).\\
+\end{center}
+
+Finally, the last step is to check (and possibly change) the priors associated with the parameters, shown in Box 5.
+
+\begin{center}
+{\tt \scriptsize{\begin{minipage}{6.5in}
+\begin{lstlisting}[language=XML]
+<prior id="diversificationRatePriorFBD.t:bearsTree" name="distribution" x="@birthRateFBD.t:bearsTree">
+	<Exponential id="Exponential.0" name="distr">
+		<parameter id="RealParameter.0" estimate="false" name="mean">1.0</parameter>
+	</Exponential>
+</prior>
+<prior id="turnoverPriorFBD.t:bearsTree" name="distribution" x="@deathRateFBD.t:bearsTree">
+	<Uniform id="Uniform.0" name="distr"/>
+</prior>
+<prior id="samplingProportionPriorFBD.t:bearsTree" name="distribution" x="@samplingRateFBD.t:bearsTree">
+	<Beta id="Beta.0" name="distr">
+		<parameter id="RealParameter.016" estimate="false" name="alpha">2.0</parameter>
+		<parameter id="RealParameter.017" estimate="false" name="beta">2.0</parameter>
+	</Beta>
+</prior>
+\end{lstlisting}
+\end{minipage}}}\\\vspace{4mm}
+Box 5: BEAST 2 XML specification of the priors for the FBD parameters (old).\\
+\end{center}
+
+Similarly to the parameter names, the names of the prior distributions do not need to be modified, but we will change them to stay consistent with the rest of the configuration. We can leave the birth rate prior as it is, however the uniform and beta distribution are not good prior distributions for the death rate and the sampling rate, so we will change them to exponential distributions. The new prior definitions will look like Box 6.
+
+\begin{center}
+{\tt \scriptsize{\begin{minipage}{6.5in}
+\begin{lstlisting}[language=XML]
+<prior id="birthRatePriorFBD.t:bearsTree" name="distribution" x="@birthRateFBD.t:bearsTree">
+	<Exponential id="Exponential.0" name="distr">
+		<parameter id="RealParameter.0" estimate="false" name="mean">1.0</parameter>
+	</Exponential>
+</prior>
+<prior id="deathRatePriorFBD.t:bearsTree" name="distribution" x="@deathRateFBD.t:bearsTree">
+	<Exponential id="deathExp" name="distr">
+		<parameter id="deathExpMean" estimate="false" name="mean">1.0</parameter>
+	</Exponential>
+</prior>
+<prior id="samplingRatePriorFBD.t:bearsTree" name="distribution" x="@samplingRateFBD.t:bearsTree">
+	<Exponential id="samplExp" name="distr">
+		<parameter id="samplExpMean" estimate="false" name="mean">0.5</parameter>
+	</Exponential>
+</prior>
+\end{lstlisting}
+\end{minipage}}}\\\vspace{4mm}
+Box 6: BEAST 2 XML specification of the priors for the FBD parameters (new).\\
+\end{center}
+
+Note that we've changed the priors to Exponential(1) for the death rate and Exponential(0.5) for the sampling rate.
+
 \bigskip
 \section{Useful Links}
 
