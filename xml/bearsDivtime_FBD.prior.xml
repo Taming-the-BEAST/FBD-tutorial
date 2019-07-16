@@ -524,7 +524,7 @@ Arctodus_simus_0.5=0.5
         <log idref="prior"/>
     </logger>
 
-    <logger id="treelog.t:bearsTree" fileName="$(tree).prior.trees" logEvery="1000" mode="tree">
+    <logger id="treelog.t:bearsTree" fileName="bearsDivtime_FBD.prior.trees" logEvery="1000" mode="tree">
         <log id="TreeWithMetaDataLogger.t:bearsTree" spec="beast.evolution.tree.TreeWithMetaDataLogger" branchratemodel="@RelaxedClock.c:bearsClock" tree="@Tree.t:bearsTree"/>
     </logger>
 
