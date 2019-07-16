@@ -996,7 +996,7 @@ At this point, there should be five, monophyletic taxon sets listed in the \mi{P
 \bigskip
 \subsubsection{Sampling the fossil ages}
 
-In order to sample the age of fossil specimens, we need to specify a prior for these ages. The age ranges for our fossil samples are shown in table \ref{bearFossilTable2}. Since we have no prior knowledge on where the true age of the specimen lies in the range, we will simply use a uniform distribution as prior for each fossil. 
+In order to sample the age of fossil specimens, we need to specify a prior distribution for these ages. The age ranges for our fossil samples are shown in Table \ref{bearFossilTable2}. Since we have no prior knowledge on where the true age of the specimen lies in the range, we will use a uniform distribution as prior for each fossil. 
 
 \begin{table}[tbh!]
 \centering
@@ -1024,14 +1024,14 @@ In order to sample the age of fossil specimens, we need to specify a prior for t
 \end{tabular}}
 \end{table}
 
-To add a prior on the age of a tip, we first need to define a taxonset containing only this tip. 
+To add a prior on the age of a tip, we first need to define a taxon set containing only this tip. 
 
 \begin{framed}
-Create a new taxon set for tip \textit{Agriarctos spp.} by clicking the \fbox{\textbf{+}} and select \mi{MRCA prior} in the pop-up option box.
+Create a new taxon set for tip \textit{Agriarctos spp.} by clicking the \fbox{\textbf{+}} and selecting \mi{MRCA prior} in the pop-up option box.
 
 Label the taxon set \cl{Agriarctos\_spp}.
 
-Move the taxa \cl{Agriarctos\_spp\_5.0} to the right-hand side column, click \mi{OK} [Figure \ref{screentaxsettip}].
+Move the taxon \cl{Agriarctos\_spp\_5.0} to the right-hand side column, click \mi{OK} [Figure \ref{screentaxsettip}].
 \end{framed}
 
 \begin{figure}[h!]
@@ -1041,12 +1041,12 @@ Move the taxa \cl{Agriarctos\_spp\_5.0} to the right-hand side column, click \mi
 \label{screentaxsettip}
 \end{figure}
 
-We then need to specify the prior distribution to use for that tip.
+We then need to specify the prior distribution for that tip.
 
 \begin{framed}
 Back in the \mi{Priors} window, reveal the options for the prior on the age of \mi{Agriarctos\_spp} by clicking on the $\blacktriangleright$.
 
-Change the prior distribution to \mi{Uniform} with a \mi{Lower} value equal to \cl{4.9} and an \mi{Upper} value equal to \cl{7.75}.
+Change the prior distribution to \mi{Uniform}, with a \mi{Lower} value equal to \cl{4.9} and an \mi{Upper} value equal to \cl{7.75}.
 
 Check the box labeled \mi{Tipsonly}. [Figure \ref{priorTipAge}]
 \end{framed}
@@ -1058,7 +1058,7 @@ Check the box labeled \mi{Tipsonly}. [Figure \ref{priorTipAge}]
 \label{priorTipAge}
 \end{figure}
 
-This procedure needs to be repeated for each of the 14 fossils in our dataset [Figure \ref{priorsAllTips}. 
+This procedure needs to be repeated for each of the 14 fossils in our dataset [Figure \ref{priorsAllTips}]. 
 
 \begin{figure}[h!]
 \centering
@@ -1475,9 +1475,9 @@ This tree is shown in Figure \ref{figgeoscale} and the \cl{R} syntax for produci
 %%%%%
 
 \bigskip
-\section{More with XML -- changing the FBD parametrization}
+\section{More with XML -- changing the FBD parameterization}
 
-The FBD process can only be set up in BEAUti using the diversification rate, turnover and sampling proportion as parameters. However, it may be more convenient to use the birth, death and sampling rates as parameters, in particular for epidemiological datasets. This section will show how to adjust the XML configuration file generated using BEAUti to use this alternate parametrization.
+The FBD process can only be set up in BEAUti using the diversification rate, turnover and sampling proportion as parameters. However, it may be more convenient to use the birth, death and sampling rates as parameters, in particular for epidemiological datasets. This section will show how to edit the XML file generated with BEAUti to use this alternate parameterization.
 
 The first step is to locate the part of the XML which defines the parameters of the FBD process, shown in Box 1. These parameters define the diversification rate, turnover and sampling proportion, which we will change respectively to birth rate, death rate and sampling rate.
 
@@ -1492,8 +1492,8 @@ The first step is to locate the part of the XML which defines the parameters of 
 Box 1: BEAST 2 XML specification of the FBD parameters (old).\\
 \end{center}
 
-Note that changing the names of the actual parameters (e.g "diversificationRateFBD.t:bearsTree" to "birthRateFBD.t:bearsTree") is not required, however keeping them risks making the file confusing, thus we in this example we will change them. The names need to be changed throughout the file, wherever they appear.
-The second thing to change in this section is the upper bounds on the parameters. Both the turnover and sampling proportion are limited to $\leq 1$, but this restriction does not apply to the death rate and sampling rate and needs to be removed.
+Note that changing the names of the actual parameters (e.g "diversificationRateFBD.t:bearsTree" to "birthRateFBD.t:bearsTree") is not required, however keeping them risks making the file confusing. Thus in this example we will change them. The names need to be changed wherever they appear throughout the file.
+The second thing to change in this section are the upper bounds on the parameters. Both the turnover and sampling proportion are limited to $\leq 1$, but this restriction does not apply to the death rate and sampling rate and needs to be removed.
 The new text in this part of the XML should look like Box 2.
 
 \begin{center}
@@ -1559,7 +1559,7 @@ Finally, the last step is to check (and possibly change) the priors associated w
 Box 5: BEAST 2 XML specification of the priors for the FBD parameters (old).\\
 \end{center}
 
-Similarly to the parameter names, the names of the prior distributions do not need to be modified, but we will change them to stay consistent with the rest of the configuration. We can leave the birth rate prior as it is, however the uniform and beta distribution are not good prior distributions for the death rate and the sampling rate, so we will change them to exponential distributions. The new prior definitions will look like Box 6.
+Similarly to the parameter names, the names of the prior distributions do not need to be modified, but we will change them to stay consistent with the rest of the configuration. We can leave the birth rate prior as it is, however the uniform and beta distributions are not good priors for the death rate and the sampling rate, so we will change them to exponential distributions. The new prior distributions will look like Box 6.
 
 \begin{center}
 {\tt \scriptsize{\begin{minipage}{6.5in}
@@ -1584,7 +1584,7 @@ Similarly to the parameter names, the names of the prior distributions do not ne
 Box 6: BEAST 2 XML specification of the priors for the FBD parameters (new).\\
 \end{center}
 
-Note that we've changed the priors to Exponential(1) for the death rate and Exponential(0.5) for the sampling rate.
+Note that we have changed the priors to Exponential(1.0) for the death rate and Exponential(0.5) for the sampling rate.
 
 \bigskip
 \section{Useful Links}
