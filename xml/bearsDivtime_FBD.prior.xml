@@ -333,8 +333,8 @@ Arctodus_simus_0.5=0.5
                 </taxonset>
                 <Uniform id="Uniform.27" lower="11.2" name="distr" upper="11.8"/>
             </distribution>
-            <distribution id="﻿Ursavus primaevus.prior" spec="beast.math.distributions.MRCAPrior" tipsonly="true" tree="@Tree.t:bearsTree">
-                <taxonset id="﻿Ursavus primaevus" spec="TaxonSet">
+            <distribution id="﻿Ursavus_primaevus.prior" spec="beast.math.distributions.MRCAPrior" tipsonly="true" tree="@Tree.t:bearsTree">
+                <taxonset id="﻿Ursavus_primaevus" spec="TaxonSet">
                     <taxon id="Ursavus_primaevus_14.4" spec="Taxon"/>
                 </taxonset>
                 <Uniform id="Uniform.30" lower="13.65" name="distr" upper="15.97"/>
@@ -457,7 +457,7 @@ Arctodus_simus_0.5=0.5
 
     <operator id="tipDatesSampler.﻿Ursavus_brevihinus" spec="SampledNodeDateRandomWalker" taxonset="@﻿Ursavus_brevihinus" tree="@Tree.t:bearsTree" weight="1.0" windowSize="1.0"/>
 
-    <operator id="tipDatesSampler.﻿Ursavus primaevus" spec="SampledNodeDateRandomWalker" taxonset="@﻿Ursavus primaevus" tree="@Tree.t:bearsTree" weight="1.0" windowSize="1.0"/>
+    <operator id="tipDatesSampler.﻿Ursavus_primaevus" spec="SampledNodeDateRandomWalker" taxonset="@﻿Ursavus_primaevus" tree="@Tree.t:bearsTree" weight="1.0" windowSize="1.0"/>
 
     <operator id="tipDatesSampler.Ursus_﻿abstrusus" spec="SampledNodeDateRandomWalker" taxonset="@Ursus_﻿abstrusus" tree="@Tree.t:bearsTree" weight="1.0" windowSize="1.0"/>
 
@@ -509,7 +509,7 @@ Arctodus_simus_0.5=0.5
         <log idref="﻿Kretzoiarctos_beatrix.prior"/>
         <log idref="Parictis_montanus.prior"/>
         <log idref="﻿Ursavus_brevihinus.prior"/>
-        <log idref="﻿Ursavus primaevus.prior"/>
+        <log idref="﻿Ursavus_primaevus.prior"/>
         <log idref="Ursus_﻿abstrusus.prior"/>
         <log idref="Ursus_﻿spelaeus.prior"/>
         <log idref="﻿Zaragocyon_daamsi.prior"/>
