@@ -1280,16 +1280,16 @@ Continue examining the options in Tracer. This program is very, \textit{very} us
 
 After reviewing the trace files from the two independent runs in Tracer and verifying that both runs converged on the posterior distributions and reached stationarity, we can combine the sampled trees into a single tree file and summarize the results.
 \begin{framed}
-Open the program LogCombiner and set the \mi{File type} to \mi{Tree Files}. Next, import the two tree files in the \cl{output} directory (\cl{bearsDivtime\_FBD.1.trees} and \cl{bearsDivtime\_FBD.2.trees}) using the \fbox{\textbf{+}} button. 
+Open the program LogCombiner and set the \mi{File type} to \mi{Tree Files}. Next, import the two tree files in the \cl{output} directory (\cl{bearsTree.1.trees} and \cl{bearsTree.2.trees}) using the \fbox{\textbf{+}} button. 
 
 Set a burn-in percentage of 20 for each file, thus discarding the first 20\% of the samples in each tree file. 
 
 Both of these files have 50,000 trees, so it is helpful to thin the tree samples and summarize fewer states (to avoid hitting the maximum memory allotted for this program). Turn on \mi{Resample states at lower frequency} and set this value to 10000.
 
-Click on the \mi{Choose file ...} button to create an output file and run the program. Name the file: \cl{bearsDivtime.combined.trees}.
+Click on the \mi{Choose file ...} button to create an output file and run the program. Name the file: \cl{bearsTree.combined.trees}.
 \end{framed}
 
-Once LogCombiner has terminated, you will have a file containing 40,000 trees which can be summarized using TreeAnnotator. 
+Once LogCombiner has terminated, you will have a file containing 8,000 trees which can be summarized using TreeAnnotator. 
 TreeAnnotator takes a collection of trees and summarizes them by identifying the topology with the best support, calculating clade posterior probabilities, and calculating 95\% credible intervals for node-specific parameters. All of the node statistics are annotated on the tree topology for each node in the Newick string. 
 
 \begin{framed}
@@ -1303,7 +1303,7 @@ The \mi{Posterior probability limit} option applies to summaries on a target tre
 \begin{framed}
 Choose \mi{Median heights} or \mi{Mean heights} for \mi{Node heights} which will set the node heights of the output tree to equal the median or mean height for each node in the sample of trees.
 
-Choose \cl{bearsDivtime.combined.trees} as your \mi{Input Tree File}. Then name the \mi{Output File:} \cl{bearsDivtime\_FBD.summary.tre} and click \mi{Run}. 
+Choose \cl{bearsTree.combined.trees} as your \mi{Input Tree File}. Then name the \mi{Output File:} \cl{bearsTree.summary.tre} and click \mi{Run}. 
 \end{framed}
 
 \bigskip
@@ -1311,12 +1311,12 @@ Choose \cl{bearsDivtime.combined.trees} as your \mi{Input Tree File}. Then name 
 
 The tree file produced by TreeAnnotator contains the maximum clade credibility tree and is annotated with summaries of the various parameters.
 \begin{framed}
-Open \cl{bearsDivtime\_FBD.summary.tre} in your text editor. The tree is written in NEXUS format. Look at the tree string and notice the annotation. Each node in the tree is labeled with comments using the \cl{[\&parameter\_name=\textless value\textgreater ]} format.
+Open \cl{bearsTree.summary.tre} in your text editor. The tree is written in NEXUS format. Look at the tree string and notice the annotation. Each node in the tree is labeled with comments using the \cl{[\&parameter\_name=\textless value\textgreater ]} format.
 \end{framed}
 
 The summary tree and it's annotations can be visualized in the program FigTree.
 \begin{framed}
-Execute FigTree and open the file \cl{bearsDivtime\_FBD.summary.tre}.
+Execute FigTree and open the file \cl{bearsTree.summary.tre}.
 
 Explore the options for viewing different summary statistics on the tree.
 \end{framed}
@@ -1329,8 +1329,8 @@ The web-based tree viewer \href{http://icytree.org/}{IcyTree} \citep{Vaughan2017
 
 \begin{figure}[h!]
 \centering
-\fbox{\includegraphics[width=\textwidth]{figures/bearsDivtime_icytree.pdf}}
-\caption{\small A sampled-ancestor tree exported from \href{http://tgvaughan.github.io/icytree/icytree.html}{IcyTree}. The sampled-ancestor nodes are revealed by selecting the \mi{Mark singletons} and \mi{Internal node text} set to \mi{Label}. The tree was exported to a SVG file and minor manipulations were conducted in a vector graphics editing program (Inkscape or Adobe Illustrator).}
+\fbox{\includegraphics[width=\textwidth]{figures/bearsTree_icytree.pdf}}
+\caption{\small A sampled-ancestor tree exported from \href{http://tgvaughan.github.io/icytree/icytree.html}{IcyTree}. The sampled-ancestor nodes are revealed by selecting the \mi{Mark singletons} option and setting \mi{Internal node text} to \mi{Label}. The option \mi{Angle node label text} was selected to avoid overlapping labels. The tree was exported to a SVG file and minor manipulations were conducted in a vector graphics editing program (Inkscape or Adobe Illustrator).}
 \label{icyTree}
 \end{figure}
 
@@ -1343,16 +1343,16 @@ However, if we provided morphological character data for these fossils, then man
 Since the fossil taxa were used in this analysis to only inform the fossilized birth-death model, we can prune off all of the fossil lineages and plot the tree with the geological time scale.
 BEAUti has a few accessory applications that are for post-processing files from certain types of analyses. 
 The first one we will use is called \mi{FullToExtantTreeConverter}.
-This program can be used to prune the fossil lineages off of the MCMC sample of trees (in file \cl{bearsDivtime\_FBD.combined.trees}), then use TreeAnnotator to summarize the extant-only trees. 
+This program can be used to prune the fossil lineages off of the MCMC sample of trees (in file \cl{bearsTree.combined.trees}), then use TreeAnnotator to summarize the extant-only trees. 
 
 \begin{framed}
 Open BEAUti and launch the accessory apps in the file menu: \mi{File\textrightarrow Launch Apps}.
 
 This will open a window with a few applications, launch \mi{FullToExtantTreeConverter}.
 
-In the file specification window for \mi{Trees} provide the file called \cl{bearsDivtime\_FBD.combined.trees}.
+In the file specification window for \mi{Trees} provide the file called \cl{bearsTree.combined.trees}.
 
-And give the \mi{Output} file the name \cl{bearsDivtime\_FBD.extant.trees}. %[Figure \ref{fullConverterScreen}]
+And give the \mi{Output} file the name \cl{bearsTree.extant.trees}. %[Figure \ref{fullConverterScreen}]
 
 %\end{framed}
 %
@@ -1364,9 +1364,9 @@ And give the \mi{Output} file the name \cl{bearsDivtime\_FBD.extant.trees}. %[Fi
 %\end{figure}
 %
 %\begin{framed}
-Run TreeAnnotator on the file called \cl{bearsDivtime\_FBD.extant.trees}, selecting the same options as you did for the file with complete trees (see Section \ref{treeannotatorSec}). 
+Run TreeAnnotator on the file called \cl{bearsTree.extant.trees}, selecting the same options as you did for the file with complete trees (see Section \ref{treeannotatorSec}). 
 
-Name the summary tree file \cl{bearsDivtime\_FBD.extant\_summary.tre}
+Name the summary tree file \cl{bearsTree.extant\_summary.tre}
 \end{framed}
 
 When the fossil lineages are removed, much of the information about the history of this group is lost (Figure \ref{figgeoscaleext}). 
@@ -1382,7 +1382,7 @@ The internal nodes of the tree are indicated with circles, where circles mark no
 \bigskip
 \subsubsection{Analysis of Sampled Ancestors}
 
-Another tool that is available in the BEAUti accessory applications, is \mi{SampledAncestorTreeAnalyser}. If you run this app from the \mi{Launch apps} menu in BEAUti on the file with all the MCMC samples of the complete tree (\cl{bearsDivtime\_FBD.combined.trees}), you will get a report that summarizes the clades/nodes in the sampled ancestor tree. 
+Another tool that is available in the BEAUti accessory applications, is \mi{SampledAncestorTreeAnalyser}. If you run this app from the \mi{Launch apps} menu in BEAUti on the file with all the MCMC samples of the complete tree (\cl{bearsTree.combined.trees}), you will get a report that summarizes the clades/nodes in the sampled ancestor tree. 
 In particular, it gives a quantitative representation of ``ancestral-ness'' in the posterior sample of trees. 
 This is represented by listing how often a particular node is ancestral to other nodes.
 The summary is generated and automatically opens in your web browser.
@@ -1424,11 +1424,11 @@ To install \cl{phytools} in \cl{R}, execute the following command:
 \dhead{phyloch} 
 The trees sampled by the MCMC in BEAST contain valuable information about the sampled divergence times and branch rates. 
 Additionally, the summary trees produced by the BEAST accessory program TreeAnnotator have information about the 95\% credible intervals for the ages and rates. The package \cl{phyloch} provides functions for reading in data files written by BEAST and its accessory programs \citep{heibl2008phyloch}. 
-This package, however, is not available for download from CRAN. Instead, it is hosted on the developer's \href{http://www.christophheibl.de/Rpackages.html}{website}. 
-To install the \cl{phyloch} package in \cl{R}, first load the \cl{devtools} package and install \cl{phyloch} directly from the URL:
+This package, however, is not available for download from CRAN. Instead, it is hosted on the developer's \href{http://www.christophheibl.de/Rpackages.html}{website} and on \href{https://github.com/fmichonneau/phyloch/}{Github}. 
+To install the \cl{phyloch} package in \cl{R}, use the \cl{remotes} package to install \cl{phyloch} directly from the repository:
 \begin{lstlisting}[language=R]
-> library("devtools")
-> install_url("http://www.christophheibl.de/phyloch_1.5-5.tgz")
+> install.packages("remotes")
+> remotes::install_github("fmichonneau/phyloch")
 \end{lstlisting}
 
 
@@ -1444,7 +1444,7 @@ Begin by opening an \cl{R} instance and load the \cl{strap} package.
 
 Now we can read in the tree using the \cl{ape} function \cl{read.nexus()} (note that you might have to type in the whole file path to your tree).
 \begin{lstlisting}[language=R]
-> tree <- read.nexus("bearsDivtime.summary.tre")
+> tree <- read.nexus("bearsTree.summary.tre")
 \end{lstlisting}
 
 In order to use the \cl{geoscalePhylo()} function of \cl{strap}, we have to set a value for the variable \cl{tree\$root.time}, which is the age of the root. We can compute this from the tree using the \cl{dist.nodes()} function from \cl{ape}:
