@@ -8,3 +8,6 @@ main-blx.bib
 main.pdf
 /figures_raw/
 .texpadtmp/
+.DS_Store
+main.bcf
+main.synctex.gz
