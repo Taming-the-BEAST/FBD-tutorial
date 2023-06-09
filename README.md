@@ -3,10 +3,16 @@ author: Tracy A. Heath
 level: Intermediate
 title: Divergence Time Estimation using BEAST v2.x
 subtitle: Dating Species Divergences with the Fossilized Birth-Death Process
-beastversion: 2.5.2
+beastversion: 2.7.4
 ---
 
 Central among the questions explored in biology are those that seek to understand the timing and rates of evolutionary processes. Accurate estimates of species divergence times are vital to understanding historical biogeography, estimating diversification rates, and identifying the causes of variation in rates of molecular evolution. 
 
 This tutorial will provide a general overview of divergence time estimation and fossil calibration using a stochastic branching process and relaxed-clock model in a Bayesian framework. The exercise will guide you through the steps necessary for estimating phylogenetic relationships and dating species divergences using the program BEAST v2.x.
+
+**Things to Note**
+
+1. This tutorial is available only in PDF format.  A link to the PDF can be found in the column on the left-hand side of this page.
+
+2. While the tutorial has been tested with BEAST version 2.7, and the pre-cooked XML and log files have be updated for this version, many of the figures contained in the tutorial still depict the version 2.6 user interface.  This means that minor differences may exist between what you see when working through the tutorial and what is shown in the document.  Don't be alarmed, this is perfectly normal!
 
