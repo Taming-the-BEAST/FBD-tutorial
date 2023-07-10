@@ -103,9 +103,9 @@ Creating a properly-formatted BEAST XML file from scratch is not a simple task. 
 
 >Begin by executing the BEAUti program.
 
-## Install BEAST2 packages
+### Install BEAST2 packages
 
-Next, we have to install the BEAST 2 packages (also called ``plug-ins'' or ``add-ons'') that are needed for this analysis. The packages that we will use called **SA** and **ORC**.
+Next, we have to install the BEAST 2 packages (also called ``plug-ins'' or ``add-ons'') that are needed for this analysis. The packages that we will use called **SA** (Sampled Ancestors) and **ORC** (Optimized Relaxed Clock).
 
 >Open the **Package Manager** by navigating to **File > Manage Packages** in the menu. Install the **SA** package by selecting it and clicking the **Install/Upgrade** button. Do the same for the **ORC** package.
 
@@ -118,7 +118,7 @@ Next, we have to install the BEAST 2 packages (also called ``plug-ins'' or ``add
 
 > Close the BEAST2 Package Manager and **restart BEAUti** to fully load the packages.
 
-## Import Alignments
+### Import Alignments
 
 Next we will load the alignment files for each of our genes. Note that separate loci can be imported as separate files or in a single NEXUS file with partitions defined using the **ASSUMPTIONS** command.
 
@@ -139,25 +139,15 @@ It is convenient to rename some of the variables in the **Partitions** window. B
 \label{importAlign}
 \end{figure}
 
-## Set Tip Dates
+### Set Tip Dates
 
-\begin{framed}
-Navigate to the \mi{Tip Dates} panel.
-\end{framed}
+We must indicate that we have sequentially sampled sequences. When performing an analysis without dated tips or any fossil information, you can skip this window, and BEAST will assume that all of your samples are contemporaneous.
 
-We must indicate that we have sequentially sampled sequences.
-When performing an analysis without dated tips or any fossil information, you can skip this window, and BEAST will assume that all of your samples are contemporaneous.
-\begin{framed}
-Toggle on the \mi{Use tip dates} option.
-\end{framed}
+>Navigate to the **Tip Dates** panel. Toggle on the **Use tip dates** option.
 
-The next step involves specifying how the dates are oriented on the tree and the units they are in. We will indicate that the dates are in \mi{years}, even though they are in fact in units of \textit{millions of years}. 
-This is because the units themselves are arbitrary and this scale difference will not matter.
-Additionally, we will tell BEAUti that the zero time of our tree is the present and the ages we are providing are the number of years \mi{Before the present}. 
-\begin{framed}
-Change: \mi{Dates specified as: year Before the present} [Figure \ref{setTipDatesYears}]
-\end{framed}
-For some types of analyses, such as serially sampled viruses, the dates given are relative to some time in the past, thus this option is available as well.
+The next step involves specifying how the dates are oriented on the tree and the units they are in. We will indicate that the dates are in **years**, even though they are in fact in units of **millions of years**. This is because the units themselves are arbitrary and this scale difference will not matter. Additionally, we will tell BEAUti that the "zero time" of our tree is the present and the ages we are providing are the number of years **before the present**. For some types of analyses, such as serially sampled viruses, the dates given are relative to some time in the past, thus this option is available as well.
+
+>Change **Dates specified** as **year Before the present**.
 
 \begin{figure}[h!]
 \centering
@@ -166,18 +156,9 @@ For some types of analyses, such as serially sampled viruses, the dates given ar
 \label{setTipDatesYears}
 \end{figure}
 
-When inputing the dates for each tip species, one option is to enter each one by hand. 
-This may be quite onerous if you have many fossils or many sequences sampled back in time.
-Conveniently, these dates can be included in the taxon names so that BEAUti can easily extract them for us using the \mi{Auto-configure} option. 
-\begin{framed}
-Click on the \mi{Auto-configure} button.
-\end{framed}
-This will open a window where you can specify the pattern in the taxon names from which the tip ages can be extracted. 
-Obviously, it's better to make this a fairly simple code that doesn't require multiple iterations of searches. 
-Moreover, if this is straightforward, then you will be able to easily eliminate these dates when creating figures from your final summary tree.
-\begin{framed}
-Tell BEAUti to \mi{use everything} after the \mi{last} `\cl{\_}', then click \mi{OK}. [Figure \ref{guesTipDates}]
-\end{framed}
+When inputing the dates for each tip species, one option is to enter each one by hand. This may be quite onerous if you have many fossils or many sequences sampled back in time. Conveniently, these dates can be included in the taxon names so that BEAUti can easily extract them for us using the **Auto-configure** option. This will open a window where you can specify the pattern in the taxon names from which the tip ages can be extracted. Obviously, it's better to make this a fairly simple code that doesn't require multiple iterations of searches. Moreover, if this is straightforward, then you will be able to easily eliminate these dates when creating figures from your final summary tree.
+
+>Click on the **Auto-configure** button. Tell BEAUti to **use everything after the last \_**, then click **OK**.
 
 \begin{figure}[h!]
 \centering
@@ -186,44 +167,20 @@ Tell BEAUti to \mi{use everything} after the \mi{last} `\cl{\_}', then click \mi
 \label{guesTipDates}
 \end{figure}
 
-You should now see that the tip ages have been filled in for all of the fossil taxa and that the same age is listed in the \mi{Date} and \mi{Height} column for each species.
+You should now see that the tip ages have been filled in for all of the fossil taxa and that the same age is listed in the **Date** and **Height** column for each species.
 
+### Specify the Sites Model
 
-\bigskip
-\subsubsection{Specify the Sites Model}
+The molecular sequence data sampled for each extant bear species are from two different genes: the mitochondrial cytochrome b gene (**cytb**) and the nuclear interphotoreceptor retinoid-binding protein gene (**irbp**). We will partition these loci into two separate alignments and apply different models of sequence evolution to each one. For the `cytb` gene, we will apply a general-time reversible model with homogeneous rates across sites: GTR. For the nuclear gene `irbp`, we will assume a 2-rate model where transitions and transversions happen at different rates, and that the rates vary across the alignment according to a mean-one gamma distribution: HKY+$\Gamma$.
 
-\begin{framed}
-Navigate to the \mi{Site Model} window.
-\end{framed}
+>Navigate to the **Site Model** window. Select the **cytb** gene and change the **Subst Model** to **GTR**. Toggle on **estimate** for the **Substitution Rate**. Select the **irbp** gene and change the **Subst Model** to **HKY**. To indicate gamma-distributed rates, set the **Gamma Category Count** to 4. Then switch the **Shape** parameter to **estimate**. Toggle on **estimate** for the **Substitution Rate**.
 
-The molecular sequence data sampled for each extant bear species are from two different genes: the mitochondrial cytochrome b gene (\cl{cytb}) and the nuclear interphotoreceptor retinoid-binding protein gene (\cl{irbp}).
-We will partition these loci into two separate alignments and apply different models of sequence evolution to each one. 
-For the \cl{cytb} gene, we will apply a general-time reversible model with homogeneous rates across sites: GTR.
-For the nuclear gene \cl{irbp}, we will assume a 2-rate model where transitions and transversions happen at different rates, and that the rates vary across the alignment according to a mean-one gamma distribution: HKY+$\Gamma$.
-\begin{framed}
-Select the \cl{cytb} gene and change the \mi{Subst Model} to \mi{GTR}.
-
-Toggle on \mi{estimate} for the \mi{Substitution Rate}. [Figure \ref{cytbSitesMod}]
-\end{framed}
 \begin{figure}[h!]
 \centering
 \fbox{\includegraphics[width=4.5in]{figures/set_mito_sites_model.pdf}}
 \caption{\small The fully specified site model for the \cl{cytb} gene: GTR. }
 \label{cytbSitesMod}
 \end{figure}
-
-By changing the substitution model, we have now introduced additional parameters for the GTR exchangeability rates.
-We will construct priors for these parameters later on. 
-
-\begin{framed}
-Select the \cl{irbp} gene and change the \mi{Subst Model} to \mi{HKY}.
-
-To indicate gamma-distributed rates, set the \mi{Gamma Category Count} to 4.
-
-Then switch the \mi{Shape} parameter to \mi{estimate}.
-
-Toggle on \mi{estimate} for the \mi{Substitution Rate}. [Figure \ref{irbpSitesMod}]
-\end{framed}
 
 \begin{figure}[h!]
 \centering
@@ -232,48 +189,23 @@ Toggle on \mi{estimate} for the \mi{Substitution Rate}. [Figure \ref{irbpSitesMo
 \label{irbpSitesMod}
 \end{figure}
 
-Now both models are fully specified for the unlinked genes. Note that \mi{Fix mean substitution rate} is always specified and we also have indicated that we wish to \mi{estimate} the \mi{Substitution Rate} for each gene.
-This means that we are estimating the \textit{relative} substitution rates for our two loci.
+Now both models are fully specified for the unlinked genes. Note that **Fix mean substitution rate** is always specified and we also have indicated that we wish to estimate the substitution rate for each gene. This means that we are estimating the _relative_ substitution rates for our two loci.
 
+### The Clock Model
 
+Here, we can specify the model of lineage-specific substitution rate variation. The default model in BEAUti is the **Strict Clock** with a fixed substitution rate equal to **1**. Models for relaxing the assumption of a constant substitution rate can be specified in BEAUti as well. The **Optimized Relaxed Clock** option (provided by the **ORC package**) assumes that the substitution rates associated with each branch are independently drawn from a single, discretized lognormal distribution {% cite drummond06}. The **Random Local Clock** uses Bayesian stochastic search variable selection to average over random local molecular clocks {% cite drummond10}. For this analysis we will use the uncorrelated, lognormal model of branch-rate variation.
 
-\bigskip
-\subsubsection{The Clock Model}
+>Navigate to the **Clock Model** window. Change the clock model to **Optimized Relaxed Clock**.
 
-\begin{framed}
-Navigate to the \mi{Clock Model} window.
-\end{framed}
+The uncorrelated relaxed clock models in BEAST2 are discretized for computational feasibility. This means that for any given parameters of the lognormal distribution, the probability density is discretized into some number of discrete rate bins. Each branch is then assigned to one of these bins. 
+By default, BEAUti sets the **Number Of Discrete Rates** to **-1**. This means that the number of bins is equal to the number of branches.
+The fully specified Clock Model assumes that the rates for each branch are drawn independently from a single lognormal distribution. The mean of the rate distribution will be estimated, thus we can account for uncertainty in this parameter by placing a prior distribution on its value.
 
-Here, we can specify the model of lineage-specific substitution rate variation. The default model in BEAUti is the \mi{Strict Clock} with a fixed substitution rate equal to \cl{1}. Models for relaxing the assumption of a constant substitution rate can be specified in BEAUti as well. The \mi{Optimized Relaxed Clock} option (provided by the ORC package) assumes that the substitution rates associated with each branch are independently drawn from a single, discretized lognormal distribution \citep{drummond06}. The \mi{Random Local Clock} uses Bayesian stochastic search variable selection to average over random local molecular clocks \citep{drummond10}. 
-For this analysis we will use the uncorrelated, lognormal model of branch-rate variation.
-\begin{framed}
-Change the clock model to \mi{Optimized Relaxed Clock}.
-\end{framed}
-The uncorrelated relaxed clock models in BEAST2 are discretized for computational feasibility. 
-This means that for any given parameters of the lognormal distribution, the probability density is discretized into some number of discrete rate bins. 
-Each branch is then assigned to one of these bins. 
-By default, BEAUti sets the \mi{Number Of Discrete Rates} to \cl{-1}. This means that the number of bins is equal to the number of branches.
+### Priors on Parameters of the Site Models
 
-The fully specified \mi{Clock Model} assumes that the rates for each branch are drawn independently from a single lognormal distribution. 
-The mean of the rate distribution will be estimated, thus we can account for uncertainty in this parameter by placing a prior distribution on its value.
+>Navigate to the **Priors** window.
 
-
-\bigskip
-\subsubsection{Priors on Parameters of the Site Models}
-
-\begin{framed}
-Navigate to the \mi{Priors} window.
-\end{framed}
-
-
-
-In the \mi{Priors} window, all of the  parameters and hyperparameters (and hyper-\textit{hyper}parameters, etc.) specific to the models defined in the \mi{Site Model} and \mi{Clock Model} windows are listed. 
-Here you can set up the prior distributions on these parameters, as well as define calibration nodes and calibration densities and specify a tree model. 
-One convenient feature of BEAUti is that the list of parameters changes dynamically as you change the models. Thus, if you missed a step along the way, you would notice at this point because something might be missing here. For example, if you did not change the substitution mode for \cl{cytb} from \mi{JC69} to \mi{GTR} in the \mi{Site Model} window, then you would not see the exchangeability rates and base frequency parameters listed for \cl{cytb}. 
-[Figure \ref{fig:priorPanel}]
-
-
-
+In the **Priors** window, all of the  parameters and hyperparameters (and _hyper_ -hyperparameters, etc.) specific to the models defined in the Site Model and Clock Model windows are listed. Here you can set up the prior distributions on these parameters, as well as define calibration nodes and calibration densities and specify a tree model. One convenient feature of BEAUti is that the list of parameters changes dynamically as you change the models. Thus, if you missed a step along the way, you would notice at this point because something might be missing here. For example, if you did not change the substitution mode for `cytb` from `JC69` to `GTR` in the **Site Model** window, then you would not see the exchangeability rates and base frequency parameters listed for `cytb`. 
 
 \begin{figure}[h!]
 \centering
@@ -282,31 +214,14 @@ One convenient feature of BEAUti is that the list of parameters changes dynamica
 \label{fig:priorPanel}
 \end{figure}
 
-In the \mi{Priors} panel we will begin by specifying priors for the parameters associated with the sites models.
-Since we partitioned the two genes, there are parameters for the two different models: 
-\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
-\item \cl{cytb}: exchangeability rates for the GTR model (\mi{rateAC.s:cytb}, \mi{rateAG.s:cytb}, $\ldots$)
-\item \cl{irbp}: the transition-transversion rate ratio (\mi{kappa.s:irbp}) and the shape parameter of the gamma distribution on site rates (\mi{gammaShape.s:irbp})
-\end{itemize}
-Note that the base frequencies for each of these models are not listed in the \mi{Priors} window, though they are estimated.
+In the Priors panel we will begin by specifying priors for the parameters associated with the sites models. Since we partitioned the two genes, there are parameters for the two different models: 
+- exchangeability rates for the GTR model (`rateAC.s:cytb`, `rateAG.s:cytb`, $\ldots$)
+- the transition-transversion rate ratio (`kappa.s:irbp`) and the shape parameter of the gamma distribution on site rates (`gammaShape.s:irbp`)
+Note that the base frequencies for each of these models are not listed, though they are estimated.
 
-We will keep the default priors for the HKY model on the evolution of \cl{irbp}. 
-The default gamma priors on the GTR exchangeability rates for the \cl{cytb} gene place a lot of prior density on very small values.
-For some datasets, the sequences might not be informative for some of the rates, consequentially the MCMC may propose values very close to zero and this can induce long mixing times. 
-Because of this problem, we will alter the gamma priors on the exchangeability rates. 
-For each one, we will keep the expected values as in the default priors.
-The default priors assume that transitions (A$\leftrightarrow$G or C$\leftrightarrow$T) have an expected rate of 1.0. 
-Remember that we fixed the parameter \mi{rateCT} to equal 1.0 in the \mi{Site Model} window, thus this parameter isn't in the \mi{Priors} window. 
-For all other rates, transversions, the expected value of the priors is lower: 0.5.
-In BEAST, the gamma distribution is parameterized by a shape parameter (\mi{Alpha}) and a scale parameter (\mi{Beta}). 
-Under this parameterization, expected value for any gamma distribution is: $\mathbb{E}(x) = \alpha\beta$.
-To reduce the prior density on very low values, we can increase the shape parameter and then we have to adjust the scale parameter accordingly.
+We will keep the default priors for the HKY model on the evolution of `irbp`. The default gamma priors on the GTR exchangeability rates for the `cytb` gene place a lot of prior density on very small values. For some datasets, the sequences might not be informative for some of the rates, consequentially the MCMC may propose values very close to zero and this can induce long mixing times. Because of this problem, we will alter the gamma priors on the exchangeability rates. For each one, we will keep the expected values as in the default priors. The default priors assume that transitions (A <- G or C <- T) have an expected rate of 1.0. Remember that we fixed the parameter **rateCT** to equal 1.0 in the **Site Model** window, thus this parameter isn't in the Priors window. For all other rates, transversions, the expected value of the priors is lower: 0.5. In BEAST2, the gamma distribution is parameterized by a shape parameter (**Alpha**) and a scale parameter (**Beta**). Under this parameterization, expected value for any gamma distribution is: $\mathbb{E}(x) = \alpha\beta$. To reduce the prior density on very low values, we can increase the shape parameter and then we have to adjust the scale parameter accordingly.
 
-\begin{framed}
-Begin by changing the gamma prior on the transition rate \mi{rateAG.s:cytb}. Clicking on the $\blacktriangleright$ next to this parameter name to reveal the prior options. Change the parameters: \mi{Alpha} = \cl{2} and \mi{Beta} = 0.5. [Figure \ref{screenGTRprior}, bottom]
-
-Then change all of the other rates: \mi{rateAC.s}, \mi{rateAT.s}, \mi{rateCG.s}, \mi{rateGT.s}. For each of these, change the parameters to:  \mi{Alpha} = \cl{2} and \mi{Beta} = 0.25. [Figure \ref{screenGTRprior}, top]
-\end{framed}
+>Begin by changing the gamma prior on the transition rate `rateAG.s:cytb`. Clicking on the black triangle next to this parameter name to reveal the prior options. Change the parameters: `Alpha` = 2 and `Beta` = 0.5. Then change all of the other rates, for `rateAC.s`, `rateAT.s`, `rateCG.s`, and `rateGT.s`, to  `Alpha` = 2 and `Beta` = 0.25.
 
 \begin{figure}[h!]
 \centering
@@ -315,11 +230,7 @@ Then change all of the other rates: \mi{rateAC.s}, \mi{rateAT.s}, \mi{rateCG.s},
 \label{screenGTRprior}
 \end{figure}
 
-
-
-\bigskip
-\subsubsection{Priors for the Clock Model}
-
+### Priors for the Clock Model
 
 Since we are assuming that the branch rates are drawn from a lognormal distribution, this induces two hyperparameters: the mean and standard deviation (\mi{ORCucldMean.c} and \mi{ORCsigma.c} respectively). 
 By default, the prior distribution on the \mi{ORCucldMean.c} parameter is an improper, uniform distribution on the interval ($0,\infty$). 
