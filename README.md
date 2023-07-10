@@ -221,7 +221,7 @@ Note that the base frequencies for each of these models are not listed, though t
 
 We will keep the default priors for the HKY model on the evolution of `irbp`. The default gamma priors on the GTR exchangeability rates for the `cytb` gene place a lot of prior density on very small values. For some datasets, the sequences might not be informative for some of the rates, consequentially the MCMC may propose values very close to zero and this can induce long mixing times. Because of this problem, we will alter the gamma priors on the exchangeability rates. For each one, we will keep the expected values as in the default priors. The default priors assume that transitions (A <- G or C <- T) have an expected rate of 1.0. Remember that we fixed the parameter **rateCT** to equal 1.0 in the **Site Model** window, thus this parameter isn't in the Priors window. For all other rates, transversions, the expected value of the priors is lower: 0.5. In BEAST2, the gamma distribution is parameterized by a shape parameter (**Alpha**) and a scale parameter (**Beta**). Under this parameterization, expected value for any gamma distribution is: $\mathbb{E}(x) = \alpha\beta$. To reduce the prior density on very low values, we can increase the shape parameter and then we have to adjust the scale parameter accordingly.
 
->Begin by changing the gamma prior on the transition rate `rateAG.s:cytb`. Clicking on the black triangle next to this parameter name to reveal the prior options. Change the parameters: `Alpha` = 2 and `Beta` = 0.5. Then change all of the other rates, for `rateAC.s`, `rateAT.s`, `rateCG.s`, and `rateGT.s`, to  `Alpha` = 2 and `Beta` = 0.25.
+>Begin by changing the gamma prior on the transition rate `rateAG.s:cytb`. Clicking on the $\blacktriangleright$ next to this parameter name to reveal the prior options. Change the parameters: `Alpha` = 2 and `Beta` = 0.5. Then change all of the other rates, for `rateAC.s`, `rateAT.s`, `rateCG.s`, and `rateGT.s`, to  `Alpha` = 2 and `Beta` = 0.25.
 
 \begin{figure}[h!]
 \centering
@@ -232,13 +232,9 @@ We will keep the default priors for the HKY model on the evolution of `irbp`. Th
 
 ### Priors for the Clock Model
 
-Since we are assuming that the branch rates are drawn from a lognormal distribution, this induces two hyperparameters: the mean and standard deviation (\mi{ORCucldMean.c} and \mi{ORCsigma.c} respectively). 
-By default, the prior distribution on the \mi{ORCucldMean.c} parameter is an improper, uniform distribution on the interval ($0,\infty$). 
-Note that this type of prior is called improper because the prior density of a \textit{uniform} distribution with infinite bounds does not integrate to $1$. Although improper priors can sometimes lead to proper posterior distributions, they may also have undesired effects and cause problems with mixing and convergence. 
-\begin{framed}
-Reveal the options for the prior on \mi{ORCucldMean.c} by clicking on the $\blacktriangleright$. Change the prior density to an \mi{Exponential} with a mean of \cl{10.0}. [Figure \ref{setPriorUCLD}]
-\end{framed}
-%%% More info needed here
+Since we are assuming that the branch rates are drawn from a lognormal distribution, this induces two hyperparameters: the mean and standard deviation (**ORCucldMean.c** and **ORCsigma.c** respectively). By default, the prior distribution on the `ORCucldMean.c` parameter is an improper, uniform distribution on the interval ($0,\infty$). Note that this type of prior is called improper because the prior density of a _uniform_ distribution with infinite bounds does not integrate to 1. Although improper priors can sometimes lead to proper posterior distributions, they may also have undesired effects and cause problems with mixing and convergence. 
+
+>Reveal the options for the prior on **ORCucldMean.c** by clicking on the $\blacktriangleright$. Change the prior density to an **Exponential** with a mean of **10.0**.
 
 \begin{figure}[h!]
 \centering
@@ -247,12 +243,9 @@ Reveal the options for the prior on \mi{ORCucldMean.c} by clicking on the $\blac
 \label{setPriorUCLD}
 \end{figure}
 
-The other parameter of our relaxed-clock model is, by default assigned a gamma prior distribution. 
-However, we have a strong prior belief that the variation in substitution rates among branches is low, since some previous studies have indicated that the rates of molecular evolution in bears is somewhat clock-like \citep{krause2008}. 
-Thus, we will assume an exponential prior distribution with 95\% of the probability density on values less than 1 for the \mi{ORCsigma.c} parameter.
-\begin{framed}
-Reveal the options for the prior on \mi{ORCsigma.c} by clicking on the $\blacktriangleright$. Change the prior density to an \mi{Exponential} with a mean of \cl{0.3337}. [Figure \ref{setPriorUCLDSTDV}]
-\end{framed}
+The other parameter of our relaxed-clock model is, by default assigned a gamma prior distribution. However, we have a strong prior belief that the variation in substitution rates among branches is low, since some previous studies have indicated that the rates of molecular evolution in bears is somewhat clock-like {% cite krause2008}. Thus, we will assume an exponential prior distribution with 95\% of the probability density on values less than 1 for the `ORCsigma.c` parameter.
+
+>Reveal the options for the prior on `ORCsigma.c` by clicking on the $\blacktriangleright$. Change the prior density to an **Exponential** with a mean of **0.3337**.
 
 \begin{figure}[h!]
 \centering
@@ -261,39 +254,23 @@ Reveal the options for the prior on \mi{ORCsigma.c} by clicking on the $\blacktr
 \label{setPriorUCLDSTDV}
 \end{figure}
 
+### The Tree Prior
 
-\bigskip
-\subsubsection{The Tree Prior}
+Next we will specify the prior distribution on the tree topology and branching times. You should notice an error notification (a red circle with an ``X'' in it) in the **Priors** panel to the left of **Tree.t:bearsTree**. If you mouse over this notification, you will se a message telling you that the default **Yule Model** is not appropriate for non-contemporaneous tips and that you must choose a different tree prior. Thus, here is where we specify the `fossilized birth-death process`.
 
-Next we will specify the prior distribution on the tree topology and branching times. 
-You should notice an error notification (a red circle with an ``X'' in it) in the \mi{Priors} panel to the left of \mi{Tree.t:bearsTree} (Figure \ref{fig:priorPanel}). 
-If you mouse over this notification, you will se a message telling you that the default \mi{Yule Model} is not appropriate for non-contemporaneous tips and that you must choose a different tree prior.
-Thus, here is where we specify the \textit{fossilized birth-death process}.
-\begin{framed}
-Change the tree model for \mi{Tree.t:bearsTree} to \mi{Fossilized Birth Death Model}. %[Figure \ref{selectFBD}]
+>Change the tree model for `Tree.t:bearsTree` to **Fossilized Birth Death Model**. Reveal the options for the prior on `Tree.t` by clicking on the $\blacktriangleright$. 
 
-Reveal the options for the prior on \mi{Tree.t} by clicking on the $\blacktriangleright$. 
-\end{framed}
-%
 %\begin{figure}[h!]
 %\centering
 %\fbox{\includegraphics[width=3.5in]{figures/select_FBD.eps}}
 %\caption{\small The tree priors available for specification in BEAUti.}
 %\label{selectFBD}
 %\end{figure}
-
-\textsc{Origin Time} --- In Section \ref{FBDSection}, the parameters of the FBD model are given. 
+ 
 Remember that this model, like any branching process (i.e., constant rate birth-death, Yule) can be conditioned on either the origin time or the root age.
-Depending on the available prior information or the type of data available, it makes sense to condition on one or the other (but not both, obviously). 
-If you know that all of the fossils in your dataset are \textit{crown} fossils---descendants of the MRCA of all the extant taxa---and you have some prior knowledge of the age of the clade, then it is reasonable to condition the FBD on the root. 
-Alternatively, if the fossils in your analysis are stem fossils, or can only reliably be assigned to your total group, then it is appropriate to condition on the origin age.
+Depending on the available prior information or the type of data available, it makes sense to condition on one or the other (but not both, obviously). If you know that all of the fossils in your dataset are _crown_ fossils---descendants of the MRCA of all the extant taxa---and you have some prior knowledge of the age of the clade, then it is reasonable to condition the FBD on the root. Alternatively, if the fossils in your analysis are stem fossils, or can only reliably be assigned to your total group, then it is appropriate to condition on the origin age. For this analysis, we have several bear fossils that are considered stem fossils, thus we will condition on the origin age. Previous studies {% cite dosReis2012} estimated an age of approximately 45.5 My for the MRCA of seals and bears. We will use this time as a starting value for the origin. 
 
-For this analysis, we have several bear fossils that are considered stem fossils, thus we will condition on the origin age. 
-Previous studies \citep{dosReis2012} estimated an age of approximately 45.5 My for the MRCA of seals and bears. 
-We will use this time as a starting value for the origin. 
-\begin{framed}
-Set the starting value of the \mi{Origin} to 45.5 and specify that this parameter will be estimated by checking the \mi{estimate} box. (You may have to expand the width of the BEAUti window to see the check-boxes for these parameters.) [Figure \ref{fullFBD}]
-\end{framed}
+>Set the starting value of the **Origin** to 45.5 and specify that this parameter will be estimated by checking the **estimate** box. (You may have to expand the width of the BEAUti window to see the check-boxes for these parameters.)
 
 \begin{figure}[h!]
 \centering
@@ -304,15 +281,9 @@ Set the starting value of the \mi{Origin} to 45.5 and specify that this paramete
 
 Since we are estimating the origin parameter, we must assign a prior distribution to it (unless we wish to keep the default Uniform(0,$\infty$) prior).
 We will assume that the origin time is drawn from a lognormal distribution with an expected value (mean) equal to 45.5 My and a standard deviation of 1.0.
-\begin{framed}
-Reveal the options for the prior on \mi{originFBD.t} by clicking on the $\blacktriangleright$.
 
-Change the prior distribution to \mi{Log Normal}.
+>Reveal the options for the prior on `originFBD.t` by clicking on the $\blacktriangleright$. Change the prior distribution to **Log Normal**. Check the box marked **Mean In Real Space** and set the mean `M` equal to 8.5 and the standard deviation `S` to 1.0. Set the **Offset** of the lognormal distribution to  equal the age of the oldest fossil: **37.0**.
 
-Check the box marked \mi{Mean In Real Space} and set the mean \mi{M} equal to \cl{8.5} and the standard deviation \mi{S} to \cl{1.0}.
-
-Set the \mi{Offset} of the lognormal distribution to  equal the age of the oldest fossil: \cl{37.0}. [Figure \ref{priorOrigin}]
-\end{framed}
 \begin{figure}[h!]
 \centering
 \fbox{\includegraphics[width=2.5in,angle=-90]{figures/ln_den.pdf}}
@@ -320,25 +291,12 @@ Set the \mi{Offset} of the lognormal distribution to  equal the age of the oldes
 \label{priorOrigin}
 \end{figure}
 
-Notice that the options for the \mi{Log Normal} prior distribution allow you to specify \mi{Mean in Real Space}. If you choose this option, then the mean value you enter is the expected value of the lognormal distribution. 
-We used this option above to specify an expected value of 8.5 My.
-You will create the exact same prior distribution if you uncheck the \mi{Mean in Real Space} option and enter the location parameter $\mu$ of the distribution and give it a value of \cl{1.640066}.
-It is important that you are very careful when specifying these parameters. If, for example, \mi{Mean in Real Space} was not checked and you provided a value of \cl{8.5} for \mi{M}, then your calibration prior would be extremely diffuse, with a \textit{mean} value of 8,140.084!
+Notice that the options for the **Log Normal** prior distribution allow you to specify **Mean in Real Space**. If you choose this option, then the mean value you enter is the expected value of the lognormal distribution. We used this option above to specify an expected value of 8.5 My. You will create the exact same prior distribution if you uncheck the **Mean in Real Space** option and enter the location parameter $\mu$ of the distribution and give it a value of `1.640066`.
+It is important that you are very careful when specifying these parameters.
 
+Earlier we discussed that the diversification rate is: $d = \lambda-\mu$. Generally, we think that this value is fairly small, particularly since we have few extant species and many fossils. Therefore, an exponential distribution is a reasonable prior for this parameter as it places the highest probability on zero. For this analysis we will assume $d\sim$ Exponential(1.0). The exponential distribution's only parameter is called the _rate_ parameter (denoted $\nu$) and it controls both the mean and variance of the distribution (here $\nu=1$). The mean of an exponential distribution is the inverse of the rate: $\mathbb{E}(d) = \nu^{-1} = 1$. Importantly, in BEAUti/BEAST, when specifying an exponential prior, you provide the _mean_ and not the rate parameter.
 
-\textsc{Diversification Rate} --- In Section \ref{FBDSection}, we discussed that the diversification rate is: $d = \lambda-\mu$. 
-Generally, we think that this value is fairly small, particularly since we have few extant species and many fossils. 
-Therefore, an exponential distribution is a reasonable prior for this parameter as it places the highest probability on zero. 
-For this analysis we will assume $d\sim$ Exponential(1.0). 
-The exponential distribution's only parameter is called the \textit{rate} parameter (denoted $\nu$) and it controls both the mean and variance of the distribution (here $\nu=1$).
-The mean of an exponential distribution is the inverse of the rate: $\mathbb{E}(d) = \nu^{-1} = 1$.
-Importantly, in BEAUti/BEAST, when specifying an exponential prior, you provide the \textit{mean} and not the rate parameter.
-\begin{framed}
-Reveal the options for the prior on \mi{diversificationRateFBD.t} by clicking on the $\blacktriangleright$.
-
-Change the prior distribution to \mi{Exponential} with a \mi{Mean} equal to \cl{1.0}. [Figure \ref{priorSampProp}A]
-\end{framed}
-
+>Reveal the options for the prior on `diversificationRateFBD.t` by clicking on the $\blacktriangleright$. Change the prior distribution to **Exponential** with a `Mean` equal to 1.0.
 
 \begin{figure}[h!]
 \centering
@@ -347,58 +305,23 @@ Change the prior distribution to \mi{Exponential} with a \mi{Mean} equal to \cl{
 \label{priorSampProp}
 \end{figure}
 
+The sampling proportion is the probability of observing a lineage as a fossil before that lineage goes extinct. This parameter is a function of the extinction rate ($\mu$) and fossil recovery rate ($\psi$): $s=\psi / (\mu+\psi)$. Let's say that we have prior knowledge that this parameter is approximately equal to 0.5, and that we wish extreme values (very close to 0 or 1) to have low probability. This prior density can be described with a beta distribution. The [beta distribution](http://en.wikipedia.org/wiki/Beta_distribution) is a probability density over values between 0 and 1 and is parameterized by two values, called $\alpha$ and $\beta$. A beta distribution with $\alpha=\beta=1$ is equivalent to a uniform distribution between 0 and 1. By changing the parameters, we can assign higher probability to values closer to 1 or 0. The mean of the beta distribution on $s$ is: $\mathbb{E}(s) = \frac{\alpha}{\alpha+\beta}$. Thus, if $\alpha=\beta$, then $\mathbb{E}(s) = 0.5$. For this prior we will set $\alpha=\beta=2$.
 
+>Reveal the options for the prior on `samplingProportionFBD.t` by clicking on the $\blacktriangleright$. Change the prior distribution to **Beta** with `Alpha` equal to 2.0 and `Beta` equal to 2.0.
 
-\textsc{Sampling Proportion} --- The sampling proportion is the probability of observing a lineage as a fossil before that lineage goes extinct. 
-This parameter is a function of the extinction rate ($\mu$) and fossil recovery rate ($\psi$): $s=\psi / (\mu+\psi)$.
-Let's say that we have prior knowledge that this parameter is approximately equal to 0.5, and that we wish extreme values (very close to 0 or 1) to have low probability. 
-This prior density can be described with a beta distribution.
-The \href{http://en.wikipedia.org/wiki/Beta_distribution}{beta distribution} is a probability density over values between 0 and 1 and is parameterized by two values, called $\alpha$ and $\beta$. 
-A beta distribution with $\alpha=\beta=1$ is equivalent to a uniform distribution between 0 and 1.
-By changing the parameters, we can assign higher probability to values closer to 1 or 0. 
-The mean of the beta distribution on $s$ is: $\mathbb{E}(s) = \frac{\alpha}{\alpha+\beta}$.
-Thus, if $\alpha=\beta$, then $\mathbb{E}(s) = 0.5$.
-For this prior we will set $\alpha=\beta=2$.
-\begin{framed}
-Reveal the options for the prior on \mi{samplingProportionFBD.t} by clicking on the $\blacktriangleright$.
+The parameter $\rho$ (**Rho**) represents the probability of sampling a tip in the present. For most birth-death processes, it is helpful to be able to fix or place a very strong prior on one of the parameters ($\lambda, \mu,\rho,\psi$) because of the strong correlations that exist among them. Typically, we may have the most prior knowledge about the proportion of sampled extant species ($\rho$). The diversity of living bears is very well understood and we know that there are only 8 species around today. Since we have sequence data representing each species, we can then fix $\rho=1$, thus we do not need to specify a prior for this parameter.
 
-Change the prior distribution to \mi{Beta} with \mi{Alpha} equal to \cl{2.0} and \mi{Beta} equal to \cl{2.0}. [Figure \ref{priorSampProp}B]
-\end{framed}
+The **turnover** parameter represents the relative rate of extinction: $r = \mu/\lambda$. For most implementations of the birth-death process, we assume that $\mu < \lambda$, thus this parameter is always $r < 1$. Large values of $r$ that are close to 1.0, indicate high extinction, and values close to 0, indicate very little extinction. It is more challenging to define an appropriate prior for the turnover parameter and we will simply assume that all values on the interval [0,1] have equal probability. Thus, we can leave the default prior, a Uniform(0,1), on this parameter.
 
-%The remaining parameters of the FBD model include the probability of sampling an extant tip (\mi{Rho} or $\rho$) and the \mi{Turnover} (\mi{turnoverFBD} or $r=\mu/\lambda$).
-\textsc{The Proportion of Sampled Extant Species} --- The parameter $\rho$ (\mi{Rho}) represents the probability of sampling a tip in the present. 
-For most birth-death processes, it is helpful to be able to fix or place a very strong prior on one of the parameters ($\lambda, \mu,\rho,\psi$) because of the strong correlations that exist among them. 
-Typically, we may have the most prior knowledge about the proportion of sampled extant species ($\rho$). 
-The diversity of living bears is very well understood and we know that there are only 8 species around today.
-Since we have sequence data representing each species, we can then fix $\rho=1$, thus we do not need to specify a prior for this parameter.
+### Creating Taxon Sets
 
-\textsc{Turnover} --- This parameter represents the relative rate of extinction: $r = \mu/\lambda$.
-For most implementations of the birth-death process, we assume that $\mu < \lambda$, thus this parameter is always $r < 1$. 
-Large values of $r$ that are close to 1.0, indicate high extinction, and values close to 0, indicate very little extinction.
-It is more challenging to define an appropriate prior for the turnover parameter and we will simply assume that all values on the interval [0,1] have equal probability. 
-Thus, we can leave the default prior, a Uniform(0,1), on this parameter.
+Since some of the relationships of the fossil and living bears are well understood (from previous analyses of molecular and morphological data), we can incorporate this prior information by creating monophyletic taxon sets in BEAUti. If we do not impose any phylogenetic structure on the fossil lineages, they will have equal probability of attaching to any branch in the tree. Given that previous studies have provided information about the relationships of fossil bears, we can limit the MCMC to only sample within the known groups. For example, morphological analysis of fossil taxa place the sequoias _Kretzoiarctos beatrix_ and several others in the subfamily Ailuropodinae, which includes pandas. Thus, if we create a monophyletic taxon set containing these taxa (_Ailuropoda melanoleuca, Indarctos vireti, Indarctos arctoides, Indarctos punjabiensis, Ailurarctos lufengensis, Agriarctos spp., Kretzoiarctos beatrix_) the prior probability that _K. beatrix_ will attach to any lineage outside of this group is equal to 0.
 
-\bigskip
-\subsubsection{Creating Taxon Sets}
+There are five distinct clades within the phylogeny of bears that we can define, and four out of five of these clades are defined as taxon sets in one of the nexus files containing our sequences (**bears\_cytb\_fossils.nex**). The taxa represented in our dataset are in the _total group_ of bears. This includes all of the fossils that diverged before the most-recent-common-ancestor (MRCA) of all _living_ bears. These early diverging fossils are _stem_ lineages.
 
-Since some of the relationships of the fossil and living bears are well understood (from previous analyses of molecular and morphological data), we can incorporate this prior information by creating monophyletic taxon sets in BEAUti.
-If we do not impose any phylogenetic structure on the fossil lineages, they will have equal probability of attaching to any branch in the tree.
-Given that previous studies have provided information about the relationships of fossil bears, we can limit the MCMC to only sample within the known groups.
-For example, morphological analysis of fossil taxa place the sequoias \textit{Kretzoiarctos beatrix} and several others in the subfamily Ailuropodinae, which includes pandas.
-Thus, if we create a monophyletic taxon set containing these taxa (\textit{Ailuropoda melanoleuca, Indarctos vireti, Indarctos arctoides, Indarctos punjabiensis, Ailurarctos lufengensis, Agriarctos spp., Kretzoiarctos beatrix}) the prior probability that \textit{K.~beatrix} will attach to any lineage outside of this group is equal to 0.
+Four out of five of the taxon sets needed for this analysis have been specified in one of the nexus files containing our sequences. The first taxon set is the crown bears shown in Figure \ref{figtaxset1}. The crown bears include all living species of bears and all the fossils that are descended from the MRCA of living taxa (node 1 in Figure \ref{fig:clades}). The MRCA of all crown bears and stem lineages is represented by the root node of our tree (node R in Figure \ref{fig:clades}). We do not have to specify a taxon set for the root node.
 
-There are five distinct clades within the phylogeny of bears that we can define (see Figure \ref{fig:clades}), and four out of five of these clades are defined as taxon sets in one of the nexus files containing our sequences (\cl{bears\_cytb\_fossils.nex}).
-The taxa represented in our dataset are in the \textit{total group} of bears. This includes all of the fossils that diverged before the most-recent-common-ancestor (MRCA) of all \textit{living} bears. 
-These early diverging fossils are \textit{stem} lineages.
-
-
-%Four out of five of the taxon sets needed for this analysis have been specified in one of the nexus files containing our sequences (\cl{bears\_cytb\_fossils.nex}).
-The first taxon set is the crown bears shown in Figure \ref{figtaxset1}. 
-The crown bears include all living species of bears and all the fossils that are descended from the MRCA of living taxa (node 1 in Figure \ref{fig:clades}).
-The MRCA of all crown bears and stem lineages is represented by the root node of our tree (node R in Figure \ref{fig:clades}).
-We do not have to specify a taxon set for the root node.
-%Let's start by creating a taxon set representing the MRCA of crown bears (node 1 in Figure \ref{fig:clades}).
-
+Let's start by creating a taxon set representing the MRCA of crown bears.
 
 \begin{figure}[h!]
 \centering
@@ -407,22 +330,18 @@ We do not have to specify a taxon set for the root node.
 \label{figtaxset1}
 \end{figure}
 
-\begin{framed}
-If you view the file \cl{bears\_cytb\_fossils.nex} in your text editor, you will see the four taxon sets defined in the \cl{sets} block of the \cl{NEXUS} file.
+>If you view the file **bears\_cytb\_fossils.nex** in your text editor, you will see the four taxon sets defined in the **sets** block of the **NEXUS** file.
 
-\begin{lstlisting}
+```
 begin sets;
 taxset 1_CrownBears = Agriarctos_spp_5.0 ... Ursus_thibetanus_0;
 taxset 2_Pandas = Agriarctos_spp_5.0 ... Kretzoiarctos_beatrix_11.7;
 taxset 3_Tremarctinae = Arctodus_simus_0.5 Tremarctos_ornatus_0;
 taxset 4_Ursinae = Helarctos_malayanus_0 ... Ursus_thibetanus_0;
 end;
-\end{lstlisting}
+```
 
-When you have a \cl{taxset} in your data file, this creates a defined clade in BEAUti that is constrained to be monophyletic.
-
-You can also open the BEAUti taxon set for the crown bears by clicking the  \mi{1\_CrownBears.prior} button. This will bring up the \mi{Taxon set editor} where you can modify this taxon set (don't do that, though). [Figure \ref{screentaxset1}]
-\end{framed}
+When you have a `taxset` in your data file, this creates a defined clade in BEAUti that is constrained to be monophyletic. You can also open the BEAUti taxon set for the crown bears by clicking the  **1\_CrownBears.prior** button. This will bring up the **Taxon set editor** where you can modify this taxon set (don't do that, though).
 
 \begin{figure}[h!]
 \centering
@@ -431,8 +350,7 @@ You can also open the BEAUti taxon set for the crown bears by clicking the  \mi{
 \label{screentaxset1}
 \end{figure}
 
-The second node defined in our \cl{NEXUS} file is the MRCA of all species within the subfamily Ailuropodinae. 
-This group includes the giant panda (\textit{Aliuropoda melanoleuca}) and six fossil relatives (Figure \ref{figtaxset2}).
+The second node defined in our NEXUS file is the MRCA of all species within the subfamily Ailuropodinae. This group includes the giant panda (_Aliuropoda melanoleuca_) and six fossil relatives.
 
 \begin{figure}[h!]
 \centering
@@ -441,13 +359,7 @@ This group includes the giant panda (\textit{Aliuropoda melanoleuca}) and six fo
 \label{figtaxset2}
 \end{figure}
 
-%\begin{framed}
-%Create a new taxon set for node 2 by clicking the \fbox{\textbf{+}} and label it \cl{2\_Pandas}.
-%
-%Move all of the taxa listed in this clade (see Figure \ref{figtaxset2}) to the right-hand column and click \mi{OK}.
-%
-%Back in the \mi{Priors} window, check the box labeled \mi{monophyletic} for node 2.
-%\end{framed}
+>Create a new taxon set for node 2 by clicking the \fbox{\textbf{+}} and label it \cl{2\_Pandas}. Move all of the taxa listed in this clade (see Figure \ref{figtaxset2}) to the right-hand column and click \mi{OK}. Back in the \mi{Priors} window, check the box labeled \mi{monophyletic} for node 2.
 
 The subfamily Tremarctinae includes only the extant spectacled bear (\textit{Tremarctos ornatus}) and the short-faced bear (\textit{Arctodus simus}), shown in Figure \ref{figtaxset3}. 
 The occurrence time of the short-faced bear is only 500,000 years ago since it is known from the Pleistocene.
