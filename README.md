@@ -50,18 +50,10 @@ This tutorial will walk you through an analysis of the divergence times of the b
 ## The Data
 
 The data files and pre-cooked output files can be downloaded from the panel on the left. The analysis in this tutorial includes data from several different sources.
-We have molecular sequence data for eight extant species, which represent all of the living bear taxa. The sequence data include interphotoreceptor retinoid-binding protein (irbp) sequences (in the file **bears\_irbp\_fossils.nex**) and 1000 bps of the mitochondrial gene cytochrome b (in the file  **bears\_cytb\_fossils.nex**). If you open either of these files in your text editor or alignment viewer, you will notice that there are 22 taxa listed in each one, with most of these taxa associated with sequences that are entirely made up of missing data (i.e., **?????**).
-The NEXUS files contain the names of 14 fossil species, that we will include in our analysis as calibration information for the fossilized birth-death process. 
-Further, we must provide an occurrence time for each taxon sampled from the fossil record. For the fossil species, this information is obtained from the literature or fossil databases like the [Paleobiology Database](http://paleobiodb.org/) or the [Fossil Calibration Database](http://fossilcalibrations.org/), or from your own paleontological expertise. The 14 fossil species used in this analysis are listed in Table \ref{bearFossilTable} along with the age range for the specimen and relevant citation. For this exercise, we will fix the ages to a value within the age range provided in Table \ref{bearFossilTable}.
+We have molecular sequence data for eight extant species, which represent all of the living bear taxa. The sequence data include interphotoreceptor retinoid-binding protein (irbp) sequences (in the file **bears\_irbp\_fossils.nex**) and 1000 bps of the mitochondrial gene cytochrome b (in the file  **bears\_cytb\_fossils.nex**). If you open either of these files in your text editor or alignment viewer, you will notice that there are 22 taxa listed in each one, with most of these taxa associated with sequences that are entirely made up of missing data (i.e., **?????**). This is because the NEXUS files also contain the names of 14 fossil species, that we will include in our analysis as calibration information for the fossilized birth-death process.
+For these extinct taxa, we must provide an occurrence time for each taxon sampled from the fossil record. This information is obtained from the literature or fossil databases like the [Paleobiology Database](http://paleobiodb.org/) or the [Fossil Calibration Database](http://fossilcalibrations.org/), or from your own paleontological expertise. The 14 fossil species used in this analysis are listed in Table \ref{bearFossilTable} along with the age range for the specimen and relevant citation.
 
-In BEAST2, it is possible to use MCMC to sample the occurrence time for a fossil conditional on a prior distribution. \citet{baridosottani2019} found that sampling the fossil ages led to better estimates of divergence times than fixing them, thus in this tutorial we will sample the fossil ages.
-However, we still need an initial value for the age of each fossil, and we also need to fix the extant species to the present. For this purpose we will use the values that are encoded in the taxon name following the last `\cl{\_}' character. 
-For example, the fossil panda \textit{Kretzoiarctos beatrix} has an age between  11.2 Mya and 11.8 Mya, so we will set its initial age to 11.7 Mya. Thus the taxon name in the alignment files is: \cl{Kretzoiarctos\_beatrix\_11.7}.
-Similarly, since the polar bear, \textit{Ursus maritimus}, represents an extant species, its occurrence time is 0.0 Mya, which makes its taxon name: \cl{Ursus\_maritimus\_0}.
-By including the tip ages in the taxon names, we can easily import these values into BEAUti while setting up the XML file. 
-This is simply easier than entering them in by hand (which is also possible).
-
-%The data used in this tutorial include two alignment in files \cl{bears\_irbp.nex} contains interphotoreceptor retinoid-binding protein (irbp) sequences for each extant species.
+**Fix table**
 
 \begin{table}[tbh!]
 \centering
@@ -89,18 +81,12 @@ This is simply easier than entering them in by hand (which is also possible).
 \end{tabular}}
 \end{table}
 
-The final source of data required for our analysis is some information about the phylogenetic placement of the fossils. 
-This prior knowledge can come from previous studies of morphological data and taxonomy.
-Ideally, we would know exactly where in the phylogeny each fossil belongs. 
-However, this is uncommon for most groups in the fossil record. 
-Often, we can place a fossil with reasonable resolution by assigning it to some total group. 
-For example, if a fossil specimen has all of the identifying characters of a bear in the subfamily Ursinae, then, we can create a monophyletic group of all known Ursinae species and our fossil.
-Here, we would be assigning the fossil to the \textit{total group} Ursinae, meaning that the fossil can be a crown or stem fossil of this group. 
-For some fossils, we may have very little data to inform their placement in the tree and perhaps we may only know that it falls somewhere within our group of interest. 
-In this case, we can account for our uncertainty in the relationship of the fossil and all other taxa and allow MCMC to sample all possible places where the fossil can attach in the tree. 
+The final source of data required for our analysis is some information about the phylogenetic placement of the fossils. This prior knowledge can come from previous studies of morphological data and taxonomy. Ideally, we would like to know exactly where in the phylogeny each fossil belongs. However, this is uncommon for most groups in the fossil record. Often, we can place a fossil with reasonable resolution by assigning it to some total group. For example, if a fossil specimen has all of the identifying characters of a bear in the subfamily Ursinae, then, we can create a monophyletic group of all known Ursinae species and our fossil. Here, we would be assigning the fossil to the **total group Ursinae**, meaning that the fossil can be a crown or stem fossil of this group. For some fossils, we may have very little data to inform their placement in the tree and perhaps we may only know that it falls somewhere within our group of interest. In this case, we can account for our uncertainty in the relationship of the fossil and all other taxa and allow MCMC to sample all possible places where the fossil can attach in the tree. 
 For the bear species in our analysis, we have some prior knowledge about their relationships, represented as an unresolved phylogeny in Figure \ref{fig:clades}.
-Four out of five of the clades shown in Figure \ref{fig:clades} are defined in the NEXUS file \cl{bears\_cytb\_fossils.nex} as \cl{taxsets} in the \cl{sets} block. 
+Four out of five of the clades shown in Figure \ref{fig:clades} are defined in the NEXUS file **bears\_cytb\_fossils.nex** as **taxsets** in the **sets** block. 
 The one clade that is not included in the data file will be created using the BEAUti options. 
+
+**Fix figure**
 
 \begin{figure}[h!]
 \centering
