@@ -81,7 +81,7 @@ For these extinct taxa, we must provide an occurrence time for each taxon sample
 \end{tabular}}
 \end{table}
 
-The final source of data required for our analysis is some information about the phylogenetic placement of the fossils. This prior knowledge can come from previous studies of morphological data and taxonomy. Ideally, we would like to know exactly where in the phylogeny each fossil belongs. However, this is uncommon for most groups in the fossil record. Often, we can place a fossil with reasonable resolution by assigning it to some total group. For example, if a fossil specimen has all of the identifying characters of a bear in the subfamily Ursinae, then, we can create a monophyletic group of all known Ursinae species and our fossil. Here, we would be assigning the fossil to the **total group Ursinae**, meaning that the fossil can be a crown or stem fossil of this group. For some fossils, we may have very little data to inform their placement in the tree and perhaps we may only know that it falls somewhere within our group of interest. In this case, we can account for our uncertainty in the relationship of the fossil and all other taxa and allow MCMC to sample all possible places where the fossil can attach in the tree. 
+The final source of data required for our analysis is some information about the phylogenetic placement of the fossils. This prior knowledge can come from previous studies of morphological data and taxonomy. Ideally, we would like to know exactly where in the phylogeny each fossil belongs. However, this is uncommon for most groups in the fossil record. Often, we can place a fossil with reasonable resolution by assigning it to some total group. For example, if a fossil specimen has all of the identifying characters of a bear in the subfamily Ursinae, then, we can create a monophyletic group of all known Ursinae species and our fossil. Here, we would be assigning the fossil to the *total group Ursinae*, meaning that the fossil can be a crown or stem fossil of this group. For some fossils, we may have very little data to inform their placement in the tree and perhaps we may only know that it falls somewhere within our group of interest. In this case, we can account for our uncertainty in the relationship of the fossil and all other taxa and allow MCMC to sample all possible places where the fossil can attach in the tree. 
 For the bear species in our analysis, we have some prior knowledge about their relationships, represented as an unresolved phylogeny in Figure \ref{fig:clades}.
 Four out of five of the clades shown in Figure \ref{fig:clades} are defined in the NEXUS file **bears\_cytb\_fossils.nex** as **taxsets** in the **sets** block. 
 The one clade that is not included in the data file will be created using the BEAUti options. 
@@ -97,31 +97,17 @@ The extant lineages are shown with heavy, solid lines and the fossil lineages ar
 \end{figure}
 
 
-\bigskip
-\subsection{Creating the Analysis File with BEAUti}
+## Creating the Analysis File with BEAUti
 
-Creating a properly-formatted BEAST XML file from scratch is not a simple task. However, BEAUti provides a simple way to navigate the various elements specific to the BEAST XML format. 
+Creating a properly-formatted BEAST XML file from scratch is not a simple task. However, BEAUti provides a simple way to navigate the various elements specific to the BEAST XML format.
 
-\begin{framed}
-Begin by executing the BEAUti program
-\end{framed}
-Be sure that this is the version that came from the BEAST 2 download from: \href{http://beast2.org/}{http://beast2.org}. For Mac OSX and Windows, you can do this by double clicking on the application. For Unix systems (including Mac OSX), it is convenient to add the entire \cl{BEAST/bin} directory to your path.
+>Begin by executing the BEAUti program.
 
+## Install BEAST2 packages
 
-\bigskip
-\subsubsection{Install BEAST 2 Plug-Ins}
+Next, we have to install the BEAST 2 packages (also called ``plug-ins'' or ``add-ons'') that are needed for this analysis. The packages that we will use called **SA** and **ORC**.
 
-Next, we have to install the BEAST 2 packages (also called ``plug-ins'' or ``add-ons'') that are needed for this analysis. 
-The packages that we will use called \mi{SA} and \mi{ORC}.
-\begin{framed}
-Open the \mi{BEAST 2 Package Manager} by navigating to \mi{File\textrightarrow Manage Packages} in the menu. [Figure \ref{packageManage}]
-\end{framed}
-
-In the package manager, you can install all of the available plug-ins for BEAST 2. 
-These include a number of packages for analyses such as species delimitation (DISSECT, STACEY), population dynamics (MASTER), the phylodynamics of infectious disease (BDSKY, phylodynamics), etc. 
-\begin{framed}
-Install the \mi{SA} package by selecting it and clicking the \mi{Install/Upgrade} button. Do the same for the \mi{ORC} package. [Figure \ref{packageManage}]
-\end{framed}
+>Open the **Package Manager** by navigating to **File > Manage Packages** in the menu. Install the **SA** package by selecting it and clicking the **Install/Upgrade** button. Do the same for the **ORC** package.
 
 \begin{figure}[h!]
 \centering
@@ -130,46 +116,21 @@ Install the \mi{SA} package by selecting it and clicking the \mi{Install/Upgrade
 \label{packageManage}
 \end{figure}
 
-It is important to note that you only need to install a BEAST 2 package once, thus if you close BEAUti, you don't have to load these packages the next time you open the program. 
-However, it is worth checking the package manager for updates to plug-ins, particularly if you update your version of BEAST 2.
-\begin{framed}
-Close the \mi{BEAST 2 Package Manager} and {\textcolor{red}{\underline{\bf restart BEAUti}}} to fully load the \mi{SA} package.
-\end{framed}
+> Close the BEAST2 Package Manager and **restart BEAUti** to fully load the packages.
 
-\bigskip
-\subsubsection{Import Alignments}
+## Import Alignments
 
-\begin{framed}
-Navigate to the \mi{Partitions} window (you should already be here).
-\end{framed}
+Next we will load the alignment files for each of our genes. Note that separate loci can be imported as separate files or in a single NEXUS file with partitions defined using the **ASSUMPTIONS** command.
 
-Next we will load the alignment files for each of our genes. 
-Note that separate loci can be imported as separate files or in a single NEXUS file with partitions defined using the \cl{ASSUMPTIONS} command.
-\begin{framed}
-Using the menu commands \mi{File\textrightarrow Import Alignment}, import the data files:\\ \ \ \ \ \cl{bears\_irbp\_fossils.nex} and \cl{bears\_cytb\_fossils.nex} 
-\end{framed}
+>Navigate to the **Partitions** window (you should already be here). Using the menu commands **File > Import Alignment**, import the data files **bears\_irbp\_fossils.nex** and **bears\_cytb\_fossils.nex**. 
 
 Now that the data are loaded into BEAUti, we can unlink the site models, link the clock models, link the trees and rename these variables.
 
-\begin{framed}
-Highlight both partitions (using shift$+$click) and click on \mi{Unlink Site Models} to assume different models of sequence evolution for each gene (the partitions are typically already unlinked by default).
+> Highlight both partitions (using **shift and click**) and click on **Unlink Site Models** to assume different models of sequence evolution for each gene (the partitions are typically already unlinked by default). Click the **Link Clock Models** button so that the two genes have the same relative rates of substitution among branches. Finally click **Link Trees** to ensure that both partitions share the same tree topology and branching times.
 
-Now click the \mi{Link Clock Models} button so that the two genes have the same relative rates of substitution among branches.
+It is convenient to rename some of the variables in the **Partitions** window. By doing this, the parameters associated with each partition that are written to file are a bit more intuitively labeled.
 
-Finally click \mi{Link Trees} to ensure that both partitions share the same tree topology and branching times.
-\end{framed}
-
-It is convenient to rename some of the variables in the \mi{Partitions} window. 
-By doing this, the parameters associated with each partition that are written to file are a bit more intuitively labeled.
-\begin{framed}
-Double click on the site model for the cytochrome b gene, it is currently called \cl{bears\_cytb\_fossils}. Rename this: \cl{cytb}. (Note that you may have to hit the return or enter key after typing in the new label for the new name to be retained.)
-
-Do the same for the site model for the other gene, calling it \cl{irbp}.
-
-Rename the clock model \cl{bearsClock}.
-
-Rename the tree \cl{bearsTree}. [Figure \ref{importAlign}]
-\end{framed}
+>Double click on the site model for the cytochrome b gene, it is currently called **bears\_cytb\_fossils**. Rename this **cytb**. (Note that you may have to hit the return or enter key after typing in the new label for the new name to be retained.) Do the same for the site model for the other gene, calling it **irbp**. Rename the clock model **bearsClock**. Rename the tree **bearsTree**.
 
 \begin{figure}[h!]
 \centering
@@ -178,10 +139,7 @@ Rename the tree \cl{bearsTree}. [Figure \ref{importAlign}]
 \label{importAlign}
 \end{figure}
 
-Figure \ref{importAlign} shows how the final \mi{Partitions} window should look.
-
-\bigskip
-\subsubsection{Set Tip Dates}
+## Set Tip Dates
 
 \begin{framed}
 Navigate to the \mi{Tip Dates} panel.
