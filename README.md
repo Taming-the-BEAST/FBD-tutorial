@@ -560,35 +560,23 @@ When comparing the MCMC with data to those sampled just under the prior, we can 
 ### Summarizing the Trees in Treeannotator
 
 After reviewing the trace files from the two independent runs in Tracer and verifying that both runs converged on the posterior distributions and reached stationarity, we can combine the sampled trees into a single tree file and summarize the results.
-\begin{framed}
-Open the program LogCombiner and set the \mi{File type} to \mi{Tree Files}. Next, import the two tree files in the \cl{output} directory (\cl{bearsTree.1.trees} and \cl{bearsTree.2.trees}) using the \fbox{\textbf{+}} button. 
 
-Set a burn-in percentage of 20 for each file, thus discarding the first 20\% of the samples in each tree file. 
+>Open the program **LogCombiner** and set the **File type** to `Tree Files`. Next, import **bearsTree.1.trees** and **bearsTree.2.trees** using the **+** button. Set a burn-in percentage of 20 for each file, thus discarding the first 20\% of the samples in each tree file. 
 
-Both of these files have 50,000 trees, so it is helpful to thin the tree samples and summarize fewer states (to avoid hitting the maximum memory allotted for this program). Turn on \mi{Resample states at lower frequency} and set this value to 10000.
+Both of these files have 50,000 trees, so it is helpful to thin the tree samples and summarize fewer states (to avoid hitting the maximum memory allotted for this program).
 
-Click on the \mi{Choose file ...} button to create an output file and run the program. Name the file: \cl{bearsTree.combined.trees}.
-\end{framed}
+>Turn on **Resample states at lower frequency** and set this value to 10000.
+>Click on the **Choose file ...** button to create an output file and run the program. Name the file: **bearsTree.combined.trees**.
 
-Once LogCombiner has terminated, you will have a file containing 8,000 trees which can be summarized using TreeAnnotator. 
-TreeAnnotator takes a collection of trees and summarizes them by identifying the topology with the best support, calculating clade posterior probabilities, and calculating 95\% credible intervals for node-specific parameters. All of the node statistics are annotated on the tree topology for each node in the Newick string. 
+Once LogCombiner has terminated, you will have a file containing 8,000 trees which can be summarized using TreeAnnotator. TreeAnnotator takes a collection of trees and summarizes them by identifying the topology with the best support, calculating clade posterior probabilities, and calculating 95\% credible intervals for node-specific parameters. All of the node statistics are annotated on the tree topology for each node in the Newick string. 
 
-\begin{framed}
-Open the program TreeAnnotator. Since we already discarded a set of burn-in trees when combining the tree files, we can leave \mi{Burnin} set to \cl{0} (though, if TreeAnnotator is taking a long time to load the trees, click on the \mi{Low memory} option at the bottom left and set the burnin to 10--60\% to reduce the number of trees).
+>Open the program **TreeAnnotator**. Since we already discarded a set of burn-in trees when combining the tree files, we can leave `Burnin` set to 0 (though, if TreeAnnotator is taking a long time to load the trees, click on the **Low memory** option at the bottom left and set the burnin to 10--60\% to reduce the number of trees). For the **Target tree type**, choose **Maximum clade credibility tree**.
 
-For the \mi{Target tree type}, choose \mi{Maximum clade credibility tree}.
-\end{framed}
-The \mi{Maximum clade credibility tree} is the topology with the highest product of clade posterior probabilities across all nodes. Alternatively, you can select the \mi{Maximum sum of clade credibilities} which sums all of the clade posteriors. Or you can provide a target tree from file.
-The \mi{Posterior probability limit} option applies to summaries on a target tree topology and only calculates posteriors for nodes that are above the specified limit. 
+The **Maximum clade credibility tree** is the topology with the highest product of clade posterior probabilities across all nodes. Alternatively, you can select the **Maximum sum of clade credibilities** which sums all of the clade posteriors, or you can provide a target tree from file. The **Posterior probability limit** option applies to summaries on a target tree topology and only calculates posteriors for nodes that are above the specified limit. 
 
-\begin{framed}
-Choose \mi{Median heights} or \mi{Mean heights} for \mi{Node heights} which will set the node heights of the output tree to equal the median or mean height for each node in the sample of trees.
+>Choose **Median heights** for **Node heights** which will set the node heights of the output tree to equal the median height for each node in the sample of trees. Choose **bearsTree.combined.trees** as your **Input Tree File**. Then name the **Output File** `bearsTree.summary.tre` and click **Run**. 
 
-Choose \cl{bearsTree.combined.trees} as your \mi{Input Tree File}. Then name the \mi{Output File:} \cl{bearsTree.summary.tre} and click \mi{Run}. 
-\end{framed}
-
-\bigskip
-\subsubsection{Visualizing the Dated Tree}
+### Visualizing the Dated Tree
 
 The tree file produced by TreeAnnotator contains the maximum clade credibility tree and is annotated with summaries of the various parameters.
 \begin{framed}
