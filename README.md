@@ -359,10 +359,9 @@ The second node defined in our NEXUS file is the MRCA of all species within the 
 \label{figtaxset2}
 \end{figure}
 
->Create a new taxon set for node 2 by clicking the \fbox{\textbf{+}} and label it \cl{2\_Pandas}. Move all of the taxa listed in this clade (see Figure \ref{figtaxset2}) to the right-hand column and click \mi{OK}. Back in the \mi{Priors} window, check the box labeled \mi{monophyletic} for node 2.
+>Create a new taxon set for node 2 by clicking the **+** and label it **2\_Pandas**. Move all of the taxa listed in this clade to the right-hand column and click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 2.
 
-The subfamily Tremarctinae includes only the extant spectacled bear (\textit{Tremarctos ornatus}) and the short-faced bear (\textit{Arctodus simus}), shown in Figure \ref{figtaxset3}. 
-The occurrence time of the short-faced bear is only 500,000 years ago since it is known from the Pleistocene.
+The subfamily Tremarctinae includes only the extant spectacled bear (_Tremarctos ornatus_) and the short-faced bear (_Arctodus simus_). The occurrence time of the short-faced bear is only 500,000 years ago since it is known from the Pleistocene.
 
 \begin{figure}[h!]
 \centering
@@ -371,16 +370,9 @@ The occurrence time of the short-faced bear is only 500,000 years ago since it i
 \label{figtaxset3}
 \end{figure}
 
-%\begin{framed}
-%Create a new taxon set for node 3 by clicking the \fbox{\textbf{+}} and label it \cl{3\_Tremarctinae}.
-%
-%Move both species listed in this clade (see Figure \ref{figtaxset3}) to the right-hand column and click \mi{OK}.
-%
-%Back in the \mi{Priors} window, check the box labeled \mi{monophyletic} for node 3.
-%\end{framed}
+>Create a new taxon set for node 3 by clicking the **+** and label it **3\_Tremarctinae**. Move both species listed in this clade to the right-hand column and click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 3.
 
-The subfamily Ursinae comprises all of the species in the genus \textit{Ursus} (including two fossil species) as well as the sun bear (\textit{Helarctos malayanus}) and the sloth bear (\textit{Melursus ursinus}). 
-These species are listed in Figure \ref{figtaxset4}.
+The subfamily Ursinae comprises all of the species in the genus _Ursus_ (including two fossil species) as well as the sun bear (_Helarctos malayanus_) and the sloth bear (_Melursus ursinus_).
 
 \begin{figure}[h!]
 \centering
@@ -389,18 +381,9 @@ These species are listed in Figure \ref{figtaxset4}.
 \label{figtaxset4}
 \end{figure}
 
-%\begin{framed}
-%Create a new taxon set for node 4 by clicking the \fbox{\textbf{+}} and label it \cl{4\_Ursinae}.
-%
-%Move all of the taxa listed in this clade (see Figure \ref{figtaxset4}) to the right-hand column and click \mi{OK}.
-%
-%Back in the \mi{Priors} window, check the box labeled \mi{monophyletic} for node 4.
-%\end{framed}
+>Create a new taxon set for node 4 by clicking the \fbox{\textbf{+}} and label it **4\_Ursinae**. Move all of the taxa listed in this clade to the right-hand column and click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 4.
 
-Finally, multiple studies using molecular data have shown that the polar bear (\textit{Ursus maritimus}) and the brown bear (\textit{Ursus arctos}) are closely related.
-Furthermore, phylogenetic analyses of ancient DNA from Pleistocene sub-fossils concluded that the cave bear (\textit{Ursus spelaeus}) is closely related to the polar bear and the brown bear (Figure \ref{figtaxset5}).
-This taxon set is not included in our \cl{NEXUS} file, so we must define it using BEAUti.
-
+Finally, multiple studies using molecular data have shown that the polar bear (_Ursus maritimus_) and the brown bear (_Ursus arctos_) are closely related. Furthermore, phylogenetic analyses of ancient DNA from Pleistocene sub-fossils concluded that the cave bear (_Ursus spelaeus_) is closely related to the polar bear and the brown bear. This taxon set is not included in our `NEXUS` file, so we must define it using BEAUti.
 
 \begin{figure}[h!]
 \centering
@@ -409,15 +392,7 @@ This taxon set is not included in our \cl{NEXUS} file, so we must define it usin
 \label{figtaxset5}
 \end{figure}
 
-\begin{framed}
-Create a new taxon set for node 5 by clicking the \fbox{\textbf{+}} and select \mi{MRCA prior} in the pop-up option box.
-
-Label this taxon set \cl{5\_BrownBears}.
-
-Move all of the taxa listed in this clade (Figure \ref{figtaxset5}) to the right-hand column, click \mi{OK} [Figure \ref{screentaxsetBB}].
-
-Back in the \mi{Priors} window, check the box labeled \mi{monophyletic} for node 5.
-\end{framed}
+>Create a new taxon set for node 5 by clicking the **+** and select **MRCA prior** in the pop-up option box. Label this taxon set **5\_BrownBears**. Move all of the taxa listed in this clade to the right-hand column, click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 5.
 
 \begin{figure}[h!]
 \centering
@@ -426,10 +401,9 @@ Back in the \mi{Priors} window, check the box labeled \mi{monophyletic} for node
 \label{screentaxsetBB}
 \end{figure}
 
-At this point, there should be five, monophyletic taxon sets listed in the \mi{Priors} window. 
+At this point, there should be five, monophyletic taxon sets listed in the **Priors** window. 
 
-\bigskip
-\subsubsection{Sampling the fossil ages}
+### Sampling the fossil ages
 
 In order to sample the age of fossil specimens, we need to specify a prior distribution for these ages. The age ranges for our fossil samples are shown in Table \ref{bearFossilTable2}. Since we have no prior knowledge on where the true age of the specimen lies in the range, we will use a uniform distribution as prior for each fossil. 
 
@@ -461,13 +435,7 @@ In order to sample the age of fossil specimens, we need to specify a prior distr
 
 To add a prior on the age of a tip, we first need to define a taxon set containing only this tip. 
 
-\begin{framed}
-Create a new taxon set for tip \textit{Agriarctos spp.} by clicking the \fbox{\textbf{+}} and selecting \mi{MRCA prior} in the pop-up option box.
-
-Label the taxon set \cl{Agriarctos\_spp}.
-
-Move the taxon \cl{Agriarctos\_spp\_5.0} to the right-hand side column, click \mi{OK} [Figure \ref{screentaxsettip}].
-\end{framed}
+>Create a new taxon set for tip _Agriarctos spp._ by clicking the **+** and selecting **MRCA prior** in the pop-up option box. Label the taxon set **Agriarctos\_spp**. Move the taxon **Agriarctos\_spp\_5.0** to the right-hand side column, click **OK**.
 
 \begin{figure}[h!]
 \centering
@@ -478,13 +446,8 @@ Move the taxon \cl{Agriarctos\_spp\_5.0} to the right-hand side column, click \m
 
 We then need to specify the prior distribution for that tip.
 
-\begin{framed}
-Back in the \mi{Priors} window, reveal the options for the prior on the age of \mi{Agriarctos\_spp} by clicking on the $\blacktriangleright$.
-
-Change the prior distribution to \mi{Uniform}, with a \mi{Lower} value equal to \cl{4.9} and an \mi{Upper} value equal to \cl{7.75}.
-
-Check the box labeled \mi{Tipsonly}. [Figure \ref{priorTipAge}]
-\end{framed}
+>Back in the **Priors** window, reveal the options for the prior on the age of **Agriarctos\_spp** by clicking on the $\blacktriangleright$. Change the prior distribution to **Uniform**, with a **Lower** value equal to 4.9 and an **Upper** value equal to 7.75. Check the box labeled **Tipsonly**.
+>This procedure needs to be repeated for each of the 14 fossils in our dataset.
 
 \begin{figure}[h!]
 \centering
@@ -492,8 +455,6 @@ Check the box labeled \mi{Tipsonly}. [Figure \ref{priorTipAge}]
 \caption{\small The \mi{Priors} window showing the prior set on the age of the \textit{Agriarctos spp.} fossil.}
 \label{priorTipAge}
 \end{figure}
-
-This procedure needs to be repeated for each of the 14 fossils in our dataset [Figure \ref{priorsAllTips}]. 
 
 \begin{figure}[h!]
 \centering
@@ -504,168 +465,73 @@ This procedure needs to be repeated for each of the 14 fossils in our dataset [F
 
 Unfortunately, sampling fossil ages cannot be set up purely in BEAUti at the moment. The last step of the procedure will be performed after we save the XML files.
 
-\bigskip
-\subsubsection{Other BEAUti Options}
+### Set MCMC Options and Save the XML File
 
-There are two additional windows that are hidden in BEAUti by default. You can reveal them by selecting \mi{View\textrightarrow View All} from the pull-down menu above. 
-This will reveal the \mi{Initialization} and \mi{Operators} panels. 
-The \mi{Initialization} options allow you to change the starting values for the various parameters and specify if you want them estimated or fixed.
-The \mi{Operators} menu contains a list of the parameters and hyperparameters that will be sampled over the course of the MCMC run. In this window, it is possible to turn off any of the elements listed to fix a given parameter to its starting value. For example, if you would like to estimate divergence times on a fixed tree topology (using a starting tree that you provided), then disable proposals operating on the \cl{Tree}. For this exercise, leave both windows unmodified. 
+Now that you have specified all of your data elements, models, priors, and operators, go to the **MCMC** tab to set the length of the Markov chain, sample frequency, and file names.
 
+>Navigate to the **MCMC** window. Since we have a limited amount of time for this exercise, change the **Chain Length** to 2,000,000. (Runtimes may vary depending on your computer, if you have reason to believe that this may take a very long time, then change the run length to something smaller.)
+>
+>Reveal the options for the **tracelog** using the $\blacktriangleright$ to the left. Change **Log Every** to 100. Also specify a name for the log file by changing **File Name** to **bearsDivtime\_FBD.log**.
 
-\bigskip
-\subsubsection{Set MCMC Options and Save the XML File}
+Now we are ready to save the XML file!
 
+>In the pull-down menu save the file by going to **File > Save As** and save the file: **bearsDivtime\_FBD.xml**.
 
-\begin{framed}
-Navigate to the \mi{MCMC} window.
-\end{framed}
+For the last step in BEAUti, create an XML file that will run the analysis by sampling under the prior. This means that the MCMC will ignore the information coming from the sequence data and only sample parameters in proportion to their prior probability. The output files produced from this run will provide a way to visualize the marginal prior distributions on each parameter.
 
-Now that you have specified all of your data elements, models, priors, and operators, go to the \mi{MCMC} tab to set the length of the Markov chain, sample frequency, and file names. By default, BEAST sets the number of generations to 10,000,000.
-
-
-\begin{framed}
-Since we have a limited amount of time for this exercise, change the \mi{Chain Length} to 2,000,000. (Runtimes may vary depending on your computer, if you have reason to believe that this may take a very long time, then change the run length to something smaller.)
-\end{framed}
-
-Next we can set the filenames and output frequency.
-
-\begin{framed}
-Reveal the options for the \mi{tracelog} using the $\blacktriangleright$ to the left. 
-\end{framed}
-
-The frequency parameters are sampled and logged to file can be altered in the box labeled \mi{Log Every}. In general, this value should be set relative to the length of the chain to avoid generating excessively large output files. If a low value is specified, the output files containing the parameter values and trees will be very large, possibly without gaining much additional information. Conversely, if you specify an exceedingly large sample interval, then you will not get enough information about the posterior distributions of your parameters.
-
-\begin{framed}
-Change \mi{Log Every} to \cl{100}. Also specify a name for the log file by changing \mi{File Name} to \cl{bearsDivtime\_FBD.log}.
-\end{framed} 
-
-Next, we will specify how the trees are written to file. 
-Analyses in BEAST often estimate parameters that are associated with each branch in the tree (i.e, substitution rate).
-Additionally, the tree topology and branching times for each MCMC iteration can be written to file.
-These parameters are stored in a different file with the trees written in extended Newick format. 
-The default name for this file is \cl{\$(tree).trees}. The string ``\cl{\$(tree)}'' indicates the name of the tree we defined in the \mi{Partitions} panel. For this analysis we relabeled this variable: \cl{bearsTree} and our file name will begin with \cl{bearsTree} even if we do not alter the name of this file.
-\begin{framed} 
-Reveal the options for the \mi{treelog.t:bearsTree} file. Keep the \mi{File Name} \cl{\$(tree).trees} and \mi{Log Every} to \cl{100}.
-\end{framed} 
-
-%Note that both files have the digit \cl{1} in the file name. That is because we intend to run this analysis multiple times.
-An important part of any MCMC analysis is that multiple, independent runs are executed starting from different initial states for the various parameters.
-To do this, one can create multiple files in BEAUti, ensuring that the log and trees files have different names; or you can simply copy the XML file and alter the file names and starting states in a text editor.
-Given the time available for this practical, it isn't feasible to run multiple chains, but the output will be provided for you to evaluate this.
-
-\textit{Now we are ready to save the XML file!}
-
-\begin{framed}
-In the pull-down menu save the file by going to \mi{File\textrightarrow Save As} and save the file: \cl{bearsDivtime\_FBD.xml}.
-\end{framed}
+>Check the box labeled **Sample From Prior** at the bottom of the **MCMC** panel. Change the **tracelog -- File Name** to **bearsDivtime\_FBD.prior.log**. Reveal the options for the **treelog** using the $\blacktriangleright$ to the left. Change the **treelog.t:bearsTree -- File Name** to **bearsDivtime\_FBD.prior.trees**.
+>
+>Save these changes by going to **File > Save As** and name the file **bearsDivtime\_FBD.prior.xml**.
 
 
-For the last step in BEAUti, create an XML file that will run the analysis by sampling under the prior. 
-This means that the MCMC will ignore the information coming from the sequence data and only sample parameters in proportion to their prior probability.
-The output files produced from this run will provide a way to visualize the marginal prior distributions on each parameter.
+## Making changes in the XML file
 
-\begin{framed}
-Check the box labeled \mi{Sample From Prior} at the bottom of the \mi{MCMC} panel. We will want to change the names of the output files as well, so change the \mi{tracelog -- File Name} to \cl{bearsDivtime\_FBD.prior.log} and the \mi{treelog.t:bearsTree -- File Name} to \cl{bearsDivtime\_FBD.prior.trees}. 
+BEAUti is a great tool for generating a properly-formatted XML file for many types of BEAST analyses. However, you may encounter errors that require modifying elements in your input file and if you wish to make small to moderate changes to your analysis, altering the input file is far less tedious than generating a new one using BEAUti. Furthermore, BEAST is a rich program and all of the types of analyses, models, and parameters available in the core cannot be specified using BEAUti. Thus, some understanding of the BEAST XML format is essential. For instance, as mentioned in the section **Sampling the fossil ages**, sampling the fossil ages cannot be specified entirely through BEAUti. By default, BEAUti will create **TipDatesRandomWalker** operators, which are not compatible with trees containing sampled ancestors. These operators need to be changed to **SampledNodeDateRandomWalker** operators, which are compatible with SA.
 
-Save these changes by going to \mi{File\textrightarrow Save As} and name the file \cl{bearsDivtime\_FBD.prior.xml}.
-\end{framed}
-
-\bigskip
-\subsection{Making changes in the XML file} 
-
-BEAUti is a great tool for generating a properly-formatted XML file for many types of BEAST analyses. However, you may encounter errors that require modifying elements in your input file and if you wish to make small to moderate changes to your analysis, altering the input file is far less tedious than generating a new one using BEAUti. Furthermore, BEAST is a rich program and all of the types of analyses, models, and parameters available in the core cannot be specified using BEAUti. Thus, some understanding of the BEAST XML format is essential.
-
-For instance, as mentioned in the section \cl{Sampling the fossil ages}, sampling the fossil ages cannot be specified entirely through BEAUti. By default, BEAUti will create \mi{TipDatesRandomWalker} operators, which are not compatible with trees containing sampled ancestors. These operators need to be changed to \mi{SampledNodeDateRandomWalker} operators, which are compatible with SA.
-
-\begin{framed}
-Open the \cl{bearsDivtime\_FBD.xml} and  \cl{bearsDivtime\_FBD.prior.xml} files generated by BEAUti in your text editor and glance over the contents. BEAUti provides many comments describing each of the elements in the file. 
-
-Change all instances of \mi{TipDatesRandomWalker} to \mi{SampledNodeDateRandomWalker} in both files.
-\end{framed}
-
-As you look over the contents of these files, you will notice that the components are specified in an order similar to the steps you took in BEAUti. The XML syntax is very verbose. This feature makes it fairly easy to understand the different elements of the BEAST input file. If you wished to alter your analysis or realized that you misspecified a prior parameter, changing the XML file is far simpler than going through all of the steps in BEAUti again. For example, if you wanted to change the mean of the exponential prior distribution on the mean clock rate (\cl{ORCucldMean.c}), this can be done easily by altering this value in the XML file (Box 4), though leave this at \cl{10.0} for this exercise. 
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<prior id="MeanRatePrior.c:bearsClock" name="distribution" x="@ORCucldMean.c:bearsClock">
-    <Exponential id="Exponential.02" name="distr">
-        <parameter id="RealParameter.020" estimate="false" name="mean">10.0</parameter>
-    </Exponential>
-</prior>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 1: BEAST 2 XML syntax for specifying an exponential prior distribution on the mean clock rate. Changing the expected value of this prior is simply done by altering the XML file.\\
-\end{center}
+>Open the **bearsDivtime\_FBD.xml** and **bearsDivtime\_FBD.prior.xml** files generated by BEAUti in your text editor and glance over the contents. BEAUti provides many comments describing each of the elements in the file. Change all instances of **TipDatesRandomWalker** to **SampledNodeDateRandomWalker** in both files.
 
 
-Although running multiple, independent analyses is an important part of any Bayesian analysis, BEAST does not do this by default. However, setting this up is trivial once you have a complete XML file in hand and only requires that you make a copy of the input file and alter the names of the output files in the XML (it's also best to change the initial states for all of your parameters, including the starting tree).
-\begin{framed}
-If you need to return to your analysis specification in BEAUti, you can load your saved XML file when you reopen the program using the \mi{File\textrightarrow Load} menu options.
-\end{framed}
+## Running BEAST 2
+
+Now you are ready to start your BEAST analysis. BEAST allows you to use the BEAGLE library if you already have it installed. BEAGLE is an application programming interface and library that effectively takes advantage of your computer hardware (CPUs and GPUs) for doing the heavy lifting (likelihood calculation) needed for statistical phylogenetic inference {% cite ayers12}. Particularly, when using BEAGLE's GPU (NVIDIA) implementation, runtimes are significantly shorter. 
+
+>Execute **bearsDivtime\_FBD.prior.xml** and **bearsDivtime\_FBD.xml** in BEAST2. You should see the screen output every 1,000 generations, reporting the likelihood and several other statistics.
+
+Once you have verified that your XML file was properly configured and you see the likelihood update, feel free to kill the run. We have provided the output files for this analysis in **divtime\_beast/output**.
 
 
-\bigskip
-\subsection{Running BEAST 2} 
+## Summarizing the output
 
-Now you are ready to start your BEAST analysis. 
-%BEAST allows you to use the BEAGLE library if you already have it installed. BEAGLE is an application programming interface and library that effectively takes advantage of your computer hardware (CPUs and GPUs) for doing the heavy lifting (likelihood calculation) needed for statistical phylogenetic inference \citep{ayers12}. Particularly, when using BEAGLE's GPU (NVIDIA) implementation, runtimes are significantly shorter. 
+Once the run reaches the end of the chain, you will find three new files in your analysis directory. The MCMC samples of various scalar parameters and statistics are written to the file called **bearsDivtime\_FBD.log**. The tree-state at every sampled iteration is saved to **bearsTree.1.trees**. The tree strings in this file are all annotated in extended Newick format with the substitution rate from the uncorrelated lognormal model at each node. The file called **bearsDivtime\_FBD.xml.states** summarizes the performance of the proposal mechanisms (operators) used in your analysis, providing information about the acceptance rate for each move. Reviewing this file can help identify operators that might need adjustment if their acceptance probabilities are too high. 
 
-\begin{framed}
-Execute \cl{bearsDivtime\_FBD.prior.xml} and \cl{bearsDivtime\_FBD.xml} in BEAST. You should see the screen output every 1,000 generations, reporting the likelihood and several other statistics.
-\end{framed}
+The main output files are the `.log` file and `.trees` file. It is not feasible to review the data contained in these files by simply opening them in a spreadsheet program or a tree viewing program. Fortunately, the developers of BEAST have also written general utility programs for summarizing and visualizing posterior samples from Bayesian inference using MCMC. Tracer is a cross-platform, java program for summarizing posterior samples of scaler parameters. This program is necessary for assessing convergence, mixing, and determining an adequate burn-in. Tree topologies, branch rates, and node heights are summarized using the program TreeAnnotator and visualized in FigTree.
 
-%\exs{Once you have verified that your XML file was properly configured and you see the likelihood update, feel free to kill the run. I have provided the output files for this analysis and you can find them in \cl{divtime\_beast/output*}.}
-
-\bigskip
-\subsection{Summarizing the output}
-
-Once the run reaches the end of the chain, you will find three new files in your analysis directory. The MCMC samples of various scalar parameters and statistics are written to the file called \cl{bearsDivtime\_FBD.log}. The tree-state at every sampled iteration is saved to \cl{bearsTree.1.trees}. The tree strings in this file are all annotated in extended Newick format with the substitution rate from the uncorrelated lognormal model at each node. The file called \cl{bearsDivtime\_FBD.xml.states} summarizes the performance of the proposal mechanisms (operators) used in your analysis, providing information about the acceptance rate for each move. Reviewing this file can help identify operators that might need adjustment if their acceptance probabilities are too high. 
-
-The main output files are the \cl{.log} file and \cl{.trees} file. It is not feasible to review the data contained in these files by simply opening them in a spreadsheet program or a tree viewing program. Fortunately, the developers of BEAST have also written general utility programs for summarizing and visualizing posterior samples from Bayesian inference using MCMC. Tracer is a cross-platform, java program for summarizing posterior samples of scaler parameters. This program is necessary for assessing convergence, mixing, and determining an adequate burn-in. Tree topologies, branch rates, and node heights are summarized using the program TreeAnnotator and visualized in FigTree.
-
-\bigskip  
-\subsubsection{Tracer}
+### Tracer
 
 This section will briefly cover using Tracer and visual inspection of the analysis output for MCMC convergence diagnostics.
 
-\begin{framed}
-Open Tracer and import the \cl{bearsDivtime\_FBD.log} file in the \mi{File\textrightarrow Import New Trace File}.
-\end{framed}
+>Open Tracer and import the **bearsDivtime\_FBD.log** file using **File > Import New Trace File**.
 
-The fist statistic loaded will be the \mi{posterior}, in the \mi{Estimates} tab, and you can see the list of statistics and variables that you can navigate through and visualize the summaries.
-You may notice that items in the \mi{ESS} column are colored red or gold. The MCMC runs you have performed today are far too short to produce adequate posterior estimates of divergence times and substitution model parameters and this is reflected in the ESS values. The ESS is the \textit{effective sample size} of a parameter. The value indicates the number of effectively independent draws from the posterior in the sample. This statistic can help to identify autocorrelation in your samples that might result from poor mixing. It is important that you run your chains long enough and sufficiently sample the stationary distribution so that the ESS values of your parameters are all high (over 200 or so). 
-\begin{framed}
-Click on a parameter with a low ESS and explore the various windows in Tracer. It is clear that we must run the MCMC chain longer to get good estimates. 
-\end{framed}
+The first statistic loaded will be the **posterior**, in the **Estimates** tab, and you can see the list of statistics and variables that you can navigate through and visualize the summaries. You may notice that items in the **ESS** column are colored red or gold. The MCMC runs you have performed today are far too short to produce adequate posterior estimates of divergence times and substitution model parameters and this is reflected in the ESS values. The ESS is the **effective sample size** of a parameter. The value indicates the number of effectively independent draws from the posterior in the sample. This statistic can help to identify autocorrelation in your samples that might result from poor mixing. It is important that you run your chains long enough and sufficiently sample the stationary distribution so that the ESS values of your parameters are all high (over 200 or so). 
 
-Provided with the files for this exercise are the output files from analyses run for 50,000,000 iterations. 
-The files can be found in the  \cl{output} directory and are all labeled with the file stem: \cl{bearsDivtime\_FBD.*.log} and \cl{bearsDivtime\_FBD.*.trees}.
-\begin{framed}
-Close \cl{bearsDivtime\_FBD.log} in Tracer using the \fbox{\textbf{-}} button and open \cl{bearsDivtime\_FBD.1.log}, \cl{bearsDivtime\_FBD.2.log} and \cl{bearsDivtime\_FBD.prior.log}.
-\end{framed}
+Provided with the files for this exercise are the output files from analyses run for 50,000,000 iterations. The files can be found in the **output** directory and are all labeled with the file stem: **bearsDivtime\_FBD.*.log** and **bearsDivtime\_FBD.*.trees**.
+
+>Open **bearsDivtime\_FBD.1.log**, **bearsDivtime\_FBD.2.log** and **bearsDivtime\_FBD.prior.log**.
 
 These log files are from much longer runs and since we ran two independent, identical analyses, we can compare the log files in Tracer and determine if they have converged on the same stationary distribution. Additionally, analyzing samples from the prior allows you to compare your posterior estimates to the prior distributions used for each parameter. 
 
-\begin{framed}
-Select and highlight all three files (\cl{bearsDivtime\_FBD.1.log}, \cl{bearsDivtime\_FBD.2.log} and\\ \cl{bearsDivtime\_FBD.prior.log}) in the \mi{Trace Files} pane (do not include \mi{Combined}). This allows you to compare all three runs simultaneously. Click on the various parameters and view how they differ in their estimates and 95\% credible intervals for those parameters
-\end{framed}
+>Select and highlight all three files in the **Trace Files** pane (do not include `Combined`). This allows you to compare all three runs simultaneously. Click on the various parameters and view how they differ in their estimates and 95\% credible intervals for those parameters
 
 The 95\% credible interval is a Bayesian measure of uncertainty that accounts for the data. If we use the 95\% credible interval, this means that the probability the true value of a parameter lies within this interval is 0.95, given our model and data. This measure is often used to approximate the 95\% highest posterior density region (HPD). 
-\begin{framed}
-Find the parameter \mi{ORCsigma} and compare the estimates of the standard deviation of the uncorrelated log-normal distribution.
-\end{framed}
 
-The \mi{ORCsigma} indicates the amount of variation in the substitution rates across branches. Our prior on this parameter is an exponential distribution with $\nu = 2.997$ ($mean = 0.3337$). Thus, there is a considerable amount of prior weight on \mi{ORCsigma} $= 0$. A standard deviation of 0 indicates support for no variation in substitution rates and the presence of a molecular clock. 
+>Find the parameter **ORCsigma** and compare the estimates of the standard deviation of the uncorrelated log-normal distribution.
 
-\begin{framed}
-With \mi{ORCsigma} highlighted for all three runs, go to the \mi{Marginal Density} window, which allows you to compare the marginal posterior densities for each parameter. (By default Tracer gives the kernel density estimate (\mi{KDE}) of the marginal density. You can change this to a \mi{Histogram} using the options at the top of the window.)
+The **ORCsigma** indicates the amount of variation in the substitution rates across branches. Our prior on this parameter is an exponential distribution with $\nu = 2.997$ ($mean = 0.3337$). Thus, there is a considerable amount of prior weight on `ORCsigma` $= 0$. A standard deviation of 0 indicates support for no variation in substitution rates and the presence of a molecular clock. 
 
-Color (or ``colour'') the densities by \mi{Trace File} next to \mi{Colour by} at the bottom of the window (if you do not see this option, increase the size of your Tracer window). You can also add a \mi{Legend} to reveal which density belongs to which run file. [Figure \ref{tracerStdev}]
-\end{framed}
+>With `ORCsigma` highlighted for all three runs, go to the **Marginal Density** window, which allows you to compare the marginal posterior densities for each parameter. (By default Tracer gives the kernel density estimate (**KDE**) of the marginal density. You can change this to a **Histogram** using the options at the top of the window.)
+>Color (or ``colour'') the densities by `Trace File` next to **Colour by** at the bottom of the window (if you do not see this option, increase the size of your Tracer window). You can also add a **Legend** to reveal which density belongs to which run file.
 
-%% Look at turnover rate, notice that it's not uniform, that's because this run wasn't completely under the prior since the data coming from the fossil observation times is still being considered.
-%Thus the FBD calculates the probability conditional on the times provided, and thus the turnover and diversification will be sampled accordingly.
+Look at turnover rate, notice that it's not uniform, that's because this run wasn't completely under the prior since the data coming from the fossil observation times is still being considered. Thus the FBD calculates the probability conditional on the times provided, and thus the turnover and diversification will be sampled accordingly.
 
 \begin{figure}[h!]
 \centering
@@ -675,22 +541,11 @@ Color (or ``colour'') the densities by \mi{Trace File} next to \mi{Colour by} at
 \label{tracerStdev}
 \end{figure}
 
-The first thing you will notice from this plot is that the marginal densities from each of our analysis runs (\cl{bearsDivtime\_FBD.1.log} and \cl{bearsDivtime\_FBD.2.log}) are nearly identical. If you click through the other sampled parameters, these densities are the same for each one. This indicates that both of our runs have converged on the same stationary distribution. If some of the other parameters might not have mixed well, we may want to run them longer, but we can have good confidence that our runs have sampled the same distribution. 
+The first thing you will notice from this plot is that the marginal densities from each of our analysis runs (**bearsDivtime\_FBD.1.log** and **bearsDivtime\_FBD.2.log**) are nearly identical. If you click through the other sampled parameters, these densities are the same for each one. This indicates that both of our runs have converged on the same stationary distribution. If some of the other parameters might not have mixed well, we may want to run them longer, but we can have good confidence that our runs have sampled the same distribution. Second, it is likely for the UCLD rates that the parameters of this model appear to be somewhat sensitive to the priors. That is because we have several lineages in our tree without any data since we are using fossils to calibrate under the FBD model. For these branches, the clock rate assigned to them is sampled from the prior. The branches with extant descendants, however have rates that are informed by DNA sequence data. Because of this implementation, it is difficult to visualize the branch rates and associated parameters from the log files. If these parameters are of interest, then it may be necessary to extract the rates associated with the extant branches from the MCMC samples of trees. When fossils are used without character data, alternative implementations of the FBD model consider the fossils separately and thus, the branch rates can be summarized for only the extant lineages {% cite heath2013fossilized}.
 
-Second, it is likely for the UCLD rates that the parameters of this model appear to be somewhat sensitive to the priors. 
-That is because we have several lineages in our tree without any data since we are using fossils to calibrate under the FBD model. 
-For these branches, the clock rate assigned to them is sampled from the prior.
-The branches with extant descendants, however have rates that are informed by DNA sequence data.
-Because of this implementation, it is difficult to visualize the branch rates and associated parameters from the log files. 
-If these parameters are of interest, then it may be necessary to extract the rates associated with the extant branches from the MCMC samples of trees. 
-When fossils are used without character data, alternative implementations of the FBD model consider the fossils separately and thus, the branch rates can be summarized for only the extant lineages \citep{heath2013fossilized}.
+Next, we will look at the **Marginal Prob Distribution** for the turnover parameter (`turnoverFBD`).
 
-Next, we will look at the \mi{Marginal Prob Distribution} for the turnover parameter (\mi{turnoverFBD}).
-\begin{framed}
-Select all trace files for the \mi{turnoverFBD} parameter and go to the \mi{Marginal Density} window.
-
-Color the densities by \mi{Trace file} and add a legend. [Figure \ref{tracerTurnover}]
-\end{framed}
+>Select all trace files for the **turnoverFBD** parameter and go to the **Marginal Density** window. Color the densities by **Trace file** and add a legend.
 
 \begin{figure}[h!]
 \centering
@@ -700,18 +555,9 @@ Color the densities by \mi{Trace file} and add a legend. [Figure \ref{tracerTurn
 \label{tracerTurnover}
 \end{figure}
 
-When comparing the MCMC with data to those sampled just under the prior, we can see that this prior and posterior densities are nearly identical. 
-Additionally, you may be alarmed that the prior density looks nothing like the Uniform(0,1) prior we applied in BEAUti. 
-However, it's important to understand that when specifying \mi{Sample From Prior} in BEAUti we are telling BEAST to ignore the likelihood coming from the \textit{sequence data}, but the MCMC continues to account for the other data---fossil occurrence times---that we have input.
-Thus, since we have a good number of fossils, the estimates of turnover, diversification, and the sampling proportion are highly informed by these data.
-If we used fewer fossils, the posterior and prior densities would be less congruent because the fossil data are still considered when ``sampling from the prior'' in this case. By contrast, if the information from the fossil occurrence times was ignored when sampling under the prior, then the posterior and prior densities for the FBD parameters would deviate more when many fossils are used.
+When comparing the MCMC with data to those sampled just under the prior, we can see that this prior and posterior densities are nearly identical. Additionally, you may be alarmed that the prior density looks nothing like the Uniform(0,1) prior we applied in BEAUti. However, it's important to understand that when specifying **Sample From Prior** in BEAUti we are telling BEAST to ignore the likelihood coming from the _sequence data_, but the MCMC continues to account for the other data---fossil occurrence times---that we have input. Thus, since we have a good number of fossils, the estimates of turnover, diversification, and the sampling proportion are highly informed by these data. If we used fewer fossils, the posterior and prior densities would be less congruent because the fossil data are still considered when ``sampling from the prior'' in this case. By contrast, if the information from the fossil occurrence times was ignored when sampling under the prior, then the posterior and prior densities for the FBD parameters would deviate more when many fossils are used.
 
-\begin{framed}
-Continue examining the options in Tracer. This program is very, \textit{very} useful for exploring many aspects of your analysis. 
-\end{framed}
-
-\bigskip
-\subsubsection{Summarizing the Trees in Treeannotator}\label{treeannotatorSec}
+### Summarizing the Trees in Treeannotator
 
 After reviewing the trace files from the two independent runs in Tracer and verifying that both runs converged on the posterior distributions and reached stationarity, we can combine the sampled trees into a single tree file and summarize the results.
 \begin{framed}
