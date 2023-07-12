@@ -30,6 +30,10 @@ BEAUti2 is a utility program with a graphical user interface for creating BEAST2
 
 Both BEAST2 and BEAUti2 are Java programs, which means that the exact same code runs, and the interface will be the same, on all computing platforms. The screenshots used in this tutorial are taken on a Mac OS X computer; however, both programs will have the same layout and functionality on both Windows and Linux. BEAUti2 is provided as a part of the BEAST2 package so you do not need to install it separately.
 
+### Any programmer-friendly text editor
+
+We will need to edit the XML files produced by BEAUti, for which we'll need a text editor. It's best to use one designed for programmers as these include nice features such as syntax highlighting, which makes the code more reader-friendly. [Sublime Text](https://www.sublimetext.com) is a good option which is available for MacOS, Windows and Linux.
+
 ### TreeAnnotator
 
 TreeAnnotator is used to summarize the posterior sample of trees to produce a maximum clade credibility tree and summarize the posterior estimates of other parameters that can be easily visualized on the tree (e.g. node height). This program is also useful for comparing a specific tree topology and branching times to the set of trees sampled in the MCMC analysis. 
@@ -40,7 +44,7 @@ TreeAnnotator is used to summarize the posterior sample of trees to produce a ma
 
 ### FigTree
 
-[FigTree](http://tree.bio.ed.ac.uk/software/figtree) is an excellent program for viewing trees and producing publication-quality figures. It can interpret the node-annotations created on the summary trees by TreeAnnotator, allowing the user to display node-based statistics (e.g. posterior probabilities) in a visually appealing way. 
+[FigTree](http://tree.bio.ed.ac.uk/software/figtree) is an excellent program for viewing trees and producing publication-quality figures. It can interpret the node-annotations created on the summary trees by TreeAnnotator, allowing the user to display node-based statistics (e.g. posterior probabilities) in a visually appealing way.
 
 
 # Practical: Divergence Time Estimation
@@ -52,41 +56,7 @@ This tutorial will walk you through an analysis of the divergence times of the b
 The data files and pre-cooked output files can be downloaded from the panel on the left. The analysis in this tutorial includes data from several different sources.
 We have molecular sequence data for eight extant species, which represent all of the living bear taxa. The sequence data include interphotoreceptor retinoid-binding protein (irbp) sequences (in the file **bears\_irbp\_fossils.nex**) and 1000 bps of the mitochondrial gene cytochrome b (in the file  **bears\_cytb\_fossils.nex**). If you open either of these files in your text editor or alignment viewer, you will notice that there are 22 taxa listed in each one, with most of these taxa associated with sequences that are entirely made up of missing data (i.e., **?????**). This is because the NEXUS files also contain the names of 14 fossil species, that we will include in our analysis as calibration information for the fossilized birth-death process.
 For these extinct taxa, we must provide an occurrence time for each taxon sampled from the fossil record. This information is obtained from the literature or fossil databases like the [Paleobiology Database](http://paleobiodb.org/) or the [Fossil Calibration Database](http://fossilcalibrations.org/), or from your own paleontological expertise. The 14 fossil species used in this analysis are listed in Table \ref{bearFossilTable} along with the age range for the specimen and relevant citation.
-
-**Fix table**
-
-\begin{table}[tbh!]
-\centering
-\caption{Fossil species used for calibrating divergence times under the FBD model. Modified from Table S.3 in the supplemental appendix of \citet{heath2013fossilized}.}\label{bearFossilTable}
-{\small
-\begin{tabular}{@{\extracolsep{\fill}}l  c c c r}
-\hline
-\multicolumn{1}{@{}l}{\textbf{Fossil species}}  & &\multicolumn{1}{c}{\textbf{Age range (My)}}  & &\multicolumn{1}{r}{\textbf{Citation}} \\ 
-\hline
-\hspace{2mm} \textit{Parictis montanus} & & 33.9--37.2 & & \cite{clark1972,krause2008}\\
-\hspace{2mm} \textit{Zaragocyon daamsi} & & 20--22.8  & & \cite{ginsburg1995,abella12}\\
-\hspace{2mm} \textit{Ballusia elmensis} & & 13.7--16 & & \cite{ginsburg1998,abella12}\\
-\hspace{2mm} \textit{Ursavus primaevus} & & 13.65--15.97 & & \cite{andrews1977,abella12}\\
-\hspace{2mm} \textit{Ursavus brevihinus} & & 15.97--16.9  & & \cite{heizmann1980,abella12}\\
-\hspace{2mm} \textit{Indarctos vireti} & & 7.75--8.7  & & \cite{montoya2001,abella12}\\
-\hspace{2mm} \textit{Indarctos arctoides} & & 8.7--9.7 & & \cite{geraads2005,abella12}\\
-\hspace{2mm} \textit{Indarctos punjabiensis} & & 4.9--9.7 & & \cite{baryshnikov2002,abella12}\\
-\hspace{2mm} \textit{Ailurarctos lufengensis} & & 5.8--8.2 & & \cite{jin2007,abella12}\\
-\hspace{2mm} \textit{Agriarctos spp.} & & 4.9--7.75 && \cite{abella2011,abella12}\\
-\hspace{2mm} \textit{Kretzoiarctos beatrix} & & 11.2--11.8 & & \cite{abella2011,abella12}\\
-\hspace{2mm} \textit{Arctodus simus} & & 0.012--2.588 & & \cite{churcher1993,krause2008}\\
-\hspace{2mm} \textit{Ursus abstrusus} & & 1.8--5.3 & & \cite{bjork1970,krause2008}\\
-\hspace{2mm} \textit{Ursus spelaeus} & & 0.027--0.25 & & \cite{loreille2001,krause2008}\\
-\hline
-\end{tabular}}
-\end{table}
-
-The final source of data required for our analysis is some information about the phylogenetic placement of the fossils. This prior knowledge can come from previous studies of morphological data and taxonomy. Ideally, we would like to know exactly where in the phylogeny each fossil belongs. However, this is uncommon for most groups in the fossil record. Often, we can place a fossil with reasonable resolution by assigning it to some total group. For example, if a fossil specimen has all of the identifying characters of a bear in the subfamily Ursinae, then, we can create a monophyletic group of all known Ursinae species and our fossil. Here, we would be assigning the fossil to the *total group Ursinae*, meaning that the fossil can be a crown or stem fossil of this group. For some fossils, we may have very little data to inform their placement in the tree and perhaps we may only know that it falls somewhere within our group of interest. In this case, we can account for our uncertainty in the relationship of the fossil and all other taxa and allow MCMC to sample all possible places where the fossil can attach in the tree. 
-For the bear species in our analysis, we have some prior knowledge about their relationships, represented as an unresolved phylogeny in Figure \ref{fig:clades}.
-Four out of five of the clades shown in Figure \ref{fig:clades} are defined in the NEXUS file **bears\_cytb\_fossils.nex** as **taxsets** in the **sets** block. 
-The one clade that is not included in the data file will be created using the BEAUti options. 
-
-**Fix figure**
+The final source of data required for our analysis is some information about the phylogenetic placement of the fossils. This prior knowledge can come from previous studies of morphological data and taxonomy. Ideally, we would like to know exactly where in the phylogeny each fossil belongs. However, this is uncommon for most groups in the fossil record. Often, we can place a fossil with reasonable resolution by assigning it to some total group. For example, if a fossil specimen has all of the identifying characters of a bear in the subfamily Ursinae, then, we can create a monophyletic group of all known Ursinae species and our fossil. Here, we would be assigning the fossil to the *total group Ursinae*, meaning that the fossil can be a crown or stem fossil of this group. For some fossils, we may have very little data to inform their placement in the tree and perhaps we may only know that it falls somewhere within our group of interest. In this case, we can account for our uncertainty in the relationship of the fossil and all other taxa and allow MCMC to sample all possible places where the fossil can attach in the tree. For the bear species in our analysis, we have some prior knowledge about their relationships. Four out of five of the clades shown in Figure \ref{fig:clades} are defined in the NEXUS file **bears\_cytb\_fossils.nex** as **taxsets** in the **sets** block. The one clade that is not included in the data file will be created using the BEAUti options.
 
 \begin{figure}[h!]
 \centering
@@ -105,7 +75,7 @@ Creating a properly-formatted BEAST XML file from scratch is not a simple task. 
 
 ### Install BEAST2 packages
 
-Next, we have to install the BEAST 2 packages (also called ``plug-ins'' or ``add-ons'') that are needed for this analysis. The packages that we will use called **SA** (Sampled Ancestors) and **ORC** (Optimized Relaxed Clock).
+Next, we have to install the BEAST 2 packages that are needed for this analysis. The packages that we will use called **SA** (Sampled Ancestors) and **ORC** (Optimized Relaxed Clock).
 
 >Open the **Package Manager** by navigating to **File > Manage Packages** in the menu. Install the **SA** package by selecting it and clicking the **Install/Upgrade** button. Do the same for the **ORC** package.
 
@@ -120,17 +90,17 @@ Next, we have to install the BEAST 2 packages (also called ``plug-ins'' or ``add
 
 ### Import Alignments
 
-Next we will load the alignment files for each of our genes. Note that separate loci can be imported as separate files or in a single NEXUS file with partitions defined using the **ASSUMPTIONS** command.
+Next we will load the alignment files for each of our genes from our NEXUS files.
 
->Navigate to the **Partitions** window (you should already be here). Using the menu commands **File > Import Alignment**, import the data files **bears\_irbp\_fossils.nex** and **bears\_cytb\_fossils.nex**. 
+>Navigate to the **Partitions** window. Using the menu commands **File > Import Alignment**, import the data files **bears\_irbp\_fossils.nex** and **bears\_cytb\_fossils.nex**. 
 
 Now that the data are loaded into BEAUti, we can unlink the site models, link the clock models, link the trees and rename these variables.
 
 > Highlight both partitions (using **shift and click**) and click on **Unlink Site Models** to assume different models of sequence evolution for each gene (the partitions are typically already unlinked by default). Click the **Link Clock Models** button so that the two genes have the same relative rates of substitution among branches. Finally click **Link Trees** to ensure that both partitions share the same tree topology and branching times.
 
-It is convenient to rename some of the variables in the **Partitions** window. By doing this, the parameters associated with each partition that are written to file are a bit more intuitively labeled.
+It is convenient to rename some of the variables in the **Partitions** window, so they are easier to understand in the output files.
 
->Double click on the site model for the cytochrome b gene, it is currently called **bears\_cytb\_fossils**. Rename this **cytb**. (Note that you may have to hit the return or enter key after typing in the new label for the new name to be retained.) Do the same for the site model for the other gene, calling it **irbp**. Rename the clock model **bearsClock**. Rename the tree **bearsTree**.
+>Double click on the site model for the cytochrome b gene (**bears\_cytb\_fossils**). Rename this **cytb**. (Note that you may have to hit the return or enter key after typing in the new label for the new name to be retained.) Do the same for the site model for the other gene, calling it **irbp**. Rename the clock model **bearsClock**, and rename the tree **bearsTree**.
 
 \begin{figure}[h!]
 \centering
@@ -141,13 +111,9 @@ It is convenient to rename some of the variables in the **Partitions** window. B
 
 ### Set Tip Dates
 
-We must indicate that we have sequentially sampled sequences. When performing an analysis without dated tips or any fossil information, you can skip this window, and BEAST will assume that all of your samples are contemporaneous.
+We must indicate that we have sequentially sampled sequences, and when those sequences were collected. We will indicate that the dates are in **years**, even though they are in fact in units of **millions of years**. This is because the units themselves are arbitrary and this scale difference will not matter. Additionally, we will tell BEAUti that the "zero time" of our tree is the present and the ages we are providing are the number of years **before the present**.
 
->Navigate to the **Tip Dates** panel. Toggle on the **Use tip dates** option.
-
-The next step involves specifying how the dates are oriented on the tree and the units they are in. We will indicate that the dates are in **years**, even though they are in fact in units of **millions of years**. This is because the units themselves are arbitrary and this scale difference will not matter. Additionally, we will tell BEAUti that the "zero time" of our tree is the present and the ages we are providing are the number of years **before the present**. For some types of analyses, such as serially sampled viruses, the dates given are relative to some time in the past, thus this option is available as well.
-
->Change **Dates specified** as **year Before the present**.
+>Navigate to the **Tip Dates** panel. Toggle on the **Use tip dates** option. Change **Dates specified** to **year Before the present**.
 
 \begin{figure}[h!]
 \centering
@@ -156,7 +122,7 @@ The next step involves specifying how the dates are oriented on the tree and the
 \label{setTipDatesYears}
 \end{figure}
 
-When inputing the dates for each tip species, one option is to enter each one by hand. This may be quite onerous if you have many fossils or many sequences sampled back in time. Conveniently, these dates can be included in the taxon names so that BEAUti can easily extract them for us using the **Auto-configure** option. This will open a window where you can specify the pattern in the taxon names from which the tip ages can be extracted. Obviously, it's better to make this a fairly simple code that doesn't require multiple iterations of searches. Moreover, if this is straightforward, then you will be able to easily eliminate these dates when creating figures from your final summary tree.
+Conveniently, we can specify that our dates are included in the taxon names, so that BEAUti can easily extract them for us using the **Auto-configure** option. Obviously, it's better to make this a fairly simple code that doesn't require multiple iterations of searches. Moreover, if this is straightforward, then you will be able to easily eliminate these dates when creating figures from your final summary tree.
 
 >Click on the **Auto-configure** button. Tell BEAUti to **use everything after the last \_**, then click **OK**.
 
@@ -193,19 +159,18 @@ Now both models are fully specified for the unlinked genes. Note that **Fix mean
 
 ### The Clock Model
 
-Here, we can specify the model of lineage-specific substitution rate variation. The default model in BEAUti is the **Strict Clock** with a fixed substitution rate equal to **1**. Models for relaxing the assumption of a constant substitution rate can be specified in BEAUti as well. The **Optimized Relaxed Clock** option (provided by the **ORC package**) assumes that the substitution rates associated with each branch are independently drawn from a single, discretized lognormal distribution {% cite drummond06}. The **Random Local Clock** uses Bayesian stochastic search variable selection to average over random local molecular clocks {% cite drummond10}. For this analysis we will use the uncorrelated, lognormal model of branch-rate variation.
+Here, we can specify the model of lineage-specific substitution rate variation. The default model in BEAUti is the **Strict Clock** with a fixed substitution rate equal to 1. Models for relaxing the assumption of a constant substitution rate can be specified in BEAUti as well. The **Optimized Relaxed Clock** option (provided by the **ORC package**) assumes that the substitution rates associated with each branch are independently drawn from a single, discretized lognormal distribution {% cite drummond06}. The **Random Local Clock** uses Bayesian stochastic search variable selection to average over random local molecular clocks {% cite drummond10}. For this analysis we will use the uncorrelated, lognormal model of branch-rate variation.
 
 >Navigate to the **Clock Model** window. Change the clock model to **Optimized Relaxed Clock**.
 
-The uncorrelated relaxed clock models in BEAST2 are discretized for computational feasibility. This means that for any given parameters of the lognormal distribution, the probability density is discretized into some number of discrete rate bins. Each branch is then assigned to one of these bins. 
-By default, BEAUti sets the **Number Of Discrete Rates** to **-1**. This means that the number of bins is equal to the number of branches.
-The fully specified Clock Model assumes that the rates for each branch are drawn independently from a single lognormal distribution. The mean of the rate distribution will be estimated, thus we can account for uncertainty in this parameter by placing a prior distribution on its value.
+The uncorrelated relaxed clock models in BEAST2 are discretized for computational feasibility. This means that for any given parameters of the lognormal distribution, the probability density is discretized into some number of discrete rate bins. Each branch is then assigned to one of these bins. By default, BEAUti sets the **Number Of Discrete Rates** to **-1**. This means that the number of bins is equal to the number of branches. The fully specified Clock Model assumes that the rates for each branch are drawn independently from a single lognormal distribution. The mean of the rate distribution will be estimated, thus we can account for uncertainty in this parameter by placing a prior distribution on its value.
 
 ### Priors on Parameters of the Site Models
 
->Navigate to the **Priors** window.
-
-In the **Priors** window, all of the  parameters and hyperparameters (and _hyper_ -hyperparameters, etc.) specific to the models defined in the Site Model and Clock Model windows are listed. Here you can set up the prior distributions on these parameters, as well as define calibration nodes and calibration densities and specify a tree model. One convenient feature of BEAUti is that the list of parameters changes dynamically as you change the models. Thus, if you missed a step along the way, you would notice at this point because something might be missing here. For example, if you did not change the substitution mode for `cytb` from `JC69` to `GTR` in the **Site Model** window, then you would not see the exchangeability rates and base frequency parameters listed for `cytb`. 
+In the **Priors** panel we will begin by specifying priors for the parameters associated with the sites models. Since we partitioned the two genes, there are parameters for the two different models: 
+- exchangeability rates for the GTR model (`rateAC.s:cytb`, `rateAG.s:cytb`, $\ldots$)
+- the transition-transversion rate ratio (`kappa.s:irbp`) and the shape parameter of the gamma distribution on site rates (`gammaShape.s:irbp`)
+Note that the base frequencies for each of these models are not listed, though they are estimated.
 
 \begin{figure}[h!]
 \centering
@@ -214,14 +179,9 @@ In the **Priors** window, all of the  parameters and hyperparameters (and _hyper
 \label{fig:priorPanel}
 \end{figure}
 
-In the Priors panel we will begin by specifying priors for the parameters associated with the sites models. Since we partitioned the two genes, there are parameters for the two different models: 
-- exchangeability rates for the GTR model (`rateAC.s:cytb`, `rateAG.s:cytb`, $\ldots$)
-- the transition-transversion rate ratio (`kappa.s:irbp`) and the shape parameter of the gamma distribution on site rates (`gammaShape.s:irbp`)
-Note that the base frequencies for each of these models are not listed, though they are estimated.
-
 We will keep the default priors for the HKY model on the evolution of `irbp`. The default gamma priors on the GTR exchangeability rates for the `cytb` gene place a lot of prior density on very small values. For some datasets, the sequences might not be informative for some of the rates, consequentially the MCMC may propose values very close to zero and this can induce long mixing times. Because of this problem, we will alter the gamma priors on the exchangeability rates. For each one, we will keep the expected values as in the default priors. The default priors assume that transitions (A <- G or C <- T) have an expected rate of 1.0. Remember that we fixed the parameter **rateCT** to equal 1.0 in the **Site Model** window, thus this parameter isn't in the Priors window. For all other rates, transversions, the expected value of the priors is lower: 0.5. In BEAST2, the gamma distribution is parameterized by a shape parameter (**Alpha**) and a scale parameter (**Beta**). Under this parameterization, expected value for any gamma distribution is: $\mathbb{E}(x) = \alpha\beta$. To reduce the prior density on very low values, we can increase the shape parameter and then we have to adjust the scale parameter accordingly.
 
->Begin by changing the gamma prior on the transition rate `rateAG.s:cytb`. Clicking on the $\blacktriangleright$ next to this parameter name to reveal the prior options. Change the parameters: `Alpha` = 2 and `Beta` = 0.5. Then change all of the other rates, for `rateAC.s`, `rateAT.s`, `rateCG.s`, and `rateGT.s`, to  `Alpha` = 2 and `Beta` = 0.25.
+>Navigate to the **Priors** window. Begin by changing the gamma prior on the transition rate `rateAG.s:cytb`. Clicking on the $\blacktriangleright$ next to this parameter name to reveal the prior options. Change the parameters: `Alpha` = 2 and `Beta` = 0.5. Then change all of the other rates, for `rateAC.s`, `rateAT.s`, `rateCG.s`, and `rateGT.s`, to  `Alpha` = 2 and `Beta` = 0.25.
 
 \begin{figure}[h!]
 \centering
@@ -256,7 +216,7 @@ The other parameter of our relaxed-clock model is, by default assigned a gamma p
 
 ### The Tree Prior
 
-Next we will specify the prior distribution on the tree topology and branching times. You should notice an error notification (a red circle with an ``X'' in it) in the **Priors** panel to the left of **Tree.t:bearsTree**. If you mouse over this notification, you will se a message telling you that the default **Yule Model** is not appropriate for non-contemporaneous tips and that you must choose a different tree prior. Thus, here is where we specify the `fossilized birth-death process`.
+Next we will specify the prior distribution on the tree topology and branching times in the **Priors** panel. Here is where we specify that we want to use the `fossilized birth-death process`.
 
 >Change the tree model for `Tree.t:bearsTree` to **Fossilized Birth Death Model**. Reveal the options for the prior on `Tree.t` by clicking on the $\blacktriangleright$. 
 
@@ -267,8 +227,7 @@ Next we will specify the prior distribution on the tree topology and branching t
 %\label{selectFBD}
 %\end{figure}
  
-Remember that this model, like any branching process (i.e., constant rate birth-death, Yule) can be conditioned on either the origin time or the root age.
-Depending on the available prior information or the type of data available, it makes sense to condition on one or the other (but not both, obviously). If you know that all of the fossils in your dataset are _crown_ fossils---descendants of the MRCA of all the extant taxa---and you have some prior knowledge of the age of the clade, then it is reasonable to condition the FBD on the root. Alternatively, if the fossils in your analysis are stem fossils, or can only reliably be assigned to your total group, then it is appropriate to condition on the origin age. For this analysis, we have several bear fossils that are considered stem fossils, thus we will condition on the origin age. Previous studies {% cite dosReis2012} estimated an age of approximately 45.5 My for the MRCA of seals and bears. We will use this time as a starting value for the origin. 
+This model, like any branching process (i.e., constant rate birth-death, Yule) can be conditioned on either the origin time or the root age. Depending on the available prior information or the type of data available, it makes sense to condition on one or the other (but not both). If you know that all of the fossils in your dataset are _crown_ fossils---descendants of the MRCA of all the extant taxa---and you have some prior knowledge of the age of the clade, then it is reasonable to condition the FBD on the root. Alternatively, if the fossils in your analysis are stem fossils, or can only reliably be assigned to your total group, then it is appropriate to condition on the origin age. For this analysis, we have several bear fossils that are considered stem fossils, thus we will condition on the origin age. Previous studies {% cite dosReis2012} estimated an age of approximately 45.5 My for the MRCA of seals and bears. We will use this time as a starting value for the origin. 
 
 >Set the starting value of the **Origin** to 45.5 and specify that this parameter will be estimated by checking the **estimate** box. (You may have to expand the width of the BEAUti window to see the check-boxes for these parameters.)
 
@@ -294,7 +253,7 @@ We will assume that the origin time is drawn from a lognormal distribution with 
 Notice that the options for the **Log Normal** prior distribution allow you to specify **Mean in Real Space**. If you choose this option, then the mean value you enter is the expected value of the lognormal distribution. We used this option above to specify an expected value of 8.5 My. You will create the exact same prior distribution if you uncheck the **Mean in Real Space** option and enter the location parameter $\mu$ of the distribution and give it a value of `1.640066`.
 It is important that you are very careful when specifying these parameters.
 
-Earlier we discussed that the diversification rate is: $d = \lambda-\mu$. Generally, we think that this value is fairly small, particularly since we have few extant species and many fossils. Therefore, an exponential distribution is a reasonable prior for this parameter as it places the highest probability on zero. For this analysis we will assume $d\sim$ Exponential(1.0). The exponential distribution's only parameter is called the _rate_ parameter (denoted $\nu$) and it controls both the mean and variance of the distribution (here $\nu=1$). The mean of an exponential distribution is the inverse of the rate: $\mathbb{E}(d) = \nu^{-1} = 1$. Importantly, in BEAUti/BEAST, when specifying an exponential prior, you provide the _mean_ and not the rate parameter.
+The diversification rate is: $d = \lambda-\mu$. Generally, we think that this value is fairly small, particularly since we have few extant species and many fossils. Therefore, an exponential distribution is a reasonable prior for this parameter as it places the highest probability on zero. For this analysis we will assume $d\sim$ Exponential(1.0). The exponential distribution's only parameter is called the _rate_ parameter (denoted $\nu$) and it controls both the mean and variance of the distribution (here $\nu=1$). The mean of an exponential distribution is the inverse of the rate: $\mathbb{E}(d) = \nu^{-1} = 1$. Importantly, in BEAUti/BEAST, when specifying an exponential prior, you provide the _mean_ and not the rate parameter.
 
 >Reveal the options for the prior on `diversificationRateFBD.t` by clicking on the $\blacktriangleright$. Change the prior distribution to **Exponential** with a `Mean` equal to 1.0.
 
@@ -341,7 +300,7 @@ taxset 4_Ursinae = Helarctos_malayanus_0 ... Ursus_thibetanus_0;
 end;
 ```
 
-When you have a `taxset` in your data file, this creates a defined clade in BEAUti that is constrained to be monophyletic. You can also open the BEAUti taxon set for the crown bears by clicking the  **1\_CrownBears.prior** button. This will bring up the **Taxon set editor** where you can modify this taxon set (don't do that, though).
+When you have a `taxset` in your data file, this creates a defined clade in BEAUti that is constrained to be monophyletic. You can also open the BEAUti taxon set for the crown bears by clicking the  **1\_CrownBears.prior** button.
 
 \begin{figure}[h!]
 \centering
@@ -447,6 +406,7 @@ To add a prior on the age of a tip, we first need to define a taxon set containi
 We then need to specify the prior distribution for that tip.
 
 >Back in the **Priors** window, reveal the options for the prior on the age of **Agriarctos\_spp** by clicking on the $\blacktriangleright$. Change the prior distribution to **Uniform**, with a **Lower** value equal to 4.9 and an **Upper** value equal to 7.75. Check the box labeled **Tipsonly**.
+>
 >This procedure needs to be repeated for each of the 14 fossils in our dataset.
 
 \begin{figure}[h!]
@@ -508,30 +468,21 @@ The main output files are the `.log` file and `.trees` file. It is not feasible 
 
 ### Tracer
 
-This section will briefly cover using Tracer and visual inspection of the analysis output for MCMC convergence diagnostics.
-
->Open Tracer and import the **bearsDivtime\_FBD.log** file using **File > Import New Trace File**.
-
-The first statistic loaded will be the **posterior**, in the **Estimates** tab, and you can see the list of statistics and variables that you can navigate through and visualize the summaries. You may notice that items in the **ESS** column are colored red or gold. The MCMC runs you have performed today are far too short to produce adequate posterior estimates of divergence times and substitution model parameters and this is reflected in the ESS values. The ESS is the **effective sample size** of a parameter. The value indicates the number of effectively independent draws from the posterior in the sample. This statistic can help to identify autocorrelation in your samples that might result from poor mixing. It is important that you run your chains long enough and sufficiently sample the stationary distribution so that the ESS values of your parameters are all high (over 200 or so). 
-
 Provided with the files for this exercise are the output files from analyses run for 50,000,000 iterations. The files can be found in the **output** directory and are all labeled with the file stem: **bearsDivtime\_FBD.*.log** and **bearsDivtime\_FBD.*.trees**.
 
->Open **bearsDivtime\_FBD.1.log**, **bearsDivtime\_FBD.2.log** and **bearsDivtime\_FBD.prior.log**.
+>Open Tracer and import **bearsDivtime\_FBD.1.log**, **bearsDivtime\_FBD.2.log** and **bearsDivtime\_FBD.prior.log** using **File > Import New Trace File**.
 
-These log files are from much longer runs and since we ran two independent, identical analyses, we can compare the log files in Tracer and determine if they have converged on the same stationary distribution. Additionally, analyzing samples from the prior allows you to compare your posterior estimates to the prior distributions used for each parameter. 
+These log files are from two independent, identical analyses, and we can compare the log files in Tracer and determine if they have converged on the same stationary distribution. Additionally, analyzing samples from the prior allows you to compare your posterior estimates to the prior distributions used for each parameter. 
 
->Select and highlight all three files in the **Trace Files** pane (do not include `Combined`). This allows you to compare all three runs simultaneously. Click on the various parameters and view how they differ in their estimates and 95\% credible intervals for those parameters
+>Select and highlight all three files in the **Trace Files** pane (do not include `Combined`). This allows you to compare all three runs simultaneously. Click on the various parameters and view how they differ in their estimates and 95\% credible intervals for those parameters.
 
-The 95\% credible interval is a Bayesian measure of uncertainty that accounts for the data. If we use the 95\% credible interval, this means that the probability the true value of a parameter lies within this interval is 0.95, given our model and data. This measure is often used to approximate the 95\% highest posterior density region (HPD). 
+The **ORCsigma** indicates the amount of variation in the substitution rates across branches. Our prior on this parameter is an exponential distribution with $\nu = 2.997$ ($mean = 0.3337$). Thus, there is a considerable amount of prior weight on `ORCsigma` $= 0$. A standard deviation of 0 indicates support for no variation in substitution rates and the presence of a molecular clock.
 
 >Find the parameter **ORCsigma** and compare the estimates of the standard deviation of the uncorrelated log-normal distribution.
-
-The **ORCsigma** indicates the amount of variation in the substitution rates across branches. Our prior on this parameter is an exponential distribution with $\nu = 2.997$ ($mean = 0.3337$). Thus, there is a considerable amount of prior weight on `ORCsigma` $= 0$. A standard deviation of 0 indicates support for no variation in substitution rates and the presence of a molecular clock. 
-
+>
 >With `ORCsigma` highlighted for all three runs, go to the **Marginal Density** window, which allows you to compare the marginal posterior densities for each parameter. (By default Tracer gives the kernel density estimate (**KDE**) of the marginal density. You can change this to a **Histogram** using the options at the top of the window.)
+>
 >Color (or ``colour'') the densities by `Trace File` next to **Colour by** at the bottom of the window (if you do not see this option, increase the size of your Tracer window). You can also add a **Legend** to reveal which density belongs to which run file.
-
-Look at turnover rate, notice that it's not uniform, that's because this run wasn't completely under the prior since the data coming from the fossil observation times is still being considered. Thus the FBD calculates the probability conditional on the times provided, and thus the turnover and diversification will be sampled accordingly.
 
 \begin{figure}[h!]
 \centering
@@ -566,6 +517,7 @@ After reviewing the trace files from the two independent runs in Tracer and veri
 Both of these files have 50,000 trees, so it is helpful to thin the tree samples and summarize fewer states (to avoid hitting the maximum memory allotted for this program).
 
 >Turn on **Resample states at lower frequency** and set this value to 10000.
+>
 >Click on the **Choose file ...** button to create an output file and run the program. Name the file: **bearsTree.combined.trees**.
 
 Once LogCombiner has terminated, you will have a file containing 8,000 trees which can be summarized using TreeAnnotator. TreeAnnotator takes a collection of trees and summarizes them by identifying the topology with the best support, calculating clade posterior probabilities, and calculating 95\% credible intervals for node-specific parameters. All of the node statistics are annotated on the tree topology for each node in the Newick string. 
@@ -614,35 +566,6 @@ When the fossil lineages are removed, much of the information about the history 
 \caption{\small The maximum clade credibility tree of \textit{extant} bears summarized by TreeAnnotator and plotted against stratigraphy using the \cl{strap} package in \cl{R} (see how to do this in Section \ref{section-r-treeviz} below). 
 The internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability: $\newmoon \geq 0.95$, $0.95>$ \gcirc $\geq 0.75$, $0.75 > \fullmoon$. The 95\% credible intervals for node ages are shown with transparent blue bars.}
 \label{figgeoscaleext}
-\end{figure}
-
-### Visualizing the Dated Tree on a Geological Time Scale
-
-$^*$Note that some of the **R** packages required for this section may be difficult to download.
-
-FigTree and IcyTree are great tree-viewing programs and also allow you to produce publication-quality tree figures. However, viewing a dated phylogenetic tree with a unit-less timescale is not as meaningful as plotting the tree with a geological (stratigraphic) time scale. The R package [strap](http://cran.r-project.org/web/packages/strap/index.html) {% cite bell2014strap} offers several nice functions for visualizing time-calibrated phylogenies in the context of the rock record.
-
->Install the necessary packages in R using `install.packages(c("strap", "phytools"), dependencies=TRUE)`. Load the packages using `library("strap"); library("phytools")`
-
-Now we can read in the tree using the **ape** function `read.nexus()` (note that you might have to type in the whole file path to your tree).
-
->Enter `tree <- read.nexus("bearsTree.summary.tre")`
-
-In order to use the `geoscalePhylo()` function of **strap**, we have to set a value for the variable **tree\$root.time**, which is the age of the root. We can compute this from the tree using the `ape::dist.nodes()` function:
-
-> Enter `tree$root.time <- max(dist.nodes(tree))`
-
-Now we can plot the tree:
-
-> Enter `geoscalePhylo(tree=ladderize(tree,right=FALSE),label.offset=0)`
-
-You will notice that the plotted figure might need some work to make it easier to read taxon labels, etc. Additionally, we don't get the node bars or other summary statistics for our tree. If we wish to plot these values, then we need to do a bit more. With additional packages and functions, we can produce a summary tree that includes the credible intervals on the node ages (only for nodes in the extant tree, the origin time, and symbols representing the posterior probabilities of the tree bipartitions). This tree and the R syntax for producing this figure is provided in the **output** directory in the download files (**plot\_geoscaled\_tree.R**).
-
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=6.2in]{figures/geoscaled_bears.pdf}}
-\caption{\small The maximum clade credibility tree summarized by TreeAnnotator and plotted with a geological time scale using the \cl{strap} package in \cl{R}. The fossil taxa are all indicated with an \textit{X} in the taxon names. The {\textcolor{red}{$\blacksquare$}} represents the mean origin time. The remaining internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability: $\newmoon \geq 0.95$, $0.95>$ \gcirc $\geq 0.75$, $0.75 > \fullmoon$. The 95\% credible intervals for node ages are shown with transparent bars, for only nodes that are represented in the \textit{extant} tree. (The \cl{R} code to produce this figure is in the \cl{output} folder in the file \cl{plot\_geoscaled\_tree.R}.)}
-\label{figgeoscale}
 \end{figure}
 
 # Useful Links
