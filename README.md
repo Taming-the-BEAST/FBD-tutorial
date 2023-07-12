@@ -578,23 +578,11 @@ The **Maximum clade credibility tree** is the topology with the highest product 
 
 ### Visualizing the Dated Tree
 
-The tree file produced by TreeAnnotator contains the maximum clade credibility tree and is annotated with summaries of the various parameters.
-\begin{framed}
-Open \cl{bearsTree.summary.tre} in your text editor. The tree is written in NEXUS format. Look at the tree string and notice the annotation. Each node in the tree is labeled with comments using the \cl{[\&parameter\_name=\textless value\textgreater ]} format.
-\end{framed}
+The tree file produced by TreeAnnotator contains the maximum clade credibility tree and is annotated with summaries of the various parameters. The summary tree and it's annotations can be visualized in the program FigTree.
 
-The summary tree and it's annotations can be visualized in the program FigTree.
-\begin{framed}
-Execute FigTree and open the file \cl{bearsTree.summary.tre}.
+>Execute FigTree and open the file **bearsTree.summary.tre**.
 
-Explore the options for viewing different summary statistics on the tree.
-\end{framed}
-
-The tree you are viewing in FigTree has several fossil taxa with zero-length branches, e.g., \textit{Parictis montanus} and \textit{Ursus abstrusus}. 
-These branches actually indicate fossil taxa with a significant probability of representing a sampled ancestor. 
-However, it is difficult to represent this in typical tree-viewing programs. 
-A tree with sampled ancestors properly represented will have two-degree nodes --- i.e., a node with only one descendant. 
-The web-based tree viewer \href{http://icytree.org/}{IcyTree} \citep{Vaughan2017} is capable of plotting such trees from BEAST2 analyses (Figure \ref{icyTree}). 
+The tree you are viewing in FigTree has several fossil taxa with zero-length branches, e.g., _Parictis montanus_ and _Ursus abstrusus_. These branches actually indicate fossil taxa with a significant probability of representing a sampled ancestor. However, it is difficult to represent this in typical tree-viewing programs. A tree with sampled ancestors properly represented will have two-degree nodes --- i.e., a node with only one descendant. The web-based tree viewer [IcyTree](http://icytree.org/) {% cite Vaughan2017} is capable of plotting such trees from BEAST2 analyses. 
 
 \begin{figure}[h!]
 \centering
@@ -603,43 +591,23 @@ The web-based tree viewer \href{http://icytree.org/}{IcyTree} \citep{Vaughan2017
 \label{icyTree}
 \end{figure}
 
-Although the tree in Figure \ref{icyTree} (and also Figure \ref{figgeoscale}) looks awesome, the topology can be misleading for this particular analysis. 
-Because we did not provide character data for our 14 fossil taxa, the tree topology does not adequately illustrate the degree of uncertainty in the phylogenetic relationships of the fossil lineages.
-\textbf{Without morphological data, the fossil lineages can attach to any lineage on the tree that is consistent with the monophyletic clades we specified and the fossil occurrence times with equal probability. 
-Thus, the relationships shown here are not reliable as phylogenetic inferences.} 
-However, if we provided morphological character data for these fossils, then many would consider this tree to be an adequate summary our MCMC sample of trees. 
+Although the tree above looks awesome, the topology can be misleading for this particular analysis. Because we did not provide character data for our 14 fossil taxa, the tree topology does not adequately illustrate the degree of uncertainty in the phylogenetic relationships of the fossil lineages. Without morphological data, the fossil lineages can attach to any lineage on the tree that is consistent with the monophyletic clades we specified and the fossil occurrence times with equal probability. Thus, the relationships shown here are not reliable as phylogenetic inferences. However, if we provided morphological character data for these fossils, then many would consider this tree to be an adequate summary our MCMC sample of trees. 
 
-Since the fossil taxa were used in this analysis to only inform the fossilized birth-death model, we can prune off all of the fossil lineages and plot the tree with the geological time scale.
-BEAUti has a few accessory applications that are for post-processing files from certain types of analyses. 
-The first one we will use is called \mi{FullToExtantTreeConverter}.
-This program can be used to prune the fossil lineages off of the MCMC sample of trees (in file \cl{bearsTree.combined.trees}), then use TreeAnnotator to summarize the extant-only trees. 
+Since the fossil taxa were used in this analysis to only inform the fossilized birth-death model, we can prune off all of the fossil lineages and plot the tree with the geological time scale. BEAUti has a few accessory applications that are for post-processing files from certain types of analyses. The first one we will use is called **FullToExtantTreeConverter**. This program can be used to prune the fossil lineages off of the MCMC sample of trees (in file **bearsTree.combined.trees**), then use TreeAnnotator to summarize the extant-only trees. 
 
-\begin{framed}
-Open BEAUti and launch the accessory apps in the file menu: \mi{File\textrightarrow Launch Apps}.
+>Open BEAUti and launch the accessory apps via **File > Launch Apps**. This will open a window with a few applications, launch **FullToExtantTreeConverter**. In the file specification window for **Trees** provide the file called **bearsTree.combined.trees**. And give the **Output** file the name **bearsTree.extant.trees**.
 
-This will open a window with a few applications, launch \mi{FullToExtantTreeConverter}.
-
-In the file specification window for \mi{Trees} provide the file called \cl{bearsTree.combined.trees}.
-
-And give the \mi{Output} file the name \cl{bearsTree.extant.trees}. %[Figure \ref{fullConverterScreen}]
-
-%\end{framed}
-%
 %\begin{figure}[h!]
 %\centering
 %\fbox{\includegraphics[width=3in]{figures/full_to_extant_converter.pdf}}
 %\caption{\small The options for \mi{FullToExtantTreeConverter}.}
 %\label{fullConverterScreen}
 %\end{figure}
-%
-%\begin{framed}
-Run TreeAnnotator on the file called \cl{bearsTree.extant.trees}, selecting the same options as you did for the file with complete trees (see Section \ref{treeannotatorSec}). 
 
-Name the summary tree file \cl{bearsTree.extant\_summary.tre}
-\end{framed}
+>Run TreeAnnotator on the file called **bearsTree.extant.trees**, selecting the same options as you did for the file with complete trees. Name the summary tree file **bearsTree.extant\_summary.tre**.
 
-When the fossil lineages are removed, much of the information about the history of this group is lost (Figure \ref{figgeoscaleext}). 
-However, alternative approaches for summarizing fossilized birth-death trees are currently under development.
+When the fossil lineages are removed, much of the information about the history of this group is lost. However, alternative approaches for summarizing fossilized birth-death trees are currently under development.
+
 \begin{figure}[h!]
 \centering
 \fbox{\includegraphics[width=5.5in]{figures/geoscaled_bears_ext.pdf}}
@@ -648,91 +616,27 @@ The internal nodes of the tree are indicated with circles, where circles mark no
 \label{figgeoscaleext}
 \end{figure}
 
-\bigskip
-\subsubsection{Analysis of Sampled Ancestors}
+### Visualizing the Dated Tree on a Geological Time Scale
 
-Another tool that is available in the BEAUti accessory applications, is \mi{SampledAncestorTreeAnalyser}. If you run this app from the \mi{Launch apps} menu in BEAUti on the file with all the MCMC samples of the complete tree (\cl{bearsTree.combined.trees}), you will get a report that summarizes the clades/nodes in the sampled ancestor tree. 
-In particular, it gives a quantitative representation of ``ancestral-ness'' in the posterior sample of trees. 
-This is represented by listing how often a particular node is ancestral to other nodes.
-The summary is generated and automatically opens in your web browser.
+$^*$Note that some of the **R** packages required for this section may be difficult to download.
 
-%It is important to note, however, that the summary approaches for sampled-ancestor trees (for producing a summary topology and the sampled ancestor analyzer) are still under development.
+FigTree and IcyTree are great tree-viewing programs and also allow you to produce publication-quality tree figures. However, viewing a dated phylogenetic tree with a unit-less timescale is not as meaningful as plotting the tree with a geological (stratigraphic) time scale. The R package [strap](http://cran.r-project.org/web/packages/strap/index.html) {% cite bell2014strap} offers several nice functions for visualizing time-calibrated phylogenies in the context of the rock record.
 
-\bigskip
-\subsubsection{Visualizing the Dated Tree on a Geological Time Scale$^*$}\label{section-r-treeviz}
+>Install the necessary packages in R using `install.packages(c("strap", "phytools"), dependencies=TRUE)`. Load the packages using `library("strap"); library("phytools")`
 
-$^*$Note that some of the \cl{R} packages required for this section may be difficult to download.
+Now we can read in the tree using the **ape** function `read.nexus()` (note that you might have to type in the whole file path to your tree).
 
-FigTree and IcyTree are great tree-viewing programs and also allow you to produce publication-quality tree figures. 
-However, viewing a dated phylogenetic tree with a unit-less timescale is not as meaningful as plotting the tree with a geological (stratigraphic) time scale. 
-The \cl{R} package \href{http://cran.r-project.org/web/packages/strap/index.html}{\cl{strap}} \citep{bell2014strap} offers several nice functions for visualizing time-calibrated phylogenies in the context of the rock record.
+>Enter `tree <- read.nexus("bearsTree.summary.tre")`
 
+In order to use the `geoscalePhylo()` function of **strap**, we have to set a value for the variable **tree\$root.time**, which is the age of the root. We can compute this from the tree using the `ape::dist.nodes()` function:
 
-\descriptionhead{Install R Packages for Viewing and Plotting Trees}
+> Enter `tree$root.time <- max(dist.nodes(tree))`
 
-For this exercise we will use some \cl{R} packages to visualize the summary tree with a geological timescale.
-If you do not already have \cl{R} installed, please download the current version: \href{http://www.r-project.org/}{http://www.r-project.org}
+Now we can plot the tree:
 
-\dhead{strap} 
-Viewing dated phylogenies with an arbitrary time-scale removes the context of geological time and the fossil record from the analysis. 
-The package \cl{strap} in \cl{R} provides a set of functions to plot trees and stratigraphic information against geologic time, with scales provided by different sources including the International Commission on Stratigraphy \citep{bell2014strap}.
-A detailed tutorial for using the functions in \cl{strap} is available here: \href{http://datadryad.org/resource/doi:10.5061/dryad.4k078}{http://datadryad.org/resource/doi:10.5061/dryad.4k078}.
-To install \cl{strap}, execute the following command in \cl{R}:
-\begin{lstlisting}[language=R]
-> install.packages("strap",dependencies=TRUE)
-\end{lstlisting}
+> Enter `geoscalePhylo(tree=ladderize(tree,right=FALSE),label.offset=0)`
 
-\dhead{phytools} 
-In \cl{R}, there are many packages available for performing phylogenetic comparative methods, among them \href{http://www.phytools.org}{\cl{phytools}} is one of the richest, providing functions for a wide range of different analyses and for visualizing evolutionary processes in the context of phylogenetic relationships \citep{revell2012phytools}.
-To install \cl{phytools} in \cl{R}, execute the following command:
-\begin{lstlisting}[language=R]
-> install.packages("phytools",dependencies=TRUE)
-\end{lstlisting}
-
-
-\dhead{phyloch} 
-The trees sampled by the MCMC in BEAST contain valuable information about the sampled divergence times and branch rates. 
-Additionally, the summary trees produced by the BEAST accessory program TreeAnnotator have information about the 95\% credible intervals for the ages and rates. The package \cl{phyloch} provides functions for reading in data files written by BEAST and its accessory programs \citep{heibl2008phyloch}. 
-This package, however, is not available for download from CRAN. Instead, it is hosted on the developer's \href{http://www.christophheibl.de/Rpackages.html}{website} and on \href{https://github.com/fmichonneau/phyloch/}{Github}. 
-To install the \cl{phyloch} package in \cl{R}, use the \cl{remotes} package to install \cl{phyloch} directly from the repository:
-\begin{lstlisting}[language=R]
-> install.packages("remotes")
-> remotes::install_github("fmichonneau/phyloch")
-\end{lstlisting}
-
-
-
-\descriptionhead{Plot the Tree in \cl{R}}
-
-\begin{framed}
-Begin by opening an \cl{R} instance and load the \cl{strap} package.
-
-\begin{lstlisting}[language=R]
-> library("strap")
-\end{lstlisting}
-
-Now we can read in the tree using the \cl{ape} function \cl{read.nexus()} (note that you might have to type in the whole file path to your tree).
-\begin{lstlisting}[language=R]
-> tree <- read.nexus("bearsTree.summary.tre")
-\end{lstlisting}
-
-In order to use the \cl{geoscalePhylo()} function of \cl{strap}, we have to set a value for the variable \cl{tree\$root.time}, which is the age of the root. We can compute this from the tree using the \cl{dist.nodes()} function from \cl{ape}:
-\begin{lstlisting}[language=R]
-> tree$root.time <- max(dist.nodes(tree))
-\end{lstlisting}
-
-Now plot the tree:
-\begin{lstlisting}[language=R]
-> geoscalePhylo(tree=ladderize(tree,right=FALSE),label.offset=0)
-\end{lstlisting}
-\end{framed}
-You will notice that the plotted figure might need some work to make it easier to read taxon labels, etc. 
-Additionally, we don't get the node bars or other summary statistics for our tree. 
-If we wish to plot these values, then we need to do a bit more in \cl{R}. 
-With additional packages and functions, we can produce a summary tree that includes the credible intervals on the node ages (only for nodes in the extant tree, the origin time, and symbols representing the posterior probabilities of the tree bipartitions).
-This tree is shown in Figure \ref{figgeoscale} and the \cl{R} syntax for producing this figure is provided in the \cl{output} directory in the download files (\cl{plot\_geoscaled\_tree.R}).
-
-
+You will notice that the plotted figure might need some work to make it easier to read taxon labels, etc. Additionally, we don't get the node bars or other summary statistics for our tree. If we wish to plot these values, then we need to do a bit more. With additional packages and functions, we can produce a summary tree that includes the credible intervals on the node ages (only for nodes in the extant tree, the origin time, and symbols representing the posterior probabilities of the tree bipartitions). This tree and the R syntax for producing this figure is provided in the **output** directory in the download files (**plot\_geoscaled\_tree.R**).
 
 \begin{figure}[h!]
 \centering
@@ -741,249 +645,19 @@ This tree is shown in Figure \ref{figgeoscale} and the \cl{R} syntax for produci
 \label{figgeoscale}
 \end{figure}
 
-%%%%%
+# Useful Links
 
-\bigskip
-\section{More with XML -- changing the FBD parameterization}
-
-The FBD process can only be set up in BEAUti using the diversification rate, turnover and sampling proportion as parameters. However, it may be more convenient to use the birth, death and sampling rates as parameters, in particular for epidemiological datasets. This section will show how to edit the XML file generated with BEAUti to use this alternate parameterization.
-
-The first step is to locate the part of the XML which defines the parameters of the FBD process, shown in Box 1. These parameters define the diversification rate, turnover and sampling proportion, which we will change respectively to birth rate, death rate and sampling rate.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<parameter id="diversificationRateFBD.t:bearsTree" lower="0.0" name="stateNode">1.0</parameter>
-<parameter id="turnoverFBD.t:bearsTree" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
- <parameter id="samplingProportionFBD.t:bearsTree" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 1: BEAST 2 XML specification of the FBD parameters (old).\\
-\end{center}
-
-Note that changing the names of the actual parameters (e.g "diversificationRateFBD.t:bearsTree" to "birthRateFBD.t:bearsTree") is not required, however keeping them risks making the file confusing. Thus in this example we will change them. The names need to be changed wherever they appear throughout the file.
-The second thing to change in this section are the upper bounds on the parameters. Both the turnover and sampling proportion are limited to $\leq 1$, but this restriction does not apply to the death rate and sampling rate and needs to be removed.
-The new text in this part of the XML should look like Box 2.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<parameter id="birthRateFBD.t:bearsTree" lower="0.0" name="stateNode">1.0</parameter>
-<parameter id="deathRateFBD.t:bearsTree" lower="0.0" name="stateNode">0.5</parameter>
- <parameter id="samplingRateFBD.t:bearsTree" lower="0.0" name="stateNode">0.5</parameter>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 2: BEAST 2 XML specification of the FBD parameters. (new)\\
-\end{center}
-
-The second step is to locate the part of the XML which defines the FBD process itself, shown in Box 3. 
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<distribution id="FBD.t:bearsTree" spec="beast.evolution.speciation.SABirthDeathModel" conditionOnRhoSampling="true" diversificationRate="@birthRateFBD.t:bearsTree" origin="@originFBD.t:bearsTree" samplingProportion="@samplingRateFBD.t:bearsTree" tree="@Tree.t:bearsTree" turnover="@deathRateFBD.t:bearsTree">
-		<parameter id="rFBD.t:bearsTree" lower="0.0" name="removalProbability" upper="1.0">0.0</parameter>
-		<parameter id="rhoFBD.t:bearsTree" estimate="false" lower="0.0" name="rho" upper="1.0">1.0</parameter>
-</distribution>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 3: BEAST 2 XML specification of the FBD process (old).\\
-\end{center}
-
-The names of the parameters have already been changed in the previous step, so the only thing left to change is how they are used by the FBD process. The new text should look like Box 4.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<distribution id="FBD.t:bearsTree" spec="beast.evolution.speciation.SABirthDeathModel" conditionOnRhoSampling="true" birthRate="@birthRateFBD.t:bearsTree" origin="@originFBD.t:bearsTree" samplingRate="@samplingRateFBD.t:bearsTree" tree="@Tree.t:bearsTree" deathRate="@deathRateFBD.t:bearsTree">
-		<parameter id="rFBD.t:bearsTree" lower="0.0" name="removalProbability" upper="1.0">0.0</parameter>
-		<parameter id="rhoFBD.t:bearsTree" estimate="false" lower="0.0" name="rho" upper="1.0">1.0</parameter>
-</distribution>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 4: BEAST 2 XML specification of the FBD process (new).\\
-\end{center}
-
-Finally, the last step is to check (and possibly change) the priors associated with the parameters, shown in Box 5.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<prior id="diversificationRatePriorFBD.t:bearsTree" name="distribution" x="@birthRateFBD.t:bearsTree">
-	<Exponential id="Exponential.0" name="distr">
-		<parameter id="RealParameter.0" estimate="false" name="mean">1.0</parameter>
-	</Exponential>
-</prior>
-<prior id="turnoverPriorFBD.t:bearsTree" name="distribution" x="@deathRateFBD.t:bearsTree">
-	<Uniform id="Uniform.0" name="distr"/>
-</prior>
-<prior id="samplingProportionPriorFBD.t:bearsTree" name="distribution" x="@samplingRateFBD.t:bearsTree">
-	<Beta id="Beta.0" name="distr">
-		<parameter id="RealParameter.016" estimate="false" name="alpha">2.0</parameter>
-		<parameter id="RealParameter.017" estimate="false" name="beta">2.0</parameter>
-	</Beta>
-</prior>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 5: BEAST 2 XML specification of the priors for the FBD parameters (old).\\
-\end{center}
-
-Similarly to the parameter names, the names of the prior distributions do not need to be modified, but we will change them to stay consistent with the rest of the configuration. We can leave the birth rate prior as it is, however the uniform and beta distributions are not good priors for the death rate and the sampling rate, so we will change them to exponential distributions. The new prior distributions will look like Box 6.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<prior id="birthRatePriorFBD.t:bearsTree" name="distribution" x="@birthRateFBD.t:bearsTree">
-	<Exponential id="Exponential.0" name="distr">
-		<parameter id="RealParameter.0" estimate="false" name="mean">1.0</parameter>
-	</Exponential>
-</prior>
-<prior id="deathRatePriorFBD.t:bearsTree" name="distribution" x="@deathRateFBD.t:bearsTree">
-	<Exponential id="deathExp" name="distr">
-		<parameter id="deathExpMean" estimate="false" name="mean">1.0</parameter>
-	</Exponential>
-</prior>
-<prior id="samplingRatePriorFBD.t:bearsTree" name="distribution" x="@samplingRateFBD.t:bearsTree">
-	<Exponential id="samplExp" name="distr">
-		<parameter id="samplExpMean" estimate="false" name="mean">0.5</parameter>
-	</Exponential>
-</prior>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 6: BEAST 2 XML specification of the priors for the FBD parameters (new).\\
-\end{center}
-
-Note that we have changed the priors to Exponential(1.0) for the death rate and Exponential(0.5) for the sampling rate.
-
-\bigskip
-\section{More with XML -- fully extinct clades}
-
-We have seen in this tutorial how to co-estimate the age of the fossils with the rest of the MCMC. This can also be done for fully extinct clades, i.e. clades with no extant samples, however it is more tricky. The reason for that is that BEAST2 will always consider the youngest sample to be at age 0. This is not an issue if fossil ages are fixed, as you just need to record the age of the youngest sample as offset. It becomes a problem when we want to estimate fossil ages, as the offset may change from sample to sample, and the youngest fossil may not even be the same throughout the chain.
-
-To fix this issue, the SA package contains a "TreeWOffset" object, which allows a tree to be recorded along with its offset. This object is not accessible through the BEAUti interface, so using it requires editing the XML file.
-
-The first step is to locate the part of the XML where the FBD process is defined, shown in Box 7.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<distribution id="FBD.t:bearsTree" spec="beast.evolution.speciation.SABirthDeathModel" conditionOnRhoSampling="true" diversificationRate="@birthRateFBD.t:bearsTree" origin="@originFBD.t:bearsTree" samplingProportion="@samplingRateFBD.t:bearsTree" tree="@Tree.t:bearsTree" turnover="@deathRateFBD.t:bearsTree">
-		<parameter id="rFBD.t:bearsTree" lower="0.0" name="removalProbability" upper="1.0">0.0</parameter>
-		<parameter id="rhoFBD.t:bearsTree" estimate="false" lower="0.0" name="rho" upper="1.0">1.0</parameter>
-</distribution>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 7: BEAST 2 XML specification of the FBD process (old).\\
-\end{center}
-
-We need to add our treeWOffset object to the distribution, and connect it to the bears tree object. The "offset" parameter should be set to the starting age of the youngest fossil. Since this is an example and the bears dataset contains extant species, we will set the offset to $0$. The new FBD process specification is shown in Box 8. Note that we have not removed the "tree="@Tree.t:bearsTree" parameter from the FBD process, as this input is required.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<distribution id="FBD.t:bearsTree" spec="beast.evolution.speciation.SABirthDeathModel" conditionOnRhoSampling="true" diversificationRate="@birthRateFBD.t:bearsTree" origin="@originFBD.t:bearsTree" samplingProportion="@samplingRateFBD.t:bearsTree" tree="@Tree.t:bearsTree" turnover="@deathRateFBD.t:bearsTree">
-		<parameter id="rFBD.t:bearsTree" lower="0.0" name="removalProbability" upper="1.0">0.0</parameter>
-		<parameter id="rhoFBD.t:bearsTree" estimate="false" lower="0.0" name="rho" upper="1.0">1.0</parameter>
-		<treeWOffset id="treeWOffset:bearsTree" spec="beast.evolution.tree.TreeWOffset" tree="@Tree.t:bearsTree" offset="0.0"/>
-</distribution>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 8: BEAST 2 XML specification of the FBD process (new).\\
-\end{center}
-
-The next step is to update the "SampledNodeDateRandomWalker" operators to use our tree with offset as input. An example is shown in Boxes 9 and 10.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<operator id="tipDatesSampler.Arctodus_simus" spec="SampledNodeDateRandomWalker" taxonset="@Arctodus_simus" tree="@Tree.t:bearsTree" weight="1.0" windowSize="1.0"/>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 9: BEAST 2 XML specification of a SampledNodeDateRandomWalker operator (old).\\
-\end{center}
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<operator id="tipDatesSampler.Arctodus_simus" spec="SampledNodeDateRandomWalker" taxonset="@Arctodus_simus" tree="@Tree.t:bearsTree" treeWOffset="@treeWOffset:bearsTree" weight="1.0" windowSize="1.0"/>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 10: BEAST 2 XML specification of a SampledNodeDateRandomWalker operator (new).\\
-\end{center}
-
-Finally, we will add a logger to the trace log, shown in Box 11, in order to record the value of the offset at each sample of the chain.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<logger id="tracelog" fileName="bearsDivtime_FBD.1.log" logEvery="1000" model="@posterior" sanitiseHeaders="true" sort="smart">
-        <log idref="posterior"/>
-        <log idref="likelihood"/>
-        <log idref="prior"/>
-        <log idref="treeLikelihood.bears_irbp_fossils"/>
-        <log idref="treeLikelihood.bears_cytb_fossils"/>
-        <log id="TreeHeight.t:bearsTree" spec="beast.evolution.tree.TreeHeightLogger" tree="@Tree.t:bearsTree"/>
-        <log idref="mutationRate.s:bears_cytb_fossils"/>
-        			[...]
-        <log idref="Zaragocyon_daamsi.prior"/>
-        <log idref="freqParameter.s:bears_irbp_fossils"/>
-        <log idref="freqParameter.s:bears_cytb_fossils"/>
-</logger>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 11: BEAST 2 XML specification of the trace log (old).\\
-\end{center}
-
-The new trace log is shown in Box 12.
-
-\begin{center}
-{\tt \scriptsize{\begin{minipage}{6.5in}
-\begin{lstlisting}[language=XML]
-<logger id="tracelog" fileName="bearsDivtime_FBD.1.log" logEvery="1000" model="@posterior" sanitiseHeaders="true" sort="smart">
-        <log idref="posterior"/>
-        <log idref="likelihood"/>
-        <log idref="prior"/>
-        <log idref="treeLikelihood.bears_irbp_fossils"/>
-        <log idref="treeLikelihood.bears_cytb_fossils"/>
-        <log id="TreeHeight.t:bearsTree" spec="beast.evolution.tree.TreeHeightLogger" tree="@Tree.t:bearsTree"/>
-        <log idref="mutationRate.s:bears_cytb_fossils"/>
-        			[...]
-        <log idref="Zaragocyon_daamsi.prior"/>
-        <log idref="freqParameter.s:bears_irbp_fossils"/>
-        <log idref="freqParameter.s:bears_cytb_fossils"/>
-        <log id="offset" spec="beast.evolution.tree.OffsetLogger" treeWOffset="@treeWOffset:bearsTree"/>
-</logger>
-\end{lstlisting}
-\end{minipage}}}\\\vspace{4mm}
-Box 12: BEAST 2 XML specification of the trace log (new).\\
-\end{center}
-
-One last thing to note is that trees obtained using this procedure can not be summarized directly in TreeAnnotator, as they do not all have the same offset. One way to work around this problem is to add a "dummy" extant tip to each tree, thus placing all the other tips at the correct age. The trees with that additional tip can then be summarized normally using TreeAnnotator. Finally, the dummy tip can be removed to obtain the correct MCC tree.
-
-We provide an \cl{R} script named \cl{treesWoffset.R} to help with this process. This script requires the \cl{treeio} package to be installed. The function \cl{transform.woffset.root} takes as input the .trees and .log files produced by a BEAST analysis (parameters \cl{treesfile} and \cl{logfile}, respectively), adds a dummy tip to all trees, and saves the resulting trees to the file given by \cl{outfile}.
-The function \cl{convert.MCC.tree} can then be used to remove the dummy tip from the summary tree (contained in the file given by \cl{treefile}) and save the final tree to the file given by \cl{outfile}.
-
-\bigskip
-\section{Useful Links}
-
-\begin{itemize}
-\item Taming the BEAST -- tutorials and workshops for learning BEAST 2: \href{https://taming-the-beast.org/}{https://taming-the-beast.org}
-\item BEAST 2 website and documentation: \href{https://www.beast2.org/}{https://www.beast2.org} 
-\item BEAST 1 website and documentation: \href{http://beast.bio.ed.ac.uk}{http://beast.bio.ed.ac.uk} 
-\item Join the BEAST user discussion: \href{http://groups.google.com/group/beast-users}{http://groups.google.com/group/beast-users} 
-\item RevBayes: \href{https://github.com/revbayes/code}{https://github.com/revbayes/code} 
-\item DPPDiv: \href{https://github.com/trayc7/FDPPDIV}{https://github.com/trayc7/FDPPDIV} 
-\item PhyloBayes: \href{http://megasun.bch.umontreal.ca/People/lartillot/www/index.htm}{www.phylobayes.org/} 
-\item multidivtime: \href{http://statgen.ncsu.edu/thorne/multidivtime.html}{http://statgen.ncsu.edu/thorne/multidivtime.html} 
-\item MCMCtree (PAML): \href{http://abacus.gene.ucl.ac.uk/software/paml.html}{http://abacus.gene.ucl.ac.uk/software/paml.html}
-\item BEAGLE: \href{http://code.google.com/p/beagle-lib/}{http://code.google.com/p/beagle-lib/} 
-\item A list of programs: \href{http://evolution.genetics.washington.edu/phylip/software.html}{http://evolution.genetics.washington.edu/phylip/software.html} 
-\item The Paleobiology Database: \href{http://www.paleodb.org}{http://www.paleodb.org} 
-\item The Fossil Calibration Database: \href{http://fossilcalibrations.org}{http://fossilcalibrations.org}
-\end{itemize}
-
-
-%\clearpage
+Taming the BEAST -- tutorials and workshops for learning BEAST 2: \href{https://taming-the-beast.org/}{https://taming-the-beast.org}
+BEAST 2 website and documentation: \href{https://www.beast2.org/}{https://www.beast2.org} 
+RevBayes: \href{https://github.com/revbayes/code}{https://github.com/revbayes/code} 
+DPPDiv: \href{https://github.com/trayc7/FDPPDIV}{https://github.com/trayc7/FDPPDIV} 
+PhyloBayes: \href{http://megasun.bch.umontreal.ca/People/lartillot/www/index.htm}{www.phylobayes.org/} 
+multidivtime: \href{http://statgen.ncsu.edu/thorne/multidivtime.html}{http://statgen.ncsu.edu/thorne/multidivtime.html} 
+MCMCtree (PAML): \href{http://abacus.gene.ucl.ac.uk/software/paml.html}{http://abacus.gene.ucl.ac.uk/software/paml.html}
+BEAGLE: \href{http://code.google.com/p/beagle-lib/}{http://code.google.com/p/beagle-lib/} 
+A list of programs: \href{http://evolution.genetics.washington.edu/phylip/software.html}{http://evolution.genetics.washington.edu/phylip/software.html} 
+The Paleobiology Database: \href{http://www.paleodb.org}{http://www.paleodb.org} 
+The Fossil Calibration Database: \href{http://fossilcalibrations.org}{http://fossilcalibrations.org}
 
 \bigskip
 
