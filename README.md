@@ -262,7 +262,7 @@ Four out of five of the taxon sets needed for this analysis have been specified 
 
 <figure>
  <a id="fig:16"></a>
- <img style="width:75%;" src="figures/ts_crown.png" alt="">
+ <img style="width:75%;" src="figures/ts_crown_urs.png" alt="">
  <figcaption>Figure 16: The species belonging to the Crown Bears clade.</figcaption>
 </figure>
 
