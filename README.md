@@ -262,115 +262,86 @@ Since some of the relationships of the fossil and living bears are well understo
 
 There are five distinct clades within the phylogeny of bears that we can define, and four out of five of these clades are defined as taxon sets in one of the nexus files containing our sequences (**bears\_cytb\_fossils.nex**). The taxa represented in our dataset are in the _total group_ of bears. This includes all of the fossils that diverged before the most-recent-common-ancestor (MRCA) of all _living_ bears. These early diverging fossils are _stem_ lineages.
 
-Four out of five of the taxon sets needed for this analysis have been specified in one of the nexus files containing our sequences. The first taxon set is the crown bears shown in Figure \ref{figtaxset1}. The crown bears include all living species of bears and all the fossils that are descended from the MRCA of living taxa (node 1 in Figure \ref{fig:clades}). The MRCA of all crown bears and stem lineages is represented by the root node of our tree (node R in Figure \ref{fig:clades}). We do not have to specify a taxon set for the root node.
+Four out of five of the taxon sets needed for this analysis have been specified in one of the NEXUS files containing our sequences. The first taxon set is the crown bears shown in Figure \ref{fig:16}. The crown bears include all living species of bears and all the fossils that are descended from the MRCA of living taxa (node 1 in Figure \ref{fig:clades}). The MRCA of all crown bears and stem lineages is represented by the root node of our tree (node R in Figure \ref{fig:clades}). We do not have to specify a taxon set for the root node.
 
-Let's start by creating a taxon set representing the MRCA of crown bears.
+<figure>
+ <a id="fig:16"></a>
+ <img style="width:75%;" src="figures/ts_crown.png" alt="">
+ <figcaption>Figure 16: The species belonging to the Crown Bears clade.</figcaption>
+</figure>
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=3in]{figures/ts_crown_urs.pdf}}
-\caption{\small The species belonging to the Crown Bears clade.}
-\label{figtaxset1}
-\end{figure}
+You can open and view the automatically generated BEAUti taxon set for the crown bears by clicking the  **1\_CrownBears.prior** button.
 
->If you view the file **bears\_cytb\_fossils.nex** in your text editor, you will see the four taxon sets defined in the **sets** block of the **NEXUS** file.
-
-```
-begin sets;
-taxset 1_CrownBears = Agriarctos_spp_5.0 ... Ursus_thibetanus_0;
-taxset 2_Pandas = Agriarctos_spp_5.0 ... Kretzoiarctos_beatrix_11.7;
-taxset 3_Tremarctinae = Arctodus_simus_0.5 Tremarctos_ornatus_0;
-taxset 4_Ursinae = Helarctos_malayanus_0 ... Ursus_thibetanus_0;
-end;
-```
-
-When you have a `taxset` in your data file, this creates a defined clade in BEAUti that is constrained to be monophyletic. You can also open the BEAUti taxon set for the crown bears by clicking the  **1\_CrownBears.prior** button.
-
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=4in]{figures/ts_crown_editor_window.pdf}}
-\caption{\small The \mi{Taxon set editor} used to create the clade containing the crown bear species.}
-\label{screentaxset1}
-\end{figure}
+<figure>
+ <a id="fig:17"></a>
+ <img style="width:75%;" src="figures/ts_crown_editor_window.png" alt="">
+ <figcaption>Figure 17: The Taxon set editor showing the clade containing the crown bear species.</figcaption>
+</figure>
 
 The second node defined in our NEXUS file is the MRCA of all species within the subfamily Ailuropodinae. This group includes the giant panda (_Aliuropoda melanoleuca_) and six fossil relatives.
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=3in]{figures/ts_pandas.pdf}}
-\caption{\small The species belonging to the Panda clade.}
-\label{figtaxset2}
-\end{figure}
+<figure>
+ <a id="fig:18"></a>
+ <img style="width:75%;" src="figures/ts_pandas.png" alt="">
+ <figcaption>Figure 18: The species belonging to the Panda clade.</figcaption>
+</figure>
 
 The subfamily Tremarctinae includes only the extant spectacled bear (_Tremarctos ornatus_) and the short-faced bear (_Arctodus simus_). The occurrence time of the short-faced bear is only 500,000 years ago since it is known from the Pleistocene.
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=3in]{figures/ts_Tremarctini.pdf}}
-\caption{\small The two species in the clade Tremarctinae.}
-\label{figtaxset3}
-\end{figure}
+<figure>
+ <a id="fig:19"></a>
+ <img style="width:75%;" src="figures/ts_Tremarctini.png" alt="">
+ <figcaption>Figure 19: The two species in the clade Tremarctinae.</figcaption>
+</figure>
 
 The subfamily Ursinae comprises all of the species in the genus _Ursus_ (including two fossil species) as well as the sun bear (_Helarctos malayanus_) and the sloth bear (_Melursus ursinus_).
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=3in]{figures/ts_ursinae.pdf}}
-\caption{\small The species belonging to the subfamily Ursinae.}
-\label{figtaxset4}
-\end{figure}
+<figure>
+ <a id="fig:20"></a>
+ <img style="width:75%;" src="figures/ts_ursinae.png" alt="">
+ <figcaption>Figure 20: The species belonging to the subfamily Ursinae.</figcaption>
+</figure>
 
-Finally, multiple studies using molecular data have shown that the polar bear (_Ursus maritimus_) and the brown bear (_Ursus arctos_) are closely related. Furthermore, phylogenetic analyses of ancient DNA from Pleistocene sub-fossils concluded that the cave bear (_Ursus spelaeus_) is closely related to the polar bear and the brown bear. This taxon set is not included in our `NEXUS` file, so we must define it using BEAUti.
+Finally, multiple studies using molecular data have shown that the polar bear (_Ursus maritimus_) and the brown bear (_Ursus arctos_) are closely related. Furthermore, phylogenetic analyses of ancient DNA from Pleistocene sub-fossils concluded that the cave bear (_Ursus spelaeus_) is closely related to the polar bear and the brown bear. This taxon set is not included in our NEXUS file, so we must define it using BEAUti.
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=3in]{figures/ts_polar.pdf}}
-\caption{\small Three closely related \textit{Ursus} species in the ``Brown Bears'' clade.}
-\label{figtaxset5}
-\end{figure}
+<figure>
+ <a id="fig:21"></a>
+ <img style="width:75%;" src="figures/ts_polar.png" alt="">
+ <figcaption>Figure 21: Three closely related _Ursus_ species in the ``Brown Bears'' clade.</figcaption>
+</figure>
 
 >Create a new taxon set for node 5 by clicking the **+ Add Prior** button and select **MRCA prior** in the pop-up option box. Label this taxon set **5\_BrownBears**. Move _Ursus arctos_, _Ursus maritimus_ and _Ursus spelaeus_ to the right-hand column, and click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 5.
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=4in]{figures/brown_bears_taxset.pdf}}
-\caption{\small The \mi{Taxon set editor} used to create the clade containing the brown bear, polar bear, and cave bear.}
-\label{screentaxsetBB}
-\end{figure}
+<figure>
+ <a id="fig:22"></a>
+ <img style="width:75%;" src="figures/brown_bears_taxset.png" alt="">
+ <figcaption>Figure 22: The Taxon set editor showing the clade containing the brown bear, polar bear, and cave bear.</figcaption>
+</figure>
 
 At this point, there should be five, monophyletic taxon sets listed in the **Priors** window. 
 
 ### Sampling the fossil ages
 
-In order to sample the age of fossil specimens, we need to specify a prior distribution for these ages. The age ranges for our fossil samples are shown in Table \ref{bearFossilTable2}. Since we have no prior knowledge on where the true age of the specimen lies in the range, we will use a uniform distribution as prior for each fossil. 
+In order to sample the age of fossil specimens, we need to specify a prior distribution for these ages. The age ranges for our fossil samples are shown in the table below, modified from Table S.3 in the supplemental appendix of {% cite heath2013fossilized}.
 
-\begin{table}[tbh!]
-\centering
-\caption{Fossil species used for calibrating divergence times under the FBD model. Modified from Table S.3 in the supplemental appendix of \citet{heath2013fossilized}.}\label{bearFossilTable2}
-{\small
-\begin{tabular}{@{\extracolsep{\fill}}l  c c c r}
-\hline
-\multicolumn{1}{@{}l}{\textbf{Fossil species}}  & &\multicolumn{1}{c}{\textbf{Age range (My)}}  & &\multicolumn{1}{r}{\textbf{Citation}} \\ 
-\hline
-\hspace{2mm} \textit{Parictis montanus} & & 33.9--37.2 & & \cite{clark1972,krause2008}\\
-\hspace{2mm} \textit{Zaragocyon daamsi} & & 20--22.8  & & \cite{ginsburg1995,abella12}\\
-\hspace{2mm} \textit{Ballusia elmensis} & & 13.7--16 & & \cite{ginsburg1998,abella12}\\
-\hspace{2mm} \textit{Ursavus primaevus} & & 13.65--15.97 & & \cite{andrews1977,abella12}\\
-\hspace{2mm} \textit{Ursavus brevihinus} & & 15.97--16.9  & & \cite{heizmann1980,abella12}\\
-\hspace{2mm} \textit{Indarctos vireti} & & 7.75--8.7  & & \cite{montoya2001,abella12}\\
-\hspace{2mm} \textit{Indarctos arctoides} & & 8.7--9.7 & & \cite{geraads2005,abella12}\\
-\hspace{2mm} \textit{Indarctos punjabiensis} & & 4.9--9.7 & & \cite{baryshnikov2002,abella12}\\
-\hspace{2mm} \textit{Ailurarctos lufengensis} & & 5.8--8.2 & & \cite{jin2007,abella12}\\
-\hspace{2mm} \textit{Agriarctos spp.} & & 4.9--7.75 && \cite{abella2011,abella12}\\
-\hspace{2mm} \textit{Kretzoiarctos beatrix} & & 11.2--11.8 & & \cite{abella2011,abella12}\\
-\hspace{2mm} \textit{Arctodus simus} & & 0.012--2.588 & & \cite{churcher1993,krause2008}\\
-\hspace{2mm} \textit{Ursus abstrusus} & & 1.8--5.3 & & \cite{bjork1970,krause2008}\\
-\hspace{2mm} \textit{Ursus spelaeus} & & 0.027--0.25 & & \cite{loreille2001,krause2008}\\
-\hline
-\end{tabular}}
-\end{table}
+|Fossil species|Age range (My)|Citation|
+|-|-|-|
+|_Parictis montanus_|33.9-37.2|{% cite clark1972,krause2008}|
+|_Zaragocyon daamsi_|20-22.8|{% cite ginsburg1995,abella12}|
+|_Ballusia elmensis_|13.7-16|{% cite ginsburg1998,abella12}|
+|_Ursavus primaevus_|13.65-15.97|{% cite andrews1977,abella12}|
+|_Ursavus brevihinus_|15.97-16.9|{% cite heizmann1980,abella12}|
+|_Indarctos vireti_|7.75-8.7|{% cite montoya2001,abella12}|
+|_Indarctos arctoides_|8.7-9.7|{% cite geraads2005,abella12}|
+|_Indarctos punjabiensis_|4.9-9.7|{% cite baryshnikov2002,abella12}|
+|_Ailurarctos lufengensis_|5.8-8.2|{% cite jin2007,abella12}|
+|_Agriarctos_ spp.|4.9-7.75|{% cite abella2011,abella12}|
+|_Kretzoiarctos beatrix_|11.2-11.8|{% cite abella2011,abella12}|
+|_Arctodus simus_|0.012-2.588|{% cite churcher1993,krause2008}|
+|_Ursus abstrusus_|1.8-5.3|{% cite bjork1970,krause2008}|
+|_Ursus spelaeus_|0.027-0.25|{% cite loreille2001,krause2008}|
 
-To add a prior on the age of a tip, we first need to define a taxon set containing only this tip. 
+Since we have no prior knowledge on where the true age of the specimen lies in the range, we will use a uniform distribution as prior for each fossil. To add a prior on the age of a tip, we first need to define a taxon set containing only this tip. 
 
 >Create a new taxon set for tip _Agriarctos spp._ by clicking the **+ Add Prior** button and selecting **MRCA prior** in the pop-up option box. Label the taxon set **Agriarctos\_spp**. Move the taxon **Agriarctos\_spp\_5.0** to the right-hand side column, click **OK**.
 
