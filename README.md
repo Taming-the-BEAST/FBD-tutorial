@@ -22,7 +22,7 @@ This tutorial will provide a general overview of divergence time estimation and 
 
 ### BEAST2 - Bayesian Evolutionary Analysis Sampling Trees 2
 
-[BEAST2](http://www.beast2.org) is a free software package for Bayesian evolutionary analysis of molecular sequences using MCMC and strictly oriented toward inference using rooted, time-measured phylogenetic trees {% cite drummond06, drummond07, Bouckaert2014}. The development and maintenance of BEAST is a large, collaborative effort and the program includes a wide array of different types of analyses. This tutorial uses the BEAST v{{ page.beastversion }}. 
+[BEAST2](http://www.beast2.org) is a free software package for Bayesian evolutionary analysis of molecular sequences using MCMC and strictly oriented toward inference using rooted, time-measured phylogenetic trees {% cite drummond06 drummond07 Bouckaert2014 --file FBD-tutorial/master-refs.bib %}. The development and maintenance of BEAST is a large, collaborative effort and the program includes a wide array of different types of analyses. This tutorial uses the BEAST v{{ page.beastversion }}. 
 
 ### BEAUti - Bayesian Evolutionary Analysis Utility
 
@@ -151,7 +151,7 @@ Now both models are fully specified for the unlinked genes. Note that **Fix mean
 
 ### The Clock Model
 
-Here, we can specify the model of lineage-specific substitution rate variation. The default model in BEAUti is the **Strict Clock** with a fixed substitution rate equal to 1. Models for relaxing the assumption of a constant substitution rate can be specified in BEAUti as well. The **Optimized Relaxed Clock** option (provided by the **ORC package**) assumes that the substitution rates associated with each branch are independently drawn from a single, discretized lognormal distribution {% cite drummond06}. The **Random Local Clock** uses Bayesian stochastic search variable selection to average over random local molecular clocks {% cite drummond10}. For this analysis we will use the uncorrelated, lognormal model of branch-rate variation.
+Here, we can specify the model of lineage-specific substitution rate variation. The default model in BEAUti is the **Strict Clock** with a fixed substitution rate equal to 1. Models for relaxing the assumption of a constant substitution rate can be specified in BEAUti as well. The **Optimized Relaxed Clock** option (provided by the **ORC package**) assumes that the substitution rates associated with each branch are independently drawn from a single, discretized lognormal distribution {% cite drummond06 --file FBD-tutorial/master-refs.bib %}. The **Random Local Clock** uses Bayesian stochastic search variable selection to average over random local molecular clocks {% cite drummond10 --file FBD-tutorial/master-refs.bib %}. For this analysis we will use the uncorrelated, lognormal model of branch-rate variation.
 
 >Navigate to the **Clock Model** window. Change the clock model to **Optimized Relaxed Clock**.
 
@@ -192,7 +192,7 @@ Since we are assuming that the branch rates are drawn from a lognormal distribut
  <figcaption>Figure 10: The exponential prior distribution on the mean of the log normal relaxed clock model.</figcaption>
 </figure>
 
-The other parameter of our relaxed-clock model is, by default assigned a gamma prior distribution. However, we have a strong prior belief that the variation in substitution rates among branches is low, since some previous studies have indicated that the rates of molecular evolution in bears is somewhat clock-like {% cite krause2008}. Thus, we will assume an exponential prior distribution with 95\% of the probability density on values less than 1 for the `ORCsigma.c` parameter.
+The other parameter of our relaxed-clock model is, by default assigned a gamma prior distribution. However, we have a strong prior belief that the variation in substitution rates among branches is low, since some previous studies have indicated that the rates of molecular evolution in bears is somewhat clock-like {% cite krause2008 --file FBD-tutorial/master-refs.bib %}. Thus, we will assume an exponential prior distribution with 95\% of the probability density on values less than 1 for the `ORCsigma.c` parameter.
 
 >Reveal the options for the prior on `ORCsigma.c` by clicking on the $\blacktriangleright$. Change the prior density to an **Exponential** with a mean of **0.3337**.
 
@@ -214,14 +214,14 @@ Next we will specify the prior distribution on the tree topology and branching t
  <figcaption>Figure 12: The tree priors available for specification in BEAUti.</figcaption>
 </figure>
  
-This model, like any branching process (i.e., constant rate birth-death, Yule) can be conditioned on either the origin time or the root age. Depending on the available prior information or the type of data available, it makes sense to condition on one or the other (but not both). If you know that all of the fossils in your dataset are _crown_ fossils---descendants of the MRCA of all the extant taxa---and you have some prior knowledge of the age of the clade, then it is reasonable to condition the FBD on the root. Alternatively, if the fossils in your analysis are stem fossils, or can only reliably be assigned to your total group, then it is appropriate to condition on the origin age. For this analysis, we have several bear fossils that are considered stem fossils, thus we will condition on the origin age. Previous studies {% cite dosReis2012} estimated an age of approximately 45.5 My for the MRCA of seals and bears. We will use this time as a starting value for the origin. 
+This model, like any branching process (i.e., constant rate birth-death, Yule) can be conditioned on either the origin time or the root age. Depending on the available prior information or the type of data available, it makes sense to condition on one or the other (but not both). If you know that all of the fossils in your dataset are _crown_ fossils---descendants of the MRCA of all the extant taxa---and you have some prior knowledge of the age of the clade, then it is reasonable to condition the FBD on the root. Alternatively, if the fossils in your analysis are stem fossils, or can only reliably be assigned to your total group, then it is appropriate to condition on the origin age. For this analysis, we have several bear fossils that are considered stem fossils, thus we will condition on the origin age. Previous studies {% cite dosReis2012 --file FBD-tutorial/master-refs.bib %} estimated an age of approximately 45.5 My for the MRCA of seals and bears. We will use this time as a starting value for the origin. 
 
 >Set the starting value of the **Origin** to 45.5 and make sure that the **estimate** box is checked. (You may have to expand the width of the BEAUti window to see the check-boxes for these parameters.)
 
 <figure>
  <a id="fig:13"></a>
  <img style="width:75%;" src="figures/specified_FBD_model.png" alt="">
- <figcaption>Figure 13: The initial values and conditions for the fossilized birth-death process {% cite stadler10,heath2013fossilized,gavryushkina2014}</figcaption>
+ <figcaption>Figure 13: The initial values and conditions for the fossilized birth-death process {% cite stadler10 heath2013fossilized gavryushkina2014 --file FBD-tutorial/master-refs.bib %}</figcaption>
 </figure>
 
 Since we are estimating the origin parameter, we must assign a prior distribution to it (unless we wish to keep the default Uniform(0,$\infty$) prior).
@@ -322,55 +322,52 @@ At this point, there should be five, monophyletic taxon sets listed in the **Pri
 
 ### Sampling the fossil ages
 
-In order to sample the age of fossil specimens, we need to specify a prior distribution for these ages. The age ranges for our fossil samples are shown in the table below, modified from Table S.3 in the supplemental appendix of {% cite heath2013fossilized}.
+In order to sample the age of fossil specimens, we need to specify a prior distribution for these ages. The age ranges for our fossil samples are shown in the table below, modified from Table S.3 in the supplemental appendix of {% cite heath2013fossilized --file FBD-tutorial/master-refs.bib %}.
 
 |Fossil species|Age range (My)|Citation|
 |-|-|-|
-|_Parictis montanus_|33.9-37.2|{% cite clark1972,krause2008}|
-|_Zaragocyon daamsi_|20-22.8|{% cite ginsburg1995,abella12}|
-|_Ballusia elmensis_|13.7-16|{% cite ginsburg1998,abella12}|
-|_Ursavus primaevus_|13.65-15.97|{% cite andrews1977,abella12}|
-|_Ursavus brevihinus_|15.97-16.9|{% cite heizmann1980,abella12}|
-|_Indarctos vireti_|7.75-8.7|{% cite montoya2001,abella12}|
-|_Indarctos arctoides_|8.7-9.7|{% cite geraads2005,abella12}|
-|_Indarctos punjabiensis_|4.9-9.7|{% cite baryshnikov2002,abella12}|
-|_Ailurarctos lufengensis_|5.8-8.2|{% cite jin2007,abella12}|
-|_Agriarctos_ spp.|4.9-7.75|{% cite abella2011,abella12}|
-|_Kretzoiarctos beatrix_|11.2-11.8|{% cite abella2011,abella12}|
-|_Arctodus simus_|0.012-2.588|{% cite churcher1993,krause2008}|
-|_Ursus abstrusus_|1.8-5.3|{% cite bjork1970,krause2008}|
-|_Ursus spelaeus_|0.027-0.25|{% cite loreille2001,krause2008}|
+|_Parictis montanus_|33.9-37.2|{% cite clark1972 krause2008 --file FBD-tutorial/master-refs.bib %}|
+|_Zaragocyon daamsi_|20-22.8|{% cite ginsburg1995 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Ballusia elmensis_|13.7-16|{% cite ginsburg1998 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Ursavus primaevus_|13.65-15.97|{% cite andrews1977 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Ursavus brevihinus_|15.97-16.9|{% cite heizmann1980 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Indarctos vireti_|7.75-8.7|{% cite montoya2001 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Indarctos arctoides_|8.7-9.7|{% cite geraads2005 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Indarctos punjabiensis_|4.9-9.7|{% cite baryshnikov2002 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Ailurarctos lufengensis_|5.8-8.2|{% cite jin2007 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Agriarctos_ spp.|4.9-7.75|{% cite abella2011 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Kretzoiarctos beatrix_|11.2-11.8|{% cite abella2011 abella12 --file FBD-tutorial/master-refs.bib %}|
+|_Arctodus simus_|0.012-2.588|{% cite churcher1993 krause2008 --file FBD-tutorial/master-refs.bib %}|
+|_Ursus abstrusus_|1.8-5.3|{% cite bjork1970 krause2008 --file FBD-tutorial/master-refs.bib %}|
+|_Ursus spelaeus_|0.027-0.25|{% cite loreille2001 krause2008 --file FBD-tutorial/master-refs.bib %}|
 
 Since we have no prior knowledge on where the true age of the specimen lies in the range, we will use a uniform distribution as prior for each fossil. To add a prior on the age of a tip, we first need to define a taxon set containing only this tip. 
 
 >Create a new taxon set for tip _Agriarctos spp._ by clicking the **+ Add Prior** button and selecting **MRCA prior** in the pop-up option box. Label the taxon set **Agriarctos\_spp**. Move the taxon **Agriarctos\_spp\_5.0** to the right-hand side column, click **OK**.
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=5in]{figures/ts_tip.png}}
-\caption{\small The \mi{Taxon set editor} used to create the clade containing the \textit{Agriarctos spp.} fossil.}
-\label{screentaxsettip}
-\end{figure}
+<figure>
+ <a id="fig:23"></a>
+ <img style="width:75%;" src="figures/ts_tip.png" alt="">
+ <figcaption>Figure 23: The Taxon set editor used to create the clade containing the _Agriarctos_ spp. fossil.</figcaption>
+</figure>
 
 We then need to specify the prior distribution for that tip.
 
 >Back in the **Priors** window, reveal the options for the prior on the age of **Agriarctos\_spp** by clicking on the $\blacktriangleright$. Change the prior distribution to **Uniform**, with a **Lower** value equal to 4.9 and an **Upper** value equal to 7.75. Check the box labeled **Tipsonly**.
 >
->This procedure needs to be repeated for each of the 14 fossils in our dataset.
+>Repeat for each of the 14 fossils in our dataset.
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=6.5in]{figures/prior_tip.png}}
-\caption{\small The \mi{Priors} window showing the prior set on the age of the \textit{Agriarctos spp.} fossil.}
-\label{priorTipAge}
-\end{figure}
+<figure>
+ <a id="fig:24"></a>
+ <img style="width:75%;" src="figures/prior_tip.png" alt="">
+ <figcaption>Figure 24: The Priors window showing the prior set on the age of the _Agriarctos_ spp. fossil.</figcaption>
+</figure>
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=6.5in]{figures/priors_all_tips.png}}
-\caption{\small The \mi{Priors} window showing the prior set on the ages of all fossils.}
-\label{priorsAllTips}
-\end{figure}
+<figure>
+ <a id="fig:25"></a>
+ <img style="width:75%;" src="figures/priors_all_tips.png" alt="">
+ <figcaption>Figure 25: The Priors window showing the prior set on the ages of all fossils.</figcaption>
+</figure>
 
 Unfortunately, sampling fossil ages cannot be set up purely in BEAUti at the moment. The last step of the procedure will be performed after we save the XML files.
 
@@ -404,7 +401,7 @@ BEAUti is a great tool for generating a properly-formatted XML file for many typ
 
 ## Running BEAST 2
 
-Now you are ready to start your BEAST analysis. BEAST allows you to use the BEAGLE library if you already have it installed. BEAGLE is an application programming interface and library that effectively takes advantage of your computer hardware (CPUs and GPUs) for doing the heavy lifting (likelihood calculation) needed for statistical phylogenetic inference {% cite ayers12}. Particularly, when using BEAGLE's GPU (NVIDIA) implementation, runtimes are significantly shorter. 
+Now you are ready to start your BEAST analysis. BEAST allows you to use the BEAGLE library if you already have it installed. BEAGLE is an application programming interface and library that effectively takes advantage of your computer hardware (CPUs and GPUs) for doing the heavy lifting (likelihood calculation) needed for statistical phylogenetic inference {% cite ayers12 --file FBD-tutorial/master-refs.bib %}. Particularly, when using BEAGLE's GPU (NVIDIA) implementation, runtimes are significantly shorter. 
 
 >Execute **bearsDivtime\_FBD.prior.xml** and **bearsDivtime\_FBD.xml** in BEAST2. You should see the screen output every 1,000 generations, reporting the likelihood and several other statistics.
 
@@ -435,27 +432,23 @@ The **ORCsigma** indicates the amount of variation in the substitution rates acr
 >
 >Color (or ``colour'') the densities by `Trace File` next to **Colour by** at the bottom of the window (if you do not see this option, increase the size of your Tracer window). You can also add a **Legend** to reveal which density belongs to which run file.
 
-\begin{figure}[h!]
-\centering
-%\fbox{\includegraphics[width=6in]{figures/tracer_image_stdev.png}}
-\includegraphics[width=6in]{figures/tracer_image_stdev.png}
-\caption{\small Comparing the marginal densities (using the kernel density estimate) of the \mi{ORCsigma} parameter from 2 independent runs (blue and green) and the prior (red) in Tracer.}
-\label{tracerStdev}
-\end{figure}
+<figure>
+ <a id="fig:26"></a>
+ <img style="width:75%;" src="figures/tracer_image_stdev.png" alt="">
+ <figcaption>Figure 26: Comparing the marginal densities (using the kernel density estimate) of the ORCsigma parameter from 2 independent runs (blue and green) and the prior (red) in Tracer.</figcaption>
+</figure>
 
-The first thing you will notice from this plot is that the marginal densities from each of our analysis runs (**bearsDivtime\_FBD.1.log** and **bearsDivtime\_FBD.2.log**) are nearly identical. If you click through the other sampled parameters, these densities are the same for each one. This indicates that both of our runs have converged on the same stationary distribution. If some of the other parameters might not have mixed well, we may want to run them longer, but we can have good confidence that our runs have sampled the same distribution. Second, it is likely for the UCLD rates that the parameters of this model appear to be somewhat sensitive to the priors. That is because we have several lineages in our tree without any data since we are using fossils to calibrate under the FBD model. For these branches, the clock rate assigned to them is sampled from the prior. The branches with extant descendants, however have rates that are informed by DNA sequence data. Because of this implementation, it is difficult to visualize the branch rates and associated parameters from the log files. If these parameters are of interest, then it may be necessary to extract the rates associated with the extant branches from the MCMC samples of trees. When fossils are used without character data, alternative implementations of the FBD model consider the fossils separately and thus, the branch rates can be summarized for only the extant lineages {% cite heath2013fossilized}.
+The first thing you will notice from this plot is that the marginal densities from each of our analysis runs (**bearsDivtime\_FBD.1.log** and **bearsDivtime\_FBD.2.log**) are nearly identical. If you click through the other sampled parameters, these densities are the same for each one. This indicates that both of our runs have converged on the same stationary distribution. If some of the other parameters might not have mixed well, we may want to run them longer, but we can have good confidence that our runs have sampled the same distribution. Second, it is likely for the UCLD rates that the parameters of this model appear to be somewhat sensitive to the priors. That is because we have several lineages in our tree without any data since we are using fossils to calibrate under the FBD model. For these branches, the clock rate assigned to them is sampled from the prior. The branches with extant descendants, however have rates that are informed by DNA sequence data. Because of this implementation, it is difficult to visualize the branch rates and associated parameters from the log files. If these parameters are of interest, then it may be necessary to extract the rates associated with the extant branches from the MCMC samples of trees. When fossils are used without character data, alternative implementations of the FBD model consider the fossils separately and thus, the branch rates can be summarized for only the extant lineages {% cite heath2013fossilized --file FBD-tutorial/master-refs.bib %}.
 
 Next, we will look at the **Marginal Prob Distribution** for the turnover parameter (`turnoverFBD`).
 
 >Select all trace files for the **turnoverFBD** parameter and go to the **Marginal Density** window. Color the densities by **Trace file** and add a legend.
 
-\begin{figure}[h!]
-\centering
-%\fbox{\includegraphics[width=3.4in]{figures/tracer_image_turnover.png}}
-\includegraphics[width=6in]{figures/tracer_image_turnover.png}
-\caption{\small Comparing the marginal densities (using the histogram) of the \mi{turnoverFBD} parameter from 2 independent runs (blue and green) and the prior (red) in Tracer.}
-\label{tracerTurnover}
-\end{figure}
+<figure>
+ <a id="fig:27"></a>
+ <img style="width:75%;" src="figures/tracer_image_turnover.png" alt="">
+ <figcaption>Figure 27: Comparing the marginal densities (using the histogram) of the turnoverFBD parameter from 2 independent runs (blue and green) and the prior (red) in Tracer.</figcaption>
+</figure>
 
 When comparing the MCMC with data to those sampled just under the prior, we can see that this prior and posterior densities are nearly identical. Additionally, you may be alarmed that the prior density looks nothing like the Uniform(0,1) prior we applied in BEAUti. However, it's important to understand that when specifying **Sample From Prior** in BEAUti we are telling BEAST to ignore the likelihood coming from the _sequence data_, but the MCMC continues to account for the other data---fossil occurrence times---that we have input. Thus, since we have a good number of fossils, the estimates of turnover, diversification, and the sampling proportion are highly informed by these data. If we used fewer fossils, the posterior and prior densities would be less congruent because the fossil data are still considered when ``sampling from the prior'' in this case. By contrast, if the information from the fossil occurrence times was ignored when sampling under the prior, then the posterior and prior densities for the FBD parameters would deviate more when many fossils are used.
 
@@ -485,14 +478,13 @@ The tree file produced by TreeAnnotator contains the maximum clade credibility t
 
 >Execute FigTree and open the file **bearsTree.summary.tre**.
 
-The tree you are viewing in FigTree has several fossil taxa with zero-length branches, e.g., _Parictis montanus_ and _Ursus abstrusus_. These branches actually indicate fossil taxa with a significant probability of representing a sampled ancestor. However, it is difficult to represent this in typical tree-viewing programs. A tree with sampled ancestors properly represented will have two-degree nodes --- i.e., a node with only one descendant. The web-based tree viewer [IcyTree](http://icytree.org/) {% cite Vaughan2017} is capable of plotting such trees from BEAST2 analyses. 
+The tree you are viewing in FigTree has several fossil taxa with zero-length branches, e.g., _Parictis montanus_ and _Ursus abstrusus_. These branches actually indicate fossil taxa with a significant probability of representing a sampled ancestor. However, it is difficult to represent this in typical tree-viewing programs. A tree with sampled ancestors properly represented will have two-degree nodes --- i.e., a node with only one descendant. The web-based tree viewer [IcyTree](http://icytree.org/) {% cite Vaughan2017 --file FBD-tutorial/master-refs.bib %} is capable of plotting such trees from BEAST2 analyses. 
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=\textwidth]{figures/bearsTree_icytree.pdf}}
-\caption{\small A sampled-ancestor tree exported from \href{http://tgvaughan.github.io/icytree/icytree.html}{IcyTree}. The sampled-ancestor nodes are revealed by selecting the \mi{Mark singletons} option and setting \mi{Internal node text} to \mi{Label}. The option \mi{Angle node label text} was selected to avoid overlapping labels. The tree was exported to a SVG file and minor manipulations were conducted in a vector graphics editing program (Inkscape or Adobe Illustrator).}
-\label{icyTree}
-\end{figure}
+<figure>
+ <a id="fig:28"></a>
+ <img style="width:75%;" src="figures/bearsTree_icytree.png" alt="">
+ <figcaption>Figure 28: A sampled-ancestor tree exported from IcyTree.</figcaption>
+</figure>
 
 Although the tree above looks awesome, the topology can be misleading for this particular analysis. Because we did not provide character data for our 14 fossil taxa, the tree topology does not adequately illustrate the degree of uncertainty in the phylogenetic relationships of the fossil lineages. Without morphological data, the fossil lineages can attach to any lineage on the tree that is consistent with the monophyletic clades we specified and the fossil occurrence times with equal probability. Thus, the relationships shown here are not reliable as phylogenetic inferences. However, if we provided morphological character data for these fossils, then many would consider this tree to be an adequate summary our MCMC sample of trees. 
 
@@ -500,40 +492,40 @@ Since the fossil taxa were used in this analysis to only inform the fossilized b
 
 >Open BEAUti and launch the accessory apps via **File > Launch Apps**. This will open a window with a few applications, launch **FullToExtantTreeConverter**. In the file specification window for **Trees** provide the file called **bearsTree.combined.trees**. And give the **Output** file the name **bearsTree.extant.trees**.
 
-%\begin{figure}[h!]
-%\centering
-%\fbox{\includegraphics[width=3in]{figures/full_to_extant_converter.pdf}}
-%\caption{\small The options for \mi{FullToExtantTreeConverter}.}
-%\label{fullConverterScreen}
-%\end{figure}
+<figure>
+ <a id="fig:29"></a>
+ <img style="width:75%;" src="figures/full_to_extant_converter.png" alt="">
+ <figcaption>Figure 29: The options for FullToExtantTreeConverter.</figcaption>
+</figure>
 
 >Run TreeAnnotator on the file called **bearsTree.extant.trees**, selecting the same options as you did for the file with complete trees. Name the summary tree file **bearsTree.extant\_summary.tre**.
 
 When the fossil lineages are removed, much of the information about the history of this group is lost. However, alternative approaches for summarizing fossilized birth-death trees are currently under development.
 
-\begin{figure}[h!]
-\centering
-\fbox{\includegraphics[width=5.5in]{figures/geoscaled_bears_ext.pdf}}
-\caption{\small The maximum clade credibility tree of \textit{extant} bears summarized by TreeAnnotator and plotted against stratigraphy using the \cl{strap} package in \cl{R} (see how to do this in Section \ref{section-r-treeviz} below). 
-The internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability: $\newmoon \geq 0.95$, $0.95>$ \gcirc $\geq 0.75$, $0.75 > \fullmoon$. The 95\% credible intervals for node ages are shown with transparent blue bars.}
-\label{figgeoscaleext}
-\end{figure}
+<figure>
+ <a id="fig:30"></a>
+ <img style="width:75%;" src="figures/geoscaled_bears_ext.png" alt="">
+ <figcaption>Figure 30: The maximum clade credibility tree of extant bears summarized by TreeAnnotator and plotted against stratigraphy using the strap package in R. The internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability: $\newmoon \geq 0.95$, $0.95>$ \gcirc $\geq 0.75$, $0.75 > \fullmoon$. The 95\% credible intervals for node ages are shown with transparent blue bars.</figcaption>
+</figure>
 
 # Useful Links
 
-Taming the BEAST -- tutorials and workshops for learning BEAST 2: \href{https://taming-the-beast.org/}{https://taming-the-beast.org}
-BEAST 2 website and documentation: \href{https://www.beast2.org/}{https://www.beast2.org} 
-RevBayes: \href{https://github.com/revbayes/code}{https://github.com/revbayes/code} 
-DPPDiv: \href{https://github.com/trayc7/FDPPDIV}{https://github.com/trayc7/FDPPDIV} 
-PhyloBayes: \href{http://megasun.bch.umontreal.ca/People/lartillot/www/index.htm}{www.phylobayes.org/} 
-multidivtime: \href{http://statgen.ncsu.edu/thorne/multidivtime.html}{http://statgen.ncsu.edu/thorne/multidivtime.html} 
-MCMCtree (PAML): \href{http://abacus.gene.ucl.ac.uk/software/paml.html}{http://abacus.gene.ucl.ac.uk/software/paml.html}
-BEAGLE: \href{http://code.google.com/p/beagle-lib/}{http://code.google.com/p/beagle-lib/} 
-A list of programs: \href{http://evolution.genetics.washington.edu/phylip/software.html}{http://evolution.genetics.washington.edu/phylip/software.html} 
-The Paleobiology Database: \href{http://www.paleodb.org}{http://www.paleodb.org} 
-The Fossil Calibration Database: \href{http://fossilcalibrations.org}{http://fossilcalibrations.org}
+- [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html) {% cite BEAST2book2014 --file FBD-tutorial/master-refs.bib %}
+- BEAST 2 website and documentation: [http://www.beast2.org/](http://www.beast2.org/)
+- BEAST 1 website and documentation: [http://beast.bio.ed.ac.uk](http://beast.bio.ed.ac.uk)
+- RevBayes: [https://github.com/revbayes/code](https://github.com/revbayes/code)
+- DPPDiv: [https://github.com/trayc7/FDPPDIV](https://github.com/trayc7/FDPPDIV)
+- PhyloBayes: [www.phylobayes.org/](www.phylobayes.org/)
+- multidivtime: [http://statgen.ncsu.edu/thorne/multidivtime.html](http://statgen.ncsu.edu/thorne/multidivtime.html)
+- MCMCTree (PAML): [http://abacus.gene.ucl.ac.uk/software/paml.html](http://abacus.gene.ucl.ac.uk/software/paml.html)
+- BEAGLE: [https://github.com/beagle-dev/beagle-lib](https://github.com/beagle-dev/beagle-lib)
+- Paleobiology Database: [http://www.paleodb.org](http://www.paleodb.org)
+- Fossil Calibration Database: [http://fossilcalibrations.org](http://fossilcalibrations.org)
+- Join the BEAST user discussion: [http://groups.google.com/group/beast-users](http://groups.google.com/group/beast-users) 
 
-\bigskip
+# Relevant References
+
+{% bibliography --cited --file FBD-tutorial/master-refs.bib %}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 % Tutorial disclaimer %
