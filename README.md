@@ -1,7 +1,7 @@
 ---
 author: Tracy A. Heath
 level: Intermediate
-title: Divergence Time Estimation using BEAST v2.x
+title: Divergence Time Estimation
 subtitle: Dating Species Divergences with the Fossilized Birth-Death Process
 beastversion: 2.7.4
 ---
@@ -60,7 +60,7 @@ The final source of data required for our analysis is some information about the
 
 <figure>
  <a id="fig:1"></a>
- <img style="width:75%;" src="figures/bears_clades_tree.pdf" alt="">
+ <img style="width:75%;" src="figures/bears_clades_tree.png" alt="">
  <figcaption>Figure 1: The phylogenetic relationships of crown and stem bears based on taxonomy and morphological data. The resolution of monophyletic clades is based on well-supported previous analyses. Monophyletic clades are indicated with labeled circles. In addition to the root node (R), there are 5 nodes defining clades containing both fossil and extant species. The origin of the tree is indicated with a red square. The time of this node represents the start of the diversification process that generated these lineages. The extant lineages are shown with heavy, solid lines and the fossil lineages are dotted lines.</figcaption>
 </figure>
 
@@ -79,7 +79,7 @@ Next, we have to install the BEAST 2 packages that are needed for this analysis.
 
 <figure>
  <a id="fig:2"></a>
- <img style="width:75%;" src="figures/beast2_package_manager.pdf" alt="">
+ <img style="width:75%;" src="figures/beast2_package_manager.png" alt="">
  <figcaption>Figure 2: The BEAST2 Package Manager.</figcaption>
 </figure>
 
@@ -101,7 +101,7 @@ It is convenient to rename some of the variables in the **Partitions** window, s
 
 <figure>
  <a id="fig:3"></a>
- <img style="width:75%;" src="figures/link_trees_partitions.pdf" alt="">
+ <img style="width:75%;" src="figures/link_trees_partitions.png" alt="">
  <figcaption>Figure 3: The Partitions window after unlinking the site models, linking the clock models, linking the trees, and renaming the XML variables.</figcaption>
 </figure>
 
@@ -113,7 +113,7 @@ We must indicate that we have sequentially sampled sequences, and when those seq
 
 <figure>
  <a id="fig:4"></a>
- <img style="width:75%;" src="figures/tip_dates_years.pdf" alt="">
+ <img style="width:75%;" src="figures/tip_dates_years.png" alt="">
  <figcaption>Figure 4: Specifying the units and reference point of the fossil dates.</figcaption>
 </figure>
 
@@ -123,7 +123,7 @@ Conveniently, we can specify that our dates are included in the taxon names, so 
 
 <figure>
  <a id="fig:5"></a>
- <img style="width:75%;" src="figures/guess_tip_dates.pdf" alt="">
+ <img style="width:75%;" src="figures/guess_tip_dates.png" alt="">
  <figcaption>Figure 5: Specify the text pattern in the taxon names that identifies the tip's age using the `Guess dates` option.</figcaption>
 </figure>
 
@@ -133,17 +133,17 @@ You should now see that the tip ages have been filled in for all of the fossil t
 
 The molecular sequence data sampled for each extant bear species are from two different genes: the mitochondrial cytochrome b gene (**cytb**) and the nuclear interphotoreceptor retinoid-binding protein gene (**irbp**). We will partition these loci into two separate alignments and apply different models of sequence evolution to each one. For the `cytb` gene, we will apply a general-time reversible model with homogeneous rates across sites: GTR. For the nuclear gene `irbp`, we will assume a 2-rate model where transitions and transversions happen at different rates, and that the rates vary across the alignment according to a mean-one gamma distribution: HKY+$\Gamma$.
 
->Navigate to the **Site Model** window. Select the **cytb** gene and change the **Subst Model** to **GTR**. Toggle on **estimate** for the **Substitution Rate**. Select the **irbp** gene and change the **Subst Model** to **HKY**. To indicate gamma-distributed rates, set the **Gamma Category Count** to 4. Then switch the **Shape** parameter to **estimate**. Toggle on **estimate** for the **Substitution Rate**.
+>Navigate to the **Site Model** window. Select the **cytb** gene and change the **Subst Model** to **GTR**. Toggle on **estimate** for the **Substitution Rate**. Select the **irbp** gene and change the **Subst Model** to **HKY**. To indicate gamma-distributed rates, set the **Gamma Category Count** to 4. Check that the  **Shape** parameter is set to **estimate**. Toggle on **estimate** for the **Substitution Rate**.
 
 <figure>
  <a id="fig:6"></a>
- <img style="width:75%;" src="figures/set_mito_sites_model.pdf" alt="">
+ <img style="width:75%;" src="figures/set_mito_sites_model.png" alt="">
  <figcaption>Figure 6: The fully specified site model for the \cl{cytb} gene: GTR.</figcaption>
 </figure>
 
 <figure>
  <a id="fig:7"></a>
- <img style="width:75%;" src="figures/set_irbp_sites_model.pdf" alt="">
+ <img style="width:75%;" src="figures/set_irbp_sites_model.png" alt="">
  <figcaption>Figure 7: The fully specified site model for the \cl{irbp} gene: HKY+$\Gamma$.</figcaption>
 </figure>
 
@@ -166,7 +166,7 @@ Note that the base frequencies for each of these models are not listed, though t
 
 <figure>
  <a id="fig:8"></a>
- <img style="width:75%;" src="figures/priors_panel_initial.pdf" alt="">
+ <img style="width:75%;" src="figures/priors_panel_initial.png" alt="">
  <figcaption>Figure 8: The Priors window with default (unmodified) settings.</figcaption>
 </figure>
 
@@ -176,7 +176,7 @@ We will keep the default priors for the HKY model on the evolution of `irbp`. Th
 
 <figure>
  <a id="fig:9"></a>
- <img style="width:75%;" src="figures/priors_on_GTR_rates.pdf" alt="">
+ <img style="width:75%;" src="figures/priors_on_GTR_rates.png" alt="">
  <figcaption>Figure 9: Gamma prior distributions on two of the five relative rates of the GTR model.</figcaption>
 </figure>
 
@@ -188,7 +188,7 @@ Since we are assuming that the branch rates are drawn from a lognormal distribut
 
 <figure>
  <a id="fig:10"></a>
- <img style="width:75%;" src="figures/priors_on_GTR_rates.pdf" alt="">
+ <img style="width:75%;" src="figures/exp_prior_on_ucldmean.png" alt="">
  <figcaption>Figure 10: The exponential prior distribution on the mean of the log normal relaxed clock model.</figcaption>
 </figure>
 
@@ -198,7 +198,7 @@ The other parameter of our relaxed-clock model is, by default assigned a gamma p
 
 <figure>
  <a id="fig:11"></a>
- <img style="width:75%;" src="figures/exp_prior_on_ucldstdv.pdf" alt="">
+ <img style="width:75%;" src="figures/exp_prior_on_ucldstdv.png" alt="">
  <figcaption>Figure 11: The exponential prior distribution on the standard deviation of the log normal relaxed clock model.</figcaption>
 </figure>
 
@@ -210,17 +210,17 @@ Next we will specify the prior distribution on the tree topology and branching t
 
 <figure>
  <a id="fig:12"></a>
- <img style="width:75%;" src="figures/exp_prior_on_ucldstdv.pdf" alt="">
+ <img style="width:75%;" src="figures/exp_prior_on_ucldstdv.png" alt="">
  <figcaption>Figure 12: The tree priors available for specification in BEAUti.</figcaption>
 </figure>
  
 This model, like any branching process (i.e., constant rate birth-death, Yule) can be conditioned on either the origin time or the root age. Depending on the available prior information or the type of data available, it makes sense to condition on one or the other (but not both). If you know that all of the fossils in your dataset are _crown_ fossils---descendants of the MRCA of all the extant taxa---and you have some prior knowledge of the age of the clade, then it is reasonable to condition the FBD on the root. Alternatively, if the fossils in your analysis are stem fossils, or can only reliably be assigned to your total group, then it is appropriate to condition on the origin age. For this analysis, we have several bear fossils that are considered stem fossils, thus we will condition on the origin age. Previous studies {% cite dosReis2012} estimated an age of approximately 45.5 My for the MRCA of seals and bears. We will use this time as a starting value for the origin. 
 
->Set the starting value of the **Origin** to 45.5 and specify that this parameter will be estimated by checking the **estimate** box. (You may have to expand the width of the BEAUti window to see the check-boxes for these parameters.)
+>Set the starting value of the **Origin** to 45.5 and make sure that the **estimate** box is checked. (You may have to expand the width of the BEAUti window to see the check-boxes for these parameters.)
 
 <figure>
  <a id="fig:13"></a>
- <img style="width:75%;" src="figures/specified_FBD_model.pdf" alt="">
+ <img style="width:75%;" src="figures/specified_FBD_model.png" alt="">
  <figcaption>Figure 13: The initial values and conditions for the fossilized birth-death process {% cite stadler10,heath2013fossilized,gavryushkina2014}</figcaption>
 </figure>
 
@@ -231,7 +231,7 @@ We will assume that the origin time is drawn from a lognormal distribution with 
 
 <figure>
  <a id="fig:14"></a>
- <img style="width:75%;" src="figures/ln_den.pdf" alt="">
+ <img style="width:75%;" src="figures/ln_den.png" alt="">
  <figcaption>Figure 14: The lognormal prior distribution on the origin time.</figcaption>
 </figure>
 
@@ -244,8 +244,8 @@ The diversification rate is: $d = \lambda-\mu$. Generally, we think that this va
 
 <figure>
  <a id="fig:15"></a>
- <img style="width:75%;" src="figures/beta_den.pdf" alt="">
- <figcaption>Figure 15: Prior distributions on FBD parameters. (A) An exponential prior with a mean of 1 describes the distribution on the diversification rate ($d=\lambda-\mu$). (B) The sampling proportion is the probability of observing a fossil prior to the lineage extinction ($s = \psi /(\mu+\psi)$). Because this parameter is on the interval [0,1], we assume a beta prior density with $\alpha=\beta=2$.</figcaption>
+ <img style="width:75%;" src="figures/beta_den.png" alt="">
+ <figcaption>Figure 15: Prior distribution on sampling proportion. The sampling proportion is the probability of observing a fossil prior to the lineage extinction ($s = \psi /(\mu+\psi)$). Because this parameter is on the interval [0,1], we assume a beta prior density with $\alpha=\beta=2$.</figcaption>
 </figure>
 
 The sampling proportion is the probability of observing a lineage as a fossil before that lineage goes extinct. This parameter is a function of the extinction rate ($\mu$) and fossil recovery rate ($\psi$): $s=\psi / (\mu+\psi)$. Let's say that we have prior knowledge that this parameter is approximately equal to 0.5, and that we wish extreme values (very close to 0 or 1) to have low probability. This prior density can be described with a beta distribution. The [beta distribution](http://en.wikipedia.org/wiki/Beta_distribution) is a probability density over values between 0 and 1 and is parameterized by two values, called $\alpha$ and $\beta$. A beta distribution with $\alpha=\beta=1$ is equivalent to a uniform distribution between 0 and 1. By changing the parameters, we can assign higher probability to values closer to 1 or 0. The mean of the beta distribution on $s$ is: $\mathbb{E}(s) = \frac{\alpha}{\alpha+\beta}$. Thus, if $\alpha=\beta$, then $\mathbb{E}(s) = 0.5$. For this prior we will set $\alpha=\beta=2$.
@@ -302,8 +302,6 @@ The second node defined in our NEXUS file is the MRCA of all species within the 
 \label{figtaxset2}
 \end{figure}
 
->Create a new taxon set for node 2 by clicking the **+** and label it **2\_Pandas**. Move all of the taxa listed in this clade to the right-hand column and click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 2.
-
 The subfamily Tremarctinae includes only the extant spectacled bear (_Tremarctos ornatus_) and the short-faced bear (_Arctodus simus_). The occurrence time of the short-faced bear is only 500,000 years ago since it is known from the Pleistocene.
 
 \begin{figure}[h!]
@@ -312,8 +310,6 @@ The subfamily Tremarctinae includes only the extant spectacled bear (_Tremarctos
 \caption{\small The two species in the clade Tremarctinae.}
 \label{figtaxset3}
 \end{figure}
-
->Create a new taxon set for node 3 by clicking the **+** and label it **3\_Tremarctinae**. Move both species listed in this clade to the right-hand column and click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 3.
 
 The subfamily Ursinae comprises all of the species in the genus _Ursus_ (including two fossil species) as well as the sun bear (_Helarctos malayanus_) and the sloth bear (_Melursus ursinus_).
 
@@ -324,8 +320,6 @@ The subfamily Ursinae comprises all of the species in the genus _Ursus_ (includi
 \label{figtaxset4}
 \end{figure}
 
->Create a new taxon set for node 4 by clicking the \fbox{\textbf{+}} and label it **4\_Ursinae**. Move all of the taxa listed in this clade to the right-hand column and click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 4.
-
 Finally, multiple studies using molecular data have shown that the polar bear (_Ursus maritimus_) and the brown bear (_Ursus arctos_) are closely related. Furthermore, phylogenetic analyses of ancient DNA from Pleistocene sub-fossils concluded that the cave bear (_Ursus spelaeus_) is closely related to the polar bear and the brown bear. This taxon set is not included in our `NEXUS` file, so we must define it using BEAUti.
 
 \begin{figure}[h!]
@@ -335,7 +329,7 @@ Finally, multiple studies using molecular data have shown that the polar bear (_
 \label{figtaxset5}
 \end{figure}
 
->Create a new taxon set for node 5 by clicking the **+** and select **MRCA prior** in the pop-up option box. Label this taxon set **5\_BrownBears**. Move all of the taxa listed in this clade to the right-hand column, click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 5.
+>Create a new taxon set for node 5 by clicking the **+ Add Prior** button and select **MRCA prior** in the pop-up option box. Label this taxon set **5\_BrownBears**. Move _Ursus arctos_, _Ursus maritimus_ and _Ursus spelaeus_ to the right-hand column, and click **OK**. Back in the **Priors** window, check the box labeled **monophyletic** for node 5.
 
 \begin{figure}[h!]
 \centering
@@ -378,7 +372,7 @@ In order to sample the age of fossil specimens, we need to specify a prior distr
 
 To add a prior on the age of a tip, we first need to define a taxon set containing only this tip. 
 
->Create a new taxon set for tip _Agriarctos spp._ by clicking the **+** and selecting **MRCA prior** in the pop-up option box. Label the taxon set **Agriarctos\_spp**. Move the taxon **Agriarctos\_spp\_5.0** to the right-hand side column, click **OK**.
+>Create a new taxon set for tip _Agriarctos spp._ by clicking the **+ Add Prior** button and selecting **MRCA prior** in the pop-up option box. Label the taxon set **Agriarctos\_spp**. Move the taxon **Agriarctos\_spp\_5.0** to the right-hand side column, click **OK**.
 
 \begin{figure}[h!]
 \centering
@@ -416,6 +410,8 @@ Now that you have specified all of your data elements, models, priors, and opera
 >Navigate to the **MCMC** window. Since we have a limited amount of time for this exercise, change the **Chain Length** to 2,000,000. (Runtimes may vary depending on your computer, if you have reason to believe that this may take a very long time, then change the run length to something smaller.)
 >
 >Reveal the options for the **tracelog** using the $\blacktriangleright$ to the left. Change **Log Every** to 100. Also specify a name for the log file by changing **File Name** to **bearsDivtime\_FBD.log**.
+>
+>Reveal the options for the **treelog** using the $\blacktriangleright$ to the left. Change **Log Every** to 100. Leave the name as the default.
 
 Now we are ready to save the XML file!
 
