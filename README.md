@@ -26,10 +26,6 @@ BEAUti2 is a utility program with a graphical user interface for creating BEAST2
 
 Both BEAST2 and BEAUti2 are Java programs, which means that the exact same code runs, and the interface will be the same, on all computing platforms. The screenshots used in this tutorial are taken on a Mac OS X computer; however, both programs will have the same layout and functionality on both Windows and Linux. BEAUti2 is provided as a part of the BEAST2 package so you do not need to install it separately.
 
-### Any programmer-friendly text editor
-
-We will need to edit the XML files produced by BEAUti, for which we'll need a text editor. It's best to use one designed for programmers as these include nice features such as syntax highlighting, which makes the code more reader-friendly. [Sublime Text](https://www.sublimetext.com) is a good option which is available for MacOS, Windows and Linux.
-
 ### TreeAnnotator
 
 TreeAnnotator is used to summarize the posterior sample of trees to produce a maximum clade credibility tree and summarize the posterior estimates of other parameters that can be easily visualized on the tree (e.g. node height). This program is also useful for comparing a specific tree topology and branching times to the set of trees sampled in the MCMC analysis. 
@@ -97,7 +93,7 @@ Now that the data are loaded into BEAUti, we can unlink the site models, link th
 <figure>
  <a id="fig:3"></a>
  <img style="width:75%;" src="figures/link_trees_partitions.png" alt="">
- <figcaption>Figure 3: The Partitions window after unlinking the site models, linking the clock models, linking the trees, and renaming the XML variables.</figcaption>
+ <figcaption>Figure 3: The Partitions window after unlinking the site models, linking the clock models, linking the trees, and renaming the variables.</figcaption>
 </figure>
 
 ### Set Tip Dates
@@ -329,9 +325,9 @@ In order to sample the age of fossil specimens, we need to specify a prior distr
 |_Ursus abstrusus_|1.8-5.3|{% cite bjork1970 krause2008 --file FBD-tutorial/master-refs.bib %}|
 |_Ursus spelaeus_|0.027-0.25|{% cite loreille2001 krause2008 --file FBD-tutorial/master-refs.bib %}|
 
-Since we have no prior knowledge on where the true age of the specimen lies within the range, we will use a uniform distribution. To add a prior on the age of a tip, we first need to define a taxon set containing only this tip.
+Since we have no prior knowledge on where the true age of the specimen lies within the range, we will use a uniform distribution. To add a prior on the age of a tip, we first need to define a taxon set containing only this tip. We will specify the taxon set using the **Sampled Ancestors MRCA prior**, as this ensures that the operator acting on the tip age in our MCMC responds correctly to sampled ancestors.
 
->Create a new taxon set for tip _Agriarctos spp._ by clicking the **+ Add Prior** button and selecting **MRCA prior** in the pop-up option box. Label the taxon set **Agriarctos\_spp**. Move the taxon **Agriarctos\_spp\_5.0** to the right-hand side column, click **OK**.
+>Create a new taxon set for tip _Agriarctos spp._ by clicking the **+ Add Prior** button and selecting **Sampled Ancestors MRCA prior** in the pop-up option box. Label the taxon set **Agriarctos\_spp**. Move the taxon **Agriarctos\_spp\_5.0** to the right-hand side column, click **OK**.
 
 <figure>
  <a id="fig:22"></a>
@@ -357,8 +353,6 @@ We then need to specify the prior distribution for that tip.
  <figcaption>Figure 24: The Priors window showing the prior set on the ages of all fossils.</figcaption>
 </figure>
 
-Unfortunately, sampling fossil ages cannot be set up purely in BEAUti at the moment. The last step of the procedure will be performed after we save the XML files.
-
 ### Set MCMC Options and Save the XML File
 
 Now that you have specified all of your data elements, models, priors, and operators, go to the **MCMC** tab to set the length of the Markov chain, sample frequency, and file names.
@@ -378,13 +372,6 @@ For the last step in BEAUti, create an XML file that will run the analysis by sa
 >Check the box labeled **Sample From Prior** at the bottom of the **MCMC** panel. Change the **tracelog -- File Name** to **bearsDivtime\_FBD.prior.log**. Reveal the options for the **treelog** using the $\blacktriangleright$ to the left. Change the **treelog.t:bearsTree -- File Name** to **bearsDivtime\_FBD.prior.trees**.
 >
 >Save these changes by going to **File > Save As** and name the file **bearsDivtime\_FBD.prior.xml**.
-
-
-## Making changes in the XML file
-
-BEAUti is a great tool for generating a properly-formatted XML file for many types of BEAST analyses. However, there are options available in BEAST2 which are not yet accessible through BEAUti. For instance, as mentioned earlier, sampling the fossil ages cannot be specified entirely through BEAUti. By default, BEAUti will create **TipDatesRandomWalker** operators, which are not compatible with trees containing sampled ancestors. These operators need to be changed to **SampledNodeDateRandomWalker** operators, which are compatible with sampled ancestors.
-
->Open the **bearsDivtime\_FBD.xml** and **bearsDivtime\_FBD.prior.xml** files generated by BEAUti in your text editor. Using **Find and Replace** functionality, change all instances of **TipDatesRandomWalker** to **SampledNodeDateRandomWalker** in both files.
 
 
 ## Running BEAST 2
