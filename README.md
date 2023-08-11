@@ -77,7 +77,7 @@ Next, we have to install the BEAST 2 packages that are needed for this analysis.
 
 <figure>
  <a id="fig:2"></a>
- <img style="width:75%;" src="figures/beast2_package_manager.png" alt="">
+ <img src="figures/beast2_package_manager.png" alt="">
  <figcaption>Figure 2: The BEAST2 Package Manager.</figcaption>
 </figure>
 
@@ -95,7 +95,7 @@ Now that the data are loaded into BEAUti, we can unlink the site models, link th
 
 <figure>
  <a id="fig:3"></a>
- <img style="width:75%;" src="figures/link_trees_partitions.png" alt="">
+ <img src="figures/link_trees_partitions.png" alt="">
  <figcaption>Figure 3: The Partitions window after unlinking the site models, linking the clock and tree models, and renaming the variables.</figcaption>
 </figure>
 
@@ -131,7 +131,7 @@ The molecular sequence data sampled for each extant bear species are from two di
 
 <figure>
  <a id="fig:6"></a>
- <img style="width:75%;" src="figures/set_mito_sites_model.png" alt="">
+ <img src="figures/set_mito_sites_model.png" alt="">
  <figcaption>Figure 6: The fully specified site model for the cytb gene: GTR.</figcaption>
 </figure>
 
@@ -139,7 +139,7 @@ The molecular sequence data sampled for each extant bear species are from two di
 
 <figure>
  <a id="fig:7"></a>
- <img style="width:75%;" src="figures/set_irbp_sites_model.png" alt="">
+ <img src="figures/set_irbp_sites_model.png" alt="">
  <figcaption>Figure 7: The fully specified site model for the irbp gene: HKY+Gamma.</figcaption>
 </figure>
 
@@ -163,7 +163,7 @@ In the **Priors** panel we will begin by specifying priors for the parameters as
 
 <figure>
  <a id="fig:8"></a>
- <img style="width:75%;" src="figures/priors_panel_initial.png" alt="">
+ <img src="figures/priors_panel_initial.png" alt="">
  <figcaption>Figure 8: The Priors window with default (unmodified) site model priors.</figcaption>
 </figure>
 
@@ -173,7 +173,7 @@ We will keep the default priors for the HKY model on the evolution of `irbp`. Th
 
 <figure>
  <a id="fig:9"></a>
- <img style="width:75%;" src="figures/priors_on_GTR_rates.png" alt="">
+ <img src="figures/priors_on_GTR_rates.png" alt="">
  <figcaption>Figure 9: Gamma prior distributions on two of the five relative rates of the GTR model.</figcaption>
 </figure>
 
@@ -185,7 +185,7 @@ Since we are assuming that the branch rates are drawn from a lognormal distribut
 
 <figure>
  <a id="fig:10"></a>
- <img style="width:75%;" src="figures/exp_prior_on_ucldmean.png" alt="">
+ <img src="figures/exp_prior_on_ucldmean.png" alt="">
  <figcaption>Figure 10: The exponential prior distribution on the mean of the log normal relaxed clock model.</figcaption>
 </figure>
 
@@ -195,7 +195,7 @@ The other parameter of our relaxed-clock model is, by default, assigned a gamma 
 
 <figure>
  <a id="fig:11"></a>
- <img style="width:75%;" src="figures/exp_prior_on_ucldstdv.png" alt="">
+ <img src="figures/exp_prior_on_ucldstdv.png" alt="">
  <figcaption>Figure 11: The exponential prior distribution on the standard deviation of the log normal relaxed clock model.</figcaption>
 </figure>
 
@@ -211,7 +211,7 @@ This model, like any branching process (i.e., constant rate birth-death, Yule) c
 
 <figure>
  <a id="fig:12"></a>
- <img style="width:75%;" src="figures/specified_FBD_model.png" alt="">
+ <img src="figures/specified_FBD_model.png" alt="">
  <figcaption>Figure 12: The values and conditions for the fossilized birth-death process {% cite stadler10 heath2013fossilized gavryushkina2014 --file FBD-tutorial/master-refs.bib %}</figcaption>
 </figure>
 
@@ -221,7 +221,7 @@ Since we are estimating the origin parameter, we must assign a prior distributio
 
 <figure>
  <a id="fig:13"></a>
- <img style="width:75%;" src="figures/ln_den.png" alt="">
+ <img src="figures/ln_den.png" alt="">
  <figcaption>Figure 13: The lognormal prior distribution on the origin time.</figcaption>
 </figure>
 
@@ -236,7 +236,7 @@ The sampling proportion is the probability of observing a fossil of a given line
 
 <figure>
  <a id="fig:14"></a>
- <img style="width:75%;" src="figures/beta_den.png" alt="">
+ <img src="figures/beta_den.png" alt="">
  <figcaption>Figure 14: Prior distribution on sampling proportion.</figcaption>
 </figure>
 
@@ -347,13 +347,13 @@ We then need to specify the prior distribution for that tip.
 
 <figure>
  <a id="fig:23"></a>
- <img style="width:75%;" src="figures/prior_tip.png" alt="">
+ <img src="figures/prior_tip.png" alt="">
  <figcaption>Figure 23: The Priors window showing the prior set on the age of the Agriarctos spp. fossil.</figcaption>
 </figure>
 
 <figure>
  <a id="fig:24"></a>
- <img style="width:75%;" src="figures/priors_all_tips.png" alt="">
+ <img src="figures/priors_all_tips.png" alt="">
  <figcaption>Figure 24: The Priors window showing the priors set on the ages of all fossils.</figcaption>
 </figure>
 
