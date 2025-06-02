@@ -3,7 +3,8 @@ author: Tracy A. Heath,Rachel Warnock,Bethany J. Allen
 level: Intermediate
 title: Divergence Time Estimation
 subtitle: Dating Species Divergences with the Fossilized Birth-Death Process
-beastversion: 2.7.4
+beastversion: 2.7.x
+tracerversion: 1.7.2
 ---
 
 
@@ -34,7 +35,7 @@ TreeAnnotator is used to summarize the posterior sample of trees to produce a ma
 
 ### Tracer
 
-[Tracer](http://beast.community/tracer) is used for assessing and summarizing the posterior estimates of the various parameters sampled by the Markov Chain. This program can be used for visual inspection and assessment of convergence and it also calculates 95\% credible intervals (which approximate the 95\% highest posterior density intervals) and effective sample sizes (ESS) of parameters. We will be using Tracer v{{ page.tracerversion }}.
+[Tracer](http://beast.community/tracer) is used for assessing and summarizing the posterior estimates of the various parameters sampled by the Markov Chain. This program can be used for visual inspection and assessment of convergence and it also calculates 95% credible intervals (which approximate the 95% highest posterior density intervals) and effective sample sizes (ESS) of parameters. We will be using Tracer v{{ page.tracerversion }}.
 
 ### FigTree
 
