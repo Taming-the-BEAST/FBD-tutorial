@@ -176,7 +176,9 @@ In the **Priors** panel we will begin by specifying priors for the parameters as
  <figcaption>Figure 8: The Priors window with default (unmodified) site model priors.</figcaption>
 </figure>
 
-We will keep the default priors for the HKY model on the evolution of `irbp`. The default gamma priors on the GTR exchangeability rates for the `cytb` gene place a lot of prior density on very small values. For some datasets, the sequences might not be informative for some of the rates, consequentially the MCMC may propose values very close to zero and this can induce long mixing times. Because of this problem, we will alter the gamma priors on the exchangeability rates. For each one, we will keep the expected values as in the default priors. The default priors assume that transitions (A <-> G or C <-> T) have an expected rate of 1.0. Note that BEAUti automatically fixes the parameter **rateCT** to be equal 1.0 in the **Site Model** window, thus this parameter isn't present in the Priors window. For all other rates, transversions, the expected value of the priors is lower: 0.5. In BEAST2, the gamma distribution is parameterized by a shape parameter (**Alpha**) and a scale parameter (**Beta**). Under this parameterization, the expected value for any gamma distribution is: {% eqinline \mathbb{E}(x) = \alpha\beta %}. To reduce the prior density on very low values, we can increase the shape parameter and then we have to adjust the scale parameter accordingly.
+We will keep the default priors for the HKY model on the evolution of `irbp`. The default gamma priors on the GTR exchangeability rates for the `cytb` gene place a lot of prior density on very small values. For some datasets, the sequences might not be informative for some of the rates, consequentially the MCMC may propose values very close to zero and this can induce long mixing times. Because of this problem, we will alter the gamma priors on the exchangeability rates. For each one, we will keep the expected values as in the default priors. The default priors assume that transitions (A <-> G or C <-> T) have an expected rate of 1.0. Note that BEAUti automatically fixes the parameter **rateCT** to be equal 1.0 in the **Site Model** window, thus this parameter isn't present in the Priors window. For all other rates, the expected value of the priors is lower: 0.5. This is ok for transversions, but we may want to increase the rate for **rateAG** as transitions, especially in animal mitochondrial genes such as cytb, occur several-fold more often than transversions.
+
+In BEAST2, the gamma distribution is parameterized by a shape parameter (**Alpha**) and a scale parameter (**Beta**). Under this parameterization, the expected value for any gamma distribution is: {% eqinline \mathbb{E}(x) = \alpha\beta %}. To reduce the prior density on very low values, we can increase the shape parameter and then we have to adjust the scale parameter accordingly.
 
 >Navigate to the **Priors** window. Begin by changing the gamma prior on the transition rate `rateAG.s:cytb`. Clicking on the {% eqinline \blacktriangleright %} next to this parameter name to reveal the prior options. Change the parameters: `Alpha` = 2 and `Beta` = 0.5. Then change all of the other rates, for `rateAC.s`, `rateAT.s`, `rateCG.s`, and `rateGT.s`, to  `Alpha` = 2 and `Beta` = 0.25.
 
@@ -353,6 +355,9 @@ We then need to specify the prior distribution for that tip.
 >Back in the **Priors** window, reveal the options for the prior on the age of **Agriarctos\_spp** by clicking on the {% eqinline \blacktriangleright %}. Change the prior distribution to **Uniform**, with a **Lower** value equal to 4.9 and an **Upper** value equal to 7.75. Check the box labeled **Tipsonly**.
 >
 >Repeat for each of the 14 fossils in our dataset using the information in the table.
+
+Above option **Tipsonly** indicates that a prior on the age of a specific tip (taxon) is being applied, and that this prior should only affect that single tip, not MRCA of any other related taxa.
+
 
 <figure>
  <a id="fig:23"></a>
