@@ -4,6 +4,7 @@ level: Intermediate
 title: Divergence Time Estimation
 subtitle: Dating Species Divergences with the Fossilized Birth-Death Process
 beastversion: 2.7.4
+tracerversion: 1.7.x
 ---
 
 
@@ -28,9 +29,17 @@ BEAUti2 is a utility program with a graphical user interface for creating BEAST2
 
 Both BEAST2 and BEAUti2 are Java programs, which means that the exact same code runs, and the interface will be the same, on all computing platforms. The screenshots used in this tutorial are taken on a Mac OS X computer; however, both programs will have the same layout and functionality on both Windows and Linux. BEAUti2 is provided as a part of the BEAST2 package so you do not need to install it separately.
 
+### LogCombiner 
+
+This program helps to combine the output of several MCMC chains. It can discard the initial burn-in and resample the log files at lower frequency. 
+
+LogCombiner is provided as a part of the BEAST2 package so you do not need to install it separately.
+
 ### TreeAnnotator
 
-TreeAnnotator is used to summarize the posterior sample of trees to produce a maximum clade credibility tree and summarize the posterior estimates of other parameters that can be easily visualized on the tree (e.g. node height). This program is also useful for comparing a specific tree topology and branching times to the set of trees sampled in the MCMC analysis. 
+TreeAnnotator is used to produce a summary tree from the posterior sample of trees using one of the available algorithms. It can also be used to summarise and visualise the posterior estimates of other tree parameters (e.g. node height).
+
+TreeAnnotator is provided as a part of the BEAST2 package so you do not need to install it separately.
 
 ### Tracer
 
@@ -476,7 +485,7 @@ R code is also provided in the **Scripts** directory, which can be used to plot 
 
 <figure>
  <a id="fig:29"></a>
- <img style="width:75%;" src="figures/geoscaled_bears_ext.png" alt="">
+ <img style="width:75%;" src="figures/geoscaled_bears_ext_MCC.pdf" alt="">
  <figcaption>Figure 29: The maximum clade credibility tree of extant bears summarized by TreeAnnotator and plotted against stratigraphy using the strap package in R. The internal nodes of the tree are indicated with circles, where circles mark nodes with posterior probability. The 95% credible intervals for node ages are shown with transparent blue bars.</figcaption>
 </figure>
 
