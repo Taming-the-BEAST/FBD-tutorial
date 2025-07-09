@@ -435,7 +435,7 @@ When comparing the MCMC with data to those sampled just under the prior, we can 
 
 After reviewing the trace files from the two independent runs in Tracer and verifying that both runs converged on the posterior distributions and reached stationarity, we can combine the sampled trees into a single tree file and summarize the results.
 
->Open the program **LogCombiner** and set the **File type** to **Tree Files**. Next, import `bearsTree.1.trees` and `bearsTree.2.trees` using the **+** button. Set a burn-in percentage of 20 for each file, thus discarding the first 20% of the samples in each tree file. 
+>Open the program **LogCombiner** and set the **File type** to **Tree Files**. Next, import `bearsDivtime_FBD.1.trees` and `bearsDivtime_FBD.2.trees` using the **+** button. Set a burn-in percentage of 20 for each file, thus discarding the first 20% of the samples in each tree file. 
 
 Both of these files contain 50,000 trees, so it is helpful to thin the tree samples and summarize fewer states to avoid creating unnecessarily large files.
 
