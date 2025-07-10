@@ -43,7 +43,7 @@ TreeAnnotator is provided as a part of the BEAST2 package so you do not need to 
 
 ### Tracer
 
-[Tracer](http://beast.community/tracer) is used for assessing and summarizing the posterior estimates of the various parameters sampled by the Markov Chain. This program can be used for visual inspection and assessment of convergence and it also calculates 95\% credible intervals (which approximate the 95\% highest posterior density intervals) and effective sample sizes (ESS) of parameters. We will be using Tracer v{{ page.tracerversion }}.
+[Tracer](http://beast.community/tracer) is used for assessing and summarizing the posterior estimates of the various parameters sampled by the Markov Chain. This program can be used for visual inspection and assessment of convergence and it also calculates 95% credible intervals (which approximate the 95% highest posterior density intervals) and effective sample sizes (ESS) of parameters. We will be using Tracer v{{ page.tracerversion }}.
 
 ### FigTree
 
@@ -251,7 +251,7 @@ The sampling proportion is the probability of observing a fossil of a given line
  <figcaption>Figure 14: Prior distribution on sampling proportion.</figcaption>
 </figure>
 
-The parameter {% eqinline \rho %} (**Rho**) represents the probability of sampling a tip in the present. For most birth-death processes, it is helpful to be able to fix or place a very strong prior on one of the parameters ({% eqinline \lambda, \mu, \rho, \psi %}) because of the strong correlations that exist among them. Typically, we may have the most prior knowledge about the proportion of sampled extant species ({% eqinline \rho %}). We know that there are only 8 species of bear around today, and we have sequence data representing each of these species, so we can fix {% eqinline \rho=1 %}. As a result, we do not need to specify a prior for this parameter. This is already the default setting of the fossilized birth-death process and there is nothing for us to do here (see [Figure 12](#fig:12) to chck that **Rho** is set to 1 and not estimated).
+The parameter {% eqinline \rho %} (**Rho**) represents the probability of sampling a tip in the present. For most birth-death processes, it is helpful to be able to fix or place a very strong prior on one of the parameters ({% eqinline \lambda, \mu, \rho, \psi %}) because of the strong correlations that exist among them. Typically, we may have the most prior knowledge about the proportion of sampled extant species ({% eqinline \rho %}). We know that there are only 8 species of bear around today, and we have sequence data representing each of these species, so we can fix {% eqinline \rho=1 %}. As a result, we do not need to specify a prior for this parameter. This is already the default setting of the fossilized birth-death process and there is nothing for us to do here (see [Figure 12](#fig:12) to check that **Rho** is set to 1 and not estimated).
 
 The **turnover** parameter represents the relative rate of extinction: {% eqinline r = \mu/\lambda %}. This parameterisation of the birth-death model assumes that {% eqinline \mu < \lambda %}, thus this parameter is always {% eqinline r < 1 %}. It is challenging to define an appropriate prior for the turnover parameter and we will simply assume that all values on the interval [0,1] have equal probability. Thus, we can leave the default prior, a **Uniform(0,1)**, on this parameter.
 
@@ -448,7 +448,7 @@ When comparing the MCMC with data to those sampled just under the prior, we can 
 
 After reviewing the trace files from the two independent runs in Tracer and verifying that both runs converged on the posterior distributions and reached stationarity, we can combine the sampled trees into a single tree file and summarize the results.
 
->Open the program **LogCombiner** and set the **File type** to **Tree Files**. Next, import `bearsTree.1.trees` and `bearsTree.2.trees` using the **+** button. Set a burn-in percentage of 20 for each file, thus discarding the first 20% of the samples in each tree file. 
+>Open the program **LogCombiner** and set the **File type** to **Tree Files**. Next, import `bearsDivtime_FBD.1.trees` and `bearsDivtime_FBD.2.trees` using the **+** button. Set a burn-in percentage of 20 for each file, thus discarding the first 20% of the samples in each tree file. 
 
 Both of these files contain 50,000 trees, so it is helpful to thin the tree samples and summarize fewer states to avoid creating unnecessarily large files.
 
