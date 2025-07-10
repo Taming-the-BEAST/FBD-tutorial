@@ -3,7 +3,7 @@ author: Tracy A. Heath,Rachel Warnock,Bethany J. Allen
 level: Intermediate
 title: Divergence Time Estimation
 subtitle: Dating Species Divergences with the Fossilized Birth-Death Process
-beastversion: 2.7.4
+beastversion: 2.7.x
 tracerversion: 1.7.x
 ---
 
