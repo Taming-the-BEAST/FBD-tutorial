@@ -1,10 +1,25 @@
 ---
-author: Tracy A. Heath,Rachel Warnock,Bethany J. Allen 
-level: Intermediate
+author: Tracy A. Heath,Rachel Warnock,Bethany J. Allen
 title: Divergence Time Estimation
 subtitle: Dating Species Divergences with the Fossilized Birth-Death Process
-beastversion: 2.7.x
 tracerversion: 1.7.x
+beastversion_tutorial: 2.7.x
+workflow: Basic workflow
+status: current
+keywords:
+- fossilized birth-death
+- birth-death
+- calibration
+- relaxed clock
+- tip dating
+- morphological
+packages:
+- SA
+- ORC
+domains:
+- palaeontology
+- macroevolution
+beastversion_package: '2.7'
 ---
 
 
